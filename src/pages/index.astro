@@ -1,11 +1,13 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import CheatList from '../components/CheatList.svelte';
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+	title="CheatSheets.zip — Quick Reference Cheat Sheets for Developers"
+	description="Instant copy-paste syntax, commands, and shortcuts for Git, Python, Docker, Linux, Bash, JavaScript, React, SQL, and more."
+>
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+		<CheatList client:load />
+	</div>
 </Layout>

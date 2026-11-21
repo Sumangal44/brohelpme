@@ -1,120 +1,25 @@
 ---
-import Logo from './Logo.svelte';
-import { site, navItems, footerLinks } from '../data/site';
-import { getIcon } from '../lib/icons';
-
-const year = new Date().getFullYear();
-const MapPin = getIcon('map-pin');
-const Phone = getIcon('phone');
-const Mail = getIcon('mail');
-const Clock = getIcon('clock');
-const Star = getIcon('star');
-const ArrowUpRight = getIcon('arrow-up-right');
 ---
 
-<footer class="relative overflow-hidden bg-navy text-white">
-	<!-- decorative glow -->
-	<div class="pointer-events-none absolute -right-40 -top-40 h-96 w-96 rounded-full bg-medical/25 blur-[120px]" aria-hidden="true"></div>
-	<div class="pointer-events-none absolute -bottom-56 left-1/4 h-96 w-96 rounded-full bg-teal/15 blur-[130px]" aria-hidden="true"></div>
-
-	<div class="editorial-container relative section-pad !pb-10">
-		<div class="grid gap-12 lg:grid-cols-12">
-			<!-- Brand -->
-			<div class="lg:col-span-4" data-reveal>
-				<div class="flex items-center gap-3">
-					<Logo size={48} light />
-					<div class="flex flex-col leading-none">
-						<span class="font-display text-base font-extrabold tracking-[0.16em]">KATHAMALA</span>
-						<span class="mt-1 text-[0.6rem] font-semibold tracking-[0.3em] text-white/60">DOCTORS CHAMBER</span>
-					</div>
-				</div>
-				<p class="font-bengali mt-4 text-sm text-teal-light">{site.nameBn}</p>
-				<p class="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
-					A patient-focused doctors chamber in Midnapore — experienced medical professionals,
-					honest guidance and a reception team that helps you every step of the way.
-				</p>
-				<a
-					href={site.links.gReviews}
-					target="_blank"
-					rel="noopener"
-					class="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold transition hover:border-teal/60 hover:bg-white/10"
-				>
-					<Star size={15} class="text-teal-light" strokeWidth={2.4} />
-					{site.rating.value} / {site.rating.max}
-					<span class="text-white/50">·</span>
-					{site.rating.reviews} Google reviews
-					<ArrowUpRight size={14} class="text-white/60" />
-				</a>
+<footer class="border-t border-zinc-800/80 bg-black/60 py-10 mt-20 text-zinc-500 text-xs">
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+		<div class="flex items-center gap-2">
+			<div class="w-6 h-6 rounded bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 font-bold text-xs">
+				Z
 			</div>
-
-			<!-- Navigation -->
-			<nav class="lg:col-span-2" aria-label="Footer navigation" data-reveal data-delay="0.05">
-				<h3 class="text-xs font-bold uppercase tracking-[0.22em] text-teal-light">Explore</h3>
-				<ul class="mt-5 space-y-3 text-sm">
-					{footerLinks.site.map((l) => (
-						<li>
-							<a href={l.href} class="text-white/75 transition hover:text-white">
-								{l.label}
-							</a>
-						</li>
-					))}
-					{navItems.filter((n) => n.label === 'Contact').map((l) => (
-						<li>
-							<a href={l.href} class="text-white/75 transition hover:text-white">{l.label}</a>
-						</li>
-					))}
-				</ul>
-			</nav>
-
-			<!-- Patient links -->
-			<nav class="lg:col-span-2" aria-label="Patient links" data-reveal data-delay="0.1">
-				<h3 class="text-xs font-bold uppercase tracking-[0.22em] text-teal-light">Patients</h3>
-				<ul class="mt-5 space-y-3 text-sm">
-					{footerLinks.patient.map((l) => (
-						<li>
-							<a href={l.href} class="text-white/75 transition hover:text-white">{l.label}</a>
-						</li>
-					))}
-				</ul>
-			</nav>
-
-			<!-- Contact -->
-			<div class="lg:col-span-4" data-reveal data-delay="0.15">
-				<h3 class="text-xs font-bold uppercase tracking-[0.22em] text-teal-light">Visit &amp; Contact</h3>
-				<ul class="mt-5 space-y-4 text-sm">
-					<li class="flex gap-3">
-						<MapPin size={17} class="mt-0.5 shrink-0 text-teal-light" />
-						<a href={site.links.gMapsSearch} target="_blank" rel="noopener" class="text-white/75 transition hover:text-white">
-							{site.address.street},<br />
-							{site.address.locality}, {site.address.region} {site.address.postal}
-						</a>
-					</li>
-					<li class="flex gap-3">
-						<Phone size={17} class="mt-0.5 shrink-0 text-teal-light" />
-						<a href={site.phone.tel} class="text-white/75 transition hover:text-white">{site.phone.display}</a>
-					</li>
-					<li class="flex gap-3">
-						<Mail size={17} class="mt-0.5 shrink-0 text-teal-light" />
-						<a href={`mailto:${site.email}`} class="text-white/75 transition hover:text-white">{site.email}</a>
-					</li>
-					<li class="flex gap-3">
-						<Clock size={17} class="mt-0.5 shrink-0 text-teal-light" />
-						<span class="text-white/75">
-							{site.hours[0].days}: {site.hours[0].time}<br />
-							<span class="text-white/50">{site.hoursNote}</span>
-						</span>
-					</li>
-				</ul>
-			</div>
+			<p>
+				<span class="text-zinc-300 font-medium">cheatsheets.zip</span> — Quick reference cheat sheets for developers.
+			</p>
 		</div>
 
-		<div class="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
-			<p>© {year} {site.name}. All rights reserved.</p>
-			<div class="flex flex-wrap items-center gap-x-6 gap-y-2">
-				<a href="/privacy-policy" class="transition hover:text-white">Privacy Policy</a>
-				<a href={site.url} class="transition hover:text-white" rel="noopener">kathamaladc.in</a>
-				<a href={site.facebook} target="_blank" rel="noopener" class="transition hover:text-white">Facebook</a>
-			</div>
+		<div class="flex items-center gap-6">
+			<a href="https://github.com/Fechin/reference" target="_blank" rel="noopener noreferrer" class="hover:text-zinc-300 transition-colors">
+				GitHub Repo
+			</a>
+			<a href="https://quickref.me" target="_blank" rel="noopener noreferrer" class="hover:text-zinc-300 transition-colors">
+				QuickRef.me
+			</a>
+			<span>MIT License</span>
 		</div>
 	</div>
 </footer>
