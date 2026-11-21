@@ -1,6 +1,6 @@
 # Contributing to CheatSheets.zip
 
-Thank you for your interest in contributing to **CheatSheets.zip**! This repository is a modern, high-fidelity developer quick reference platform featuring over 210+ technology cheat sheets with sub-second page loads, instant `⌘K` command palette search, and multi-language syntax highlighting.
+Thank you for your interest in contributing to **BroHelp.Me**! This repository is a modern, high-fidelity developer quick reference platform featuring over 210+ technology cheat sheets with sub-second page loads, instant `⌘K` command palette search, and multi-language syntax highlighting.
 
 ---
 
