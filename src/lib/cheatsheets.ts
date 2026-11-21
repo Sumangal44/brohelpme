@@ -2,40 +2,25 @@ import fs from 'node:fs';
 import path from 'node:path';
 import YAML from 'yaml';
 import Markdoc from '@markdoc/markdoc';
+import {
+	type CheatsheetMeta,
+	type CheatsheetCard,
+	type CheatsheetSection,
+	type CheatsheetDetail,
+	RECOMMENDED_SLUGS,
+	HOMEPAGE_CATEGORIES
+} from './types';
 
-export interface CheatsheetMeta {
-	slug: string;
-	title: string;
-	date?: string;
-	category: string;
-	tags: string[];
-	intro: string;
-	icon: string;
-	background?: string;
-	cardCount: number;
-}
-
-export interface CheatsheetCard {
-	id: string;
-	title: string;
-	colSpan: number;
-	rowSpan: number;
-	html: string;
-	codeSnippets: string[];
-}
-
-export interface CheatsheetSection {
-	id: string;
-	title: string;
-	cards: CheatsheetCard[];
-}
-
-export interface CheatsheetDetail extends CheatsheetMeta {
-	sections: CheatsheetSection[];
-}
+export * from './types';
 
 const CONTENT_DIR = path.resolve(process.cwd(), 'src/content/cheatsheets');
 const ICONS_DIR = path.resolve(process.cwd(), 'public/icons');
+
+function extractHexColor(bg?: string): string {
+	if (!bg) return '#4f46e5';
+	const match = bg.match(/#(?:[0-9a-fA-F]{3,8})/);
+	return match ? match[0] : '#4f46e5';
+}
 
 // Cache icon existence
 let iconCache: Set<string> | null = null;
@@ -56,7 +41,7 @@ export function resolveIcon(slug: string): string {
 		return `/icons/${slug}.svg`;
 	}
 
-	// Try aliases
+	// Common aliases
 	const aliasMap: Record<string, string> = {
 		js: 'javascript',
 		ts: 'typescript',
@@ -94,16 +79,16 @@ const markdocConfig = {
 			transform(node: any) {
 				const lang = node.attributes?.language || 'code';
 				const codeContent = node.attributes?.content || '';
-				return new Markdoc.Tag('div', { class: 'code-block-wrapper my-2 relative group rounded-lg overflow-hidden border border-zinc-800' }, [
-					new Markdoc.Tag('div', { class: 'flex items-center justify-between px-3 py-1 bg-zinc-900 border-b border-zinc-800 text-[11px] font-mono text-zinc-400' }, [
+				return new Markdoc.Tag('div', { class: 'code-block-wrapper my-2 relative group rounded-lg overflow-hidden border border-slate-800' }, [
+					new Markdoc.Tag('div', { class: 'flex items-center justify-between px-3 py-1 bg-slate-900 border-b border-slate-800 text-[11px] font-mono text-slate-400' }, [
 						new Markdoc.Tag('span', {}, [lang]),
 						new Markdoc.Tag('button', {
 							type: 'button',
-							class: 'copy-code-btn px-2 py-0.5 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-[11px] font-sans transition-colors cursor-pointer',
+							class: 'copy-code-btn px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-sans transition-colors cursor-pointer',
 							'data-code': codeContent
 						}, ['Copy'])
 					]),
-					new Markdoc.Tag('pre', { class: 'p-3 text-xs font-mono text-sky-400 bg-[#070a12] overflow-x-auto leading-relaxed' }, [
+					new Markdoc.Tag('pre', { class: 'p-3 text-xs font-mono text-sky-300 bg-[#070b14] overflow-x-auto leading-relaxed' }, [
 						new Markdoc.Tag('code', {}, [codeContent])
 					])
 				]);
@@ -145,6 +130,7 @@ export function getAllCheatsheets(): CheatsheetMeta[] {
 		const tags = Array.isArray(data.tags) ? data.tags.map(String) : [];
 		const intro = (typeof data.intro === 'string' ? data.intro : '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').trim();
 		const background = data.background || '';
+		const color = extractHexColor(background);
 
 		// Count cards in markdown body
 		const body = fmMatch[2];
@@ -160,20 +146,15 @@ export function getAllCheatsheets(): CheatsheetMeta[] {
 			intro: intro || `${title} quick reference cheat sheet.`,
 			icon: resolveIcon(slug),
 			background,
+			color,
 			cardCount
 		});
 	}
 
-	// Priority sorting: core languages/tools first, then alphabetical
-	const priority = [
-		'git', 'python', 'docker', 'bash', 'javascript', 'typescript', 'linux',
-		'sql', 'react', 'markdown', 'css', 'vim', 'regex', 'kubernetes', 'rust',
-		'go', 'nginx', 'postgresql', 'redis', 'html', 'c', 'cpp', 'java', 'chatgpt'
-	];
-
+	// Sort: Recommended first, then alphabetical
 	sheets.sort((a, b) => {
-		const aIdx = priority.indexOf(a.slug);
-		const bIdx = priority.indexOf(b.slug);
+		const aIdx = RECOMMENDED_SLUGS.indexOf(a.slug);
+		const bIdx = RECOMMENDED_SLUGS.indexOf(b.slug);
 		if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
 		if (aIdx !== -1) return -1;
 		if (bIdx !== -1) return 1;
@@ -207,6 +188,7 @@ export function getCheatsheet(slug: string): CheatsheetDetail | null {
 	const tags = Array.isArray(data.tags) ? data.tags.map(String) : [];
 	const intro = (typeof data.intro === 'string' ? data.intro : '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').trim();
 	const background = data.background || '';
+	const color = extractHexColor(background);
 
 	const body = fmMatch[2];
 	const sections: CheatsheetSection[] = [];
@@ -285,6 +267,7 @@ export function getCheatsheet(slug: string): CheatsheetDetail | null {
 		intro: intro || `${title} quick reference cheat sheet.`,
 		icon: resolveIcon(slug),
 		background,
+		color,
 		cardCount: totalCards,
 		sections
 	};
@@ -296,5 +279,5 @@ export function getAllCategories(): string[] {
 	for (const s of sheets) {
 		if (s.category) set.add(s.category);
 	}
-	return ['All', ...Array.from(set).sort()];
+	return ['All', ...HOMEPAGE_CATEGORIES.filter((c) => set.has(c)), ...Array.from(set).filter((c) => !HOMEPAGE_CATEGORIES.includes(c))];
 }

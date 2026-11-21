@@ -2,97 +2,137 @@
 @import "@fontsource-variable/inter";
 
 @theme {
-	--font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 	--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-
-	--color-bg-base: #05070d;
-	--color-bg-surface: #0b0f19;
-	--color-bg-raised: #111827;
-	--color-bg-hover: #1e293b;
-	--color-border-subtle: #1e293b;
-	--color-border-strong: #334155;
-	--color-text-main: #f1f5f9;
-	--color-text-muted: #94a3b8;
-	--color-text-dim: #64748b;
-	--color-accent-primary: #38bdf8;
-	--color-accent-secondary: #6366f1;
 }
 
 @layer base {
 	:root {
-		--bg-base: #05070d;
-		--bg-surface: #0c111d;
-		--bg-card: #111827;
-		--bg-code: #070a12;
-		--border-subtle: #1e293b;
-		--border-medium: #334155;
-		--text-title: #ffffff;
-		--text-body: #cbd5e1;
-		--text-muted: #94a3b8;
-		--text-dim: #64748b;
-		--accent-cyan: #38bdf8;
-		--accent-blue: #3b82f6;
-		--accent-purple: #8b5cf6;
-		--accent-emerald: #10b981;
-		--accent-amber: #f59e0b;
+		--background: #f8fafc;
+		--foreground: #0f172a;
+		--surface: #ffffff;
+		--surface-raised: #f1f5f9;
+		--card: #ffffff;
+		--card-foreground: #0f172a;
+		--card-header: #f8fafc;
+		--popover: #ffffff;
+		--popover-foreground: #0f172a;
+		--primary: #10b981;
+		--primary-foreground: #ffffff;
+		--secondary: #f1f5f9;
+		--secondary-foreground: #0f172a;
+		--muted: #f1f5f9;
+		--muted-foreground: #64748b;
+		--accent: #f1f5f9;
+		--accent-foreground: #0f172a;
+		--border: #e2e8f0;
+		--input: #e2e8f0;
+		--ring: #10b981;
+		--code-bg: #0f172a;
+		--code-text: #38bdf8;
+		--table-header: #f1f5f9;
+		--table-border: #e2e8f0;
+		--table-td-bg: #ffffff;
+	}
+
+	.dark {
+		--background: #070a12;
+		--foreground: #f8fafc;
+		--surface: #0e1320;
+		--surface-raised: #141a2b;
+		--card: #0d121f;
+		--card-foreground: #f8fafc;
+		--card-header: #131929;
+		--popover: #0d121f;
+		--popover-foreground: #f8fafc;
+		--primary: #10b981;
+		--primary-foreground: #ffffff;
+		--secondary: #1e293b;
+		--secondary-foreground: #f8fafc;
+		--muted: #1e293b;
+		--muted-foreground: #94a3b8;
+		--accent: #1e293b;
+		--accent-foreground: #f8fafc;
+		--border: #1e293b;
+		--input: #1e293b;
+		--ring: #10b981;
+		--code-bg: #070b14;
+		--code-text: #38bdf8;
+		--table-header: #141a2b;
+		--table-border: #1e293b;
+		--table-td-bg: #090d16;
 	}
 
 	html {
-		background-color: var(--bg-base);
-		color: var(--text-body);
+		background-color: var(--background);
+		color: var(--foreground);
 		font-family: var(--font-sans);
 		scroll-behavior: smooth;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		text-rendering: optimizeLegibility;
+		-webkit-tap-highlight-color: transparent;
+		transition: background-color 0.2s ease, color 0.2s ease;
 	}
 
 	body {
 		min-height: 100vh;
-		background-color: var(--bg-base);
-		color: var(--text-body);
+		background-color: var(--background);
+		color: var(--foreground);
 		margin: 0;
 		overflow-x: hidden;
+		transition: background-color 0.2s ease, color 0.2s ease;
 	}
 
 	::selection {
-		background: #38bdf8;
-		color: #05070d;
+		background: #10b981;
+		color: #ffffff;
 	}
 
-	/* Custom dark scrollbar */
+	/* Scrollbars */
 	::-webkit-scrollbar {
 		width: 8px;
 		height: 8px;
 	}
 
 	::-webkit-scrollbar-track {
-		background: #05070d;
+		background: var(--background);
 	}
 
 	::-webkit-scrollbar-thumb {
-		background: #1e293b;
+		background: var(--border);
 		border-radius: 4px;
 	}
 
 	::-webkit-scrollbar-thumb:hover {
-		background: #334155;
+		background: var(--muted-foreground);
 	}
 
-	pre, code {
+	pre, code, kbd {
 		font-family: var(--font-mono);
 	}
 }
 
-/* Card Content Markdown Styles */
+/* ------------------------------------------------------------------
+   Card Content Markdown Styling (Adaptive for Light & Dark Themes)
+------------------------------------------------------------------- */
 .sheet-card-body {
-	font-size: 0.8125rem;
-	color: #cbd5e1;
+	font-size: 0.825rem;
 	line-height: 1.55;
+	color: #334155;
+}
+
+.dark .sheet-card-body {
+	color: #cbd5e1;
 }
 
 .sheet-card-body p {
 	margin-bottom: 0.625rem;
+	color: #475569;
+	line-height: 1.5;
+}
+
+.dark .sheet-card-body p {
 	color: #94a3b8;
 }
 
@@ -101,13 +141,21 @@
 }
 
 .sheet-card-body a {
-	color: #38bdf8;
+	color: #0284c7;
 	text-decoration: underline;
 	text-underline-offset: 2px;
 	transition: color 0.15s;
 }
 
+.dark .sheet-card-body a {
+	color: #38bdf8;
+}
+
 .sheet-card-body a:hover {
+	color: #0369a1;
+}
+
+.dark .sheet-card-body a:hover {
 	color: #7dd3fc;
 }
 
@@ -115,6 +163,10 @@
 	list-style-type: disc;
 	padding-left: 1.25rem;
 	margin: 0.5rem 0;
+	color: #475569;
+}
+
+.dark .sheet-card-body ul {
 	color: #94a3b8;
 }
 
@@ -122,6 +174,10 @@
 	list-style-type: decimal;
 	padding-left: 1.25rem;
 	margin: 0.5rem 0;
+	color: #475569;
+}
+
+.dark .sheet-card-body ol {
 	color: #94a3b8;
 }
 
@@ -137,44 +193,70 @@
 	font-size: 0.75rem;
 	border-radius: 6px;
 	overflow: hidden;
-	border: 1px solid #1e293b;
+	border: 1px solid var(--table-border);
 }
 
 .sheet-card-body th {
-	background: #181d29;
-	color: #f1f5f9;
+	background: var(--table-header);
+	color: #0f172a;
 	font-weight: 600;
 	text-align: left;
 	padding: 0.45rem 0.65rem;
-	border: 1px solid #1e293b;
+	border: 1px solid var(--table-border);
+}
+
+.dark .sheet-card-body th {
+	color: #f1f5f9;
 }
 
 .sheet-card-body td {
-	padding: 0.4rem 0.65rem;
-	border: 1px solid #1e293b;
+	padding: 0.45rem 0.65rem;
+	border: 1px solid var(--table-border);
+	color: #475569;
+	background: var(--table-td-bg);
+}
+
+.dark .sheet-card-body td {
 	color: #94a3b8;
-	background: #090d16;
 }
 
 .sheet-card-body td:first-child {
-	color: #38bdf8;
+	color: #0284c7;
 	font-family: var(--font-mono);
 	font-weight: 500;
+	white-space: nowrap;
+}
+
+.dark .sheet-card-body td:first-child {
+	color: #38bdf8;
+}
+
+@media (max-width: 640px) {
+	.sheet-card-body td:first-child {
+		white-space: normal;
+		word-break: break-all;
+	}
 }
 
 /* Inline code tags */
 .sheet-card-body code:not(pre code) {
-	background: #182030;
-	color: #38bdf8;
+	background: #f1f5f9;
+	color: #0284c7;
 	padding: 0.125rem 0.35rem;
 	border-radius: 4px;
 	font-size: 0.8em;
-	border: 1px solid #293548;
+	border: 1px solid #e2e8f0;
 	font-family: var(--font-mono);
 }
 
+.dark .sheet-card-body code:not(pre code) {
+	background: #151d2f;
+	color: #38bdf8;
+	border-color: #23304a;
+}
+
 .sheet-card-body pre {
-	background: #070a12;
+	background: #090d16;
 	border: 1px solid #1e293b;
 	border-radius: 6px;
 	padding: 0.75rem;
@@ -188,7 +270,25 @@
 .sheet-card-body h4 {
 	font-size: 0.8125rem;
 	font-weight: 600;
-	color: #f1f5f9;
+	color: #0f172a;
 	margin-top: 0.75rem;
 	margin-bottom: 0.35rem;
+}
+
+.dark .sheet-card-body h4 {
+	color: #f1f5f9;
+}
+
+/* Keyboard badge kbd */
+kbd {
+	letter-spacing: 0.05rem;
+	padding: 0.1em 0.4em;
+	border: 1px solid var(--border);
+	line-height: 1.5;
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	display: inline-block;
+	background-color: var(--secondary);
+	border-radius: 4px;
+	color: var(--foreground);
 }

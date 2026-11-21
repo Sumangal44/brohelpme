@@ -19,28 +19,44 @@ const allSheets = getAllCheatsheets();
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
 		<link rel="icon" type="image/svg+xml" href="/logo.svg" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<meta name="theme-color" content="#05070d" />
+		<meta name="theme-color" content="#10b981" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
+
+		<!-- Zero-flash Theme Hydration Script -->
+		<script is:inline>
+			(function() {
+				const storedTheme = localStorage.getItem('theme');
+				if (storedTheme === 'light') {
+					document.documentElement.classList.remove('dark');
+				} else if (storedTheme === 'dark') {
+					document.documentElement.classList.add('dark');
+				} else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+					document.documentElement.classList.remove('dark');
+				} else {
+					document.documentElement.classList.add('dark');
+				}
+			})();
+		</script>
 	</head>
-	<body class="bg-[#05070d] text-zinc-200 antialiased min-h-screen flex flex-col font-sans selection:bg-emerald-500 selection:text-black">
+	<body class="bg-[var(--background)] text-[var(--foreground)] antialiased min-h-screen flex flex-col font-sans transition-colors duration-200">
 		<Navbar client:load />
 
-		<main class="flex-1">
+		<main class="flex-1 w-full overflow-x-hidden">
 			<slot />
 		</main>
 
 		<Footer />
 
-		<!-- Global Command Palette Search with all 216 cheatsheets -->
+		<!-- Global Command Palette Search -->
 		<CommandPalette client:load sheets={allSheets} />
 	</body>
 </html>

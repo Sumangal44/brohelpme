@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getAllCheatsheets, getCheatsheet, type CheatsheetDetail } from '../lib/cheatsheets';
+import { getAllCheatsheets, getCheatsheet } from '../lib/cheatsheets';
 
 export async function getStaticPaths() {
 	const all = getAllCheatsheets();
@@ -23,82 +23,72 @@ const relatedSheets = allSheets
 ---
 
 <Layout
-	title={`${sheet.title} Cheat Sheet — Quick Reference & Syntax Guide`}
+	title={`${sheet.title} Cheat Sheet & Quick Reference`}
 	description={sheet.intro}
 >
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-		<!-- Breadcrumbs & Meta Top -->
-		<nav class="flex items-center gap-2 text-xs text-zinc-500 mb-6">
-			<a href="/" class="hover:text-zinc-300 transition-colors">Home</a>
+	<div class="max-w-[1320px] mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10">
+		<!-- Breadcrumbs -->
+		<nav class="flex items-center gap-2 text-xs text-muted-foreground mb-6 overflow-x-auto whitespace-nowrap">
+			<a href="/" class="hover:text-foreground transition-colors">Home</a>
 			<span>›</span>
-			<span class="text-zinc-400">{sheet.category}</span>
+			<span class="text-muted-foreground">{sheet.category}</span>
 			<span>›</span>
-			<span class="text-emerald-400 font-medium">{sheet.title}</span>
+			<span class="text-emerald-500 font-medium">{sheet.title}</span>
 		</nav>
 
-		<!-- Sheet Hero Header -->
-		<div class="bg-[#0c101c]/90 border border-zinc-800 rounded-2xl p-6 sm:p-8 backdrop-blur-md mb-8 shadow-xl">
-			<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-				<div class="flex items-start gap-4 sm:gap-5">
-					<div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-zinc-900 border border-zinc-750 p-2.5 flex items-center justify-center shrink-0 shadow-inner">
-						<img src={sheet.icon} alt={sheet.title} class="w-10 h-10 object-contain" />
-					</div>
+		<!-- Sheet Hero Header (matching Fechin/reference post.ejs) -->
+		<div class="flex flex-col w-full mx-auto items-center text-center my-6 sm:my-10 px-2">
+			<!-- Tech Icon Badge -->
+			<div
+				class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl p-3 flex items-center justify-center mb-5 shadow-2xl border border-white/10"
+				style={`background: linear-gradient(135deg, ${sheet.color}e0 0%, ${sheet.color}90 100%);`}
+			>
+				<img src={sheet.icon} alt={sheet.title} class="w-full h-full object-contain filter drop-shadow brightness-110" />
+			</div>
 
-					<div>
-						<div class="flex items-center gap-2.5 flex-wrap mb-2">
-							<span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-								{sheet.category}
-							</span>
-							<span class="text-xs text-zinc-500">
-								{sheet.cardCount} cards in {sheet.sections.length} topics
-							</span>
-						</div>
+			<h1 class="text-3xl sm:text-5xl font-light mb-3 text-foreground">
+				<span class="font-normal text-foreground">{sheet.title}</span>
+				<span class="text-muted-foreground font-extralight hidden sm:inline">cheatsheet</span>
+			</h1>
 
-						<h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
-							{sheet.title}
-						</h1>
+			<div class="lg:w-3/5 mx-auto intro leading-relaxed text-muted-foreground text-sm sm:text-base">
+				{sheet.intro}
+			</div>
 
-						<p class="text-sm sm:text-base text-zinc-400 mt-2 max-w-3xl leading-relaxed">
-							{sheet.intro}
-						</p>
-					</div>
-				</div>
+			<!-- Quick Actions Bar -->
+			<div class="flex flex-wrap items-center justify-center gap-2.5 mt-6">
+				<button
+					type="button"
+					onclick="window.print()"
+					class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-card hover:bg-muted text-foreground text-xs font-medium border border-border transition-colors cursor-pointer shadow-xs"
+				>
+					<svg class="w-3.5 h-3.5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+					</svg>
+					<span>Print</span>
+				</button>
 
-				<!-- Quick action buttons -->
-				<div class="flex items-center gap-3 shrink-0 self-start md:self-center">
-					<button
-						type="button"
-						onclick="window.print()"
-						class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-850 hover:bg-zinc-750 text-zinc-300 hover:text-white text-xs font-medium border border-zinc-700 transition-colors cursor-pointer"
-					>
-						<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-						</svg>
-						<span>Print</span>
-					</button>
-
-					<a
-						href="https://github.com/Fechin/reference"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-850 hover:bg-zinc-750 text-zinc-300 hover:text-white text-xs font-medium border border-zinc-700 transition-colors"
-					>
-						<span>GitHub</span>
-						<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-						</svg>
-					</a>
-				</div>
+				<a
+					href="https://github.com/Fechin/reference"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-card hover:bg-muted text-foreground text-xs font-medium border border-border transition-colors shadow-xs"
+				>
+					<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+						<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+					</svg>
+					<span>GitHub Star</span>
+				</a>
 			</div>
 
 			<!-- Quick jump section pills -->
 			{sheet.sections.length > 1 && (
-				<div class="mt-6 pt-5 border-t border-zinc-800 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-					<span class="text-xs font-medium text-zinc-500 whitespace-nowrap mr-1">Sections:</span>
+				<div class="mt-8 flex items-center justify-start sm:justify-center gap-2 overflow-x-auto max-w-full pb-2 scrollbar-none">
+					<span class="text-xs font-medium text-muted-foreground whitespace-nowrap mr-1 hidden sm:inline">Jump to:</span>
 					{sheet.sections.map((section) => (
 						<a
 							href={`#${section.id}`}
-							class="px-2.5 py-1 rounded-md bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 text-xs whitespace-nowrap border border-zinc-700/60 transition-colors"
+							class="px-3 py-1 rounded-full bg-card hover:bg-muted text-foreground/80 hover:text-foreground text-xs whitespace-nowrap border border-border transition-colors shadow-xs"
 						>
 							{section.title}
 						</a>
@@ -107,41 +97,44 @@ const relatedSheets = allSheets
 			)}
 		</div>
 
-		<!-- Sections List -->
-		<div class="space-y-12">
+		<!-- Sections List (matching .mdLayout structure) -->
+		<div class="space-y-12 mdLayout">
 			{sheet.sections.map((section) => (
-				<div id={section.id} class="scroll-mt-20">
-					<!-- Section Title Header -->
-					<div class="flex items-center gap-3 mb-6 pb-2 border-b border-zinc-800">
-						<h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
-							{section.title}
+				<div id={section.id} class="h2-wrap scroll-mt-24">
+					<!-- Section Header -->
+					<div class="flex items-center justify-between mb-5 pb-2 border-b border-border">
+						<h2 class="text-xl sm:text-2xl font-light text-indigo-600 dark:text-indigo-400 tracking-tight flex items-center gap-3">
+							<span>{section.title}</span>
+							<span class="text-xs font-mono text-muted-foreground font-normal">
+								({section.cards.length} cards)
+							</span>
 						</h2>
-						<span class="text-xs text-zinc-500 font-mono">
-							({section.cards.length} cards)
-						</span>
+						<a href={`#${section.id}`} class="text-muted-foreground hover:text-indigo-500 text-sm font-mono transition-colors">
+							#
+						</a>
 					</div>
 
-					<!-- Masonry/Grid of Cards -->
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-start">
+					<!-- Cards Grid (Full Responsive) -->
+					<div class="h3-wrap-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 items-start">
 						{section.cards.map((card) => (
 							<article
 								id={card.id}
-								class={`bg-[#0c101c] border border-zinc-800 hover:border-zinc-700 rounded-xl overflow-hidden shadow-lg transition-all ${
-									card.colSpan === 2 ? 'md:col-span-2' : ''
+								class={`h3-wrap bg-card border border-border rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col ${
+									card.colSpan === 2 ? 'md:col-span-2 lg:col-span-2' : ''
 								}`}
 							>
 								<!-- Card Header -->
-								<div class="px-4 py-3 bg-[#111728] border-b border-zinc-800 flex items-center justify-between gap-3">
-									<h3 class="text-sm font-bold text-white tracking-wide truncate">
+								<div class="px-4 py-3 bg-muted/50 border-b border-border flex items-center justify-between gap-3">
+									<h3 class="text-sm font-semibold text-foreground tracking-wide truncate">
 										{card.title}
 									</h3>
-									<a href={`#${card.id}`} class="text-zinc-600 hover:text-zinc-400 text-xs font-mono">
+									<a href={`#${card.id}`} class="text-muted-foreground hover:text-foreground text-xs font-mono">
 										#
 									</a>
 								</div>
 
 								<!-- Card Body Content -->
-								<div class="p-4 sheet-card-body overflow-x-auto">
+								<div class="p-4 sheet-card-body overflow-x-auto flex-1">
 									<Fragment set:html={card.html} />
 								</div>
 							</article>
@@ -153,25 +146,23 @@ const relatedSheets = allSheets
 
 		<!-- Related Cheatsheets -->
 		{relatedSheets.length > 0 && (
-			<div class="mt-20 pt-8 border-t border-zinc-800">
-				<h3 class="text-lg font-bold text-white mb-4">
+			<div class="mt-20 pt-8 border-t border-border">
+				<h3 class="text-lg font-medium text-foreground mb-5">
 					Related Cheat Sheets
 				</h3>
-				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+				<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-4">
 					{relatedSheets.map((rel) => (
-						<a
-							href={`/${rel.slug}`}
-							class="p-4 rounded-xl bg-[#0c101c] hover:bg-[#111728] border border-zinc-800 hover:border-zinc-700 transition-all flex items-center gap-3 group"
-						>
-							<div class="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-750 p-2 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-								<img src={rel.icon} alt={rel.title} class="w-6 h-6 object-contain" />
-							</div>
-							<div class="min-w-0">
-								<div class="font-semibold text-sm text-zinc-200 group-hover:text-emerald-400 transition-colors truncate">
-									{rel.title}
+						<a href={`/${rel.slug}`} title="{rel.title} Cheatsheet" class="group block">
+							<div
+								class="p-3 sm:p-4 flex items-center rounded-xl shadow-md cursor-pointer transition-all duration-200 hover:scale-[1.03] hover:shadow-xl overflow-hidden border border-black/5 dark:border-white/10"
+								style={`background: linear-gradient(135deg, ${rel.color}e0 0%, ${rel.color}95 100%);`}
+							>
+								<div class="w-8 h-8 rounded-lg bg-black/25 backdrop-blur-sm p-1.5 flex items-center justify-center shrink-0 border border-white/15 mr-3 shadow-inner">
+									<img src={rel.icon} alt={rel.title} class="w-full h-full object-contain filter drop-shadow brightness-110" />
 								</div>
-								<div class="text-xs text-zinc-500 truncate">
-									{rel.cardCount} cards
+								<div class="min-w-0 flex-1">
+									<p class="text-xs sm:text-sm font-semibold text-white truncate drop-shadow-sm">{rel.title}</p>
+									<span class="text-[10px] text-white/85 font-mono">{rel.cardCount} cards</span>
 								</div>
 							</div>
 						</a>
@@ -206,11 +197,11 @@ const relatedSheets = allSheets
 
 			const originalText = btn.textContent;
 			btn.textContent = 'Copied!';
-			btn.classList.add('bg-emerald-500/20', 'text-emerald-300', 'border', 'border-emerald-500/30');
+			btn.classList.add('bg-emerald-500/20', 'text-emerald-400', 'border', 'border-emerald-500/30');
 
 			setTimeout(() => {
 				btn.textContent = originalText;
-				btn.classList.remove('bg-emerald-500/20', 'text-emerald-300', 'border', 'border-emerald-500/30');
+				btn.classList.remove('bg-emerald-500/20', 'text-emerald-400', 'border', 'border-emerald-500/30');
 			}, 1800);
 		});
 	</script>

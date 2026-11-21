@@ -1,5 +1,7 @@
 <script lang="ts">
-	import type { CheatsheetMeta } from '../lib/cheatsheets';
+	import type { CheatsheetMeta } from '../lib/types';
+	import { RECOMMENDED_SLUGS, HOMEPAGE_CATEGORIES } from '../lib/types';
+	import { Badge } from '$lib/components/ui/badge';
 
 	interface Props {
 		sheets: CheatsheetMeta[];
@@ -11,6 +13,40 @@
 	let activeCategory = $state<string>('All');
 	let searchQuery = $state<string>('');
 
+	// Recommended cards
+	let recommendedSheets = $derived.by<CheatsheetMeta[]>(() => {
+		return RECOMMENDED_SLUGS.map((slug) => sheets.find((s) => s.slug === slug)).filter(
+			(s): s is CheatsheetMeta => s !== undefined
+		);
+	});
+
+	// Sheets grouped by category for the full homepage view
+	let sheetsByCategory = $derived.by<{ category: string; list: CheatsheetMeta[] }[]>(() => {
+		const groups: { category: string; list: CheatsheetMeta[] }[] = [];
+		for (const cat of HOMEPAGE_CATEGORIES) {
+			const list = sheets.filter((s) => s.category === cat);
+			if (list.length > 0) {
+				groups.push({ category: cat, list });
+			}
+		}
+
+		// Any remaining categories
+		const used = new Set(HOMEPAGE_CATEGORIES);
+		for (const s of sheets) {
+			if (!used.has(s.category)) {
+				let g = groups.find((gr) => gr.category === s.category);
+				if (!g) {
+					g = { category: s.category, list: [] };
+					groups.push(g);
+				}
+				g.list.push(s);
+			}
+		}
+
+		return groups;
+	});
+
+	// Filtered list when searching or selecting single category
 	let filteredSheets = $derived.by<CheatsheetMeta[]>(() => {
 		const q = searchQuery.trim().toLowerCase();
 		return sheets.filter((sheet) => {
@@ -32,36 +68,36 @@
 	}
 </script>
 
-<div class="space-y-8">
+<div class="space-y-10">
 	<!-- Hero Header -->
-	<div class="text-center max-w-3xl mx-auto pt-6 sm:pt-10 pb-2">
-		<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium mb-5">
+	<div class="text-center max-w-3xl mx-auto pt-4 sm:pt-8 pb-2 px-2">
+		<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-medium mb-4">
 			<img src="/logo.svg" alt="logo" class="w-3.5 h-3.5" />
 			<span>Community-driven developer quick reference repository</span>
 		</div>
 
-		<h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
-			Cheat Sheets for <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-sky-400 bg-clip-text text-transparent">Developers</span>
+		<h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-foreground">
+			Cheat Sheets for <span class="bg-gradient-to-r from-emerald-500 via-teal-400 to-sky-500 bg-clip-text text-transparent">Developers</span>
 		</h1>
 
-		<p class="mt-4 text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-			Copy-paste friendly syntax references, command lines, shortcuts, and configurations across 200+ technologies. Free, open source, and zero clutter.
+		<p class="mt-3 text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+			Fast copy-paste reference cards, command line lookups, and shortcuts across 200+ technologies. Free, modern, and zero clutter.
 		</p>
 	</div>
 
-	<!-- Controls: Categories & Search Filter -->
-	<div class="bg-[#0c101c]/90 border border-zinc-800 rounded-2xl p-4 sm:p-5 backdrop-blur-md shadow-xl">
-		<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+	<!-- Controls: Categories & Search Filter (Full Responsive & Theme-Aware) -->
+	<div class="bg-card/90 border border-border rounded-2xl p-3.5 sm:p-5 backdrop-blur-md shadow-lg sticky top-20 z-30">
+		<div class="flex flex-col md:flex-row md:items-center justify-between gap-3.5">
 			<!-- Category Tabs -->
-			<div class="flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+			<div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none max-w-full">
 				{#each categories as cat}
 					<button
 						type="button"
 						onclick={() => (activeCategory = cat)}
-						class="px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-150 cursor-pointer {activeCategory ===
+						class="px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-all duration-150 cursor-pointer {activeCategory ===
 						cat
-							? 'bg-emerald-500 text-black font-semibold shadow-md shadow-emerald-500/20'
-							: 'bg-zinc-800/80 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/80'}"
+							? 'bg-emerald-500 text-black font-semibold shadow-sm shadow-emerald-500/30'
+							: 'bg-muted/80 text-muted-foreground hover:text-foreground hover:bg-muted'}"
 					>
 						{cat}
 					</button>
@@ -70,22 +106,22 @@
 
 			<!-- Inline Search Input -->
 			<div class="relative w-full md:w-72 shrink-0">
-				<svg class="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<svg class="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
 				</svg>
 
 				<input
 					type="text"
 					bind:value={searchQuery}
-					placeholder="Filter 200+ sheets (e.g. git, python)..."
-					class="w-full pl-9 pr-8 py-1.5 text-xs bg-zinc-950/80 border border-zinc-750 rounded-lg text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-emerald-500 transition-colors"
+					placeholder="Filter 200+ cheat sheets..."
+					class="w-full pl-9 pr-8 py-2 text-xs bg-muted/40 border border-input rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-emerald-500 transition-colors"
 				/>
 
 				{#if searchQuery}
 					<button
 						type="button"
 						onclick={clearSearch}
-						class="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-200 text-xs"
+						class="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground text-xs p-1"
 					>
 						×
 					</button>
@@ -94,76 +130,123 @@
 		</div>
 
 		<!-- Status bar -->
-		<div class="mt-3 pt-3 border-t border-zinc-800 flex items-center justify-between text-xs text-zinc-500">
+		<div class="mt-3 pt-3 border-t border-border flex items-center justify-between text-xs text-muted-foreground">
 			<div>
-				Showing <span class="text-zinc-200 font-semibold">{filteredSheets.length}</span> of {sheets.length} reference guides
+				Showing <span class="text-foreground font-semibold">{filteredSheets.length}</span> of {sheets.length} cheat sheets
 			</div>
 			<div class="hidden sm:flex items-center gap-2">
-				<span>Press <kbd class="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700 font-mono text-[10px]">⌘K</kbd> to search everything</span>
+				<span>Press <kbd class="px-1.5 py-0.5 rounded bg-muted text-foreground border border-border font-mono text-[10px]">⌘K</kbd> to search everything</span>
 			</div>
 		</div>
 	</div>
 
-	<!-- Cheatsheet Cards Grid -->
-	{#if filteredSheets.length === 0}
-		<div class="text-center py-16 bg-zinc-900/30 border border-dashed border-zinc-800 rounded-2xl">
-			<p class="text-zinc-400 text-base">No cheatsheet matches your query.</p>
-			<button
-				type="button"
-				onclick={() => {
-					activeCategory = 'All';
-					searchQuery = '';
-				}}
-				class="mt-3 px-4 py-1.5 text-xs font-medium text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-lg border border-emerald-500/30 transition-colors"
-			>
-				Reset all filters
-			</button>
+	<!-- Content Presentation -->
+	{#if searchQuery || activeCategory !== 'All'}
+		<!-- Filtered Mode Grid -->
+		<div>
+			{#if filteredSheets.length === 0}
+				<div class="text-center py-16 bg-muted/30 border border-dashed border-border rounded-2xl">
+					<p class="text-muted-foreground text-base">No cheat sheet matches your query.</p>
+					<button
+						type="button"
+						onclick={() => {
+							activeCategory = 'All';
+							searchQuery = '';
+						}}
+						class="mt-3 px-4 py-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-xl border border-emerald-500/30 transition-colors cursor-pointer"
+					>
+						Reset all filters
+					</button>
+				</div>
+			{:else}
+				<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+					{#each filteredSheets as sheet}
+						<a href="/{sheet.slug}" title="{sheet.title} Cheatsheet" class="group block">
+							<div
+								class="relative p-3 sm:p-4 flex items-center rounded-xl shadow-md cursor-pointer transition-all duration-200 hover:scale-[1.03] hover:shadow-xl overflow-hidden border border-black/5 dark:border-white/10"
+								style="background: linear-gradient(135deg, {sheet.color}e0 0%, {sheet.color}b0 100%);"
+							>
+								<div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-black/25 backdrop-blur-sm p-1.5 flex items-center justify-center shrink-0 border border-white/15 mr-3 shadow-inner">
+									<img src={sheet.icon} alt={sheet.title} class="w-full h-full object-contain filter drop-shadow brightness-110" />
+								</div>
+								<div class="min-w-0 flex-1">
+									<p class="text-xs sm:text-sm font-semibold text-white truncate drop-shadow-sm">{sheet.title}</p>
+									<span class="text-[10px] text-white/85 font-mono">{sheet.cardCount} cards</span>
+								</div>
+							</div>
+						</a>
+					{/each}
+				</div>
+			{/if}
 		</div>
 	{:else}
-		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
-			{#each filteredSheets as sheet}
-				<a
-					href="/{sheet.slug}"
-					class="group relative bg-[#0c101c] hover:bg-[#111728] border border-zinc-800 hover:border-zinc-700 rounded-xl p-5 flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/70"
-				>
-					<div>
-						<!-- Top row: Icon + Category Badge -->
-						<div class="flex items-center justify-between gap-3 mb-3">
-							<div class="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-750 p-2 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-105 group-hover:border-zinc-600 transition-all">
-								<img src={sheet.icon} alt={sheet.title} class="w-6 h-6 object-contain" />
+		<!-- Default Full Mode: Recommended + Ordered Category Sections (like cheatsheets.zip) -->
+		<div class="space-y-12">
+			<!-- Recommended Section -->
+			<div>
+				<div class="flex items-center justify-between mb-2">
+					<h2 class="text-lg sm:text-xl font-medium text-foreground">
+						⭐ Recommended Cheat Sheets
+					</h2>
+				</div>
+				<div class="h-1 bg-border rounded-full overflow-hidden mb-6 w-24">
+					<div class="w-full h-full bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+				</div>
+
+				<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+					{#each recommendedSheets as sheet}
+						<a href="/{sheet.slug}" title="{sheet.title} Cheatsheet" class="group block">
+							<div
+								class="relative p-3 sm:p-4 flex items-center rounded-xl shadow-md cursor-pointer transition-all duration-200 hover:scale-[1.03] hover:shadow-xl overflow-hidden border border-black/5 dark:border-white/10"
+								style="background: linear-gradient(135deg, {sheet.color}e0 0%, {sheet.color}b0 100%);"
+							>
+								<div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-black/25 backdrop-blur-sm p-1.5 flex items-center justify-center shrink-0 border border-white/15 mr-3 shadow-inner">
+									<img src={sheet.icon} alt={sheet.title} class="w-full h-full object-contain filter drop-shadow brightness-110" />
+								</div>
+								<div class="min-w-0 flex-1">
+									<p class="text-xs sm:text-sm font-semibold text-white truncate drop-shadow-sm">{sheet.title}</p>
+									<span class="text-[10px] text-white/85 font-mono">{sheet.cardCount} cards</span>
+								</div>
 							</div>
+						</a>
+					{/each}
+				</div>
+			</div>
 
-							<span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-300 border border-zinc-700/80">
-								{sheet.category}
-							</span>
-						</div>
-
-						<h2 class="text-base sm:text-lg font-bold text-white group-hover:text-emerald-400 transition-colors flex items-center justify-between">
-							<span class="truncate">{sheet.title}</span>
-							<svg class="w-4 h-4 text-zinc-600 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all shrink-0 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-							</svg>
+			<!-- Category Sections -->
+			{#each sheetsByCategory as group}
+				<div>
+					<div class="flex items-center justify-between mb-2">
+						<h2 class="text-lg sm:text-xl font-medium text-foreground">
+							{group.category}
 						</h2>
-
-						<p class="text-xs text-zinc-400 mt-2 line-clamp-2 leading-relaxed">
-							{sheet.intro}
-						</p>
-					</div>
-
-					<!-- Bottom tags & section count -->
-					<div class="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between text-[11px] text-zinc-500">
-						<div class="flex items-center gap-1.5 flex-wrap overflow-hidden">
-							{#each sheet.tags.slice(0, 2) as tag}
-								<span class="px-1.5 py-0.5 rounded bg-zinc-900 text-zinc-400 border border-zinc-800 font-mono text-[10px] truncate">
-									#{tag}
-								</span>
-							{/each}
-						</div>
-						<span class="font-medium text-zinc-400 shrink-0">
-							{sheet.cardCount} cards
+						<span class="text-xs text-muted-foreground font-mono">
+							{group.list.length} sheets
 						</span>
 					</div>
-				</a>
+					<div class="h-1 bg-border rounded-full overflow-hidden mb-6 w-24">
+						<div class="w-full h-full bg-gradient-to-r from-indigo-500 to-purple-600"></div>
+					</div>
+
+					<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+						{#each group.list as sheet}
+							<a href="/{sheet.slug}" title="{sheet.title} Cheatsheet" class="group block">
+								<div
+									class="relative p-3 sm:p-4 flex items-center rounded-xl shadow-md cursor-pointer transition-all duration-200 hover:scale-[1.03] hover:shadow-xl overflow-hidden border border-black/5 dark:border-white/10"
+									style="background: linear-gradient(135deg, {sheet.color}e0 0%, {sheet.color}b0 100%);"
+								>
+									<div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-black/25 backdrop-blur-sm p-1.5 flex items-center justify-center shrink-0 border border-white/15 mr-3 shadow-inner">
+										<img src={sheet.icon} alt={sheet.title} class="w-full h-full object-contain filter drop-shadow brightness-110" />
+									</div>
+									<div class="min-w-0 flex-1">
+										<p class="text-xs sm:text-sm font-semibold text-white truncate drop-shadow-sm">{sheet.title}</p>
+										<span class="text-[10px] text-white/85 font-mono">{sheet.cardCount} cards</span>
+									</div>
+								</div>
+							</a>
+						{/each}
+					</div>
+				</div>
 			{/each}
 		</div>
 	{/if}

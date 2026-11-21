@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { CheatsheetMeta } from '../lib/cheatsheets';
+	import type { CheatsheetMeta } from '../lib/types';
+	import { Badge } from '$lib/components/ui/badge';
 
 	interface Props {
 		sheets: CheatsheetMeta[];
@@ -128,7 +129,7 @@
 
 {#if isOpen}
 	<div
-		class="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/80 backdrop-blur-md"
+		class="fixed inset-0 z-50 flex items-start justify-center pt-14 sm:pt-24 px-3 sm:px-4 bg-black/60 dark:bg-black/80 backdrop-blur-md"
 		role="dialog"
 		aria-modal="true"
 		onclick={(e) => {
@@ -136,11 +137,11 @@
 		}}
 	>
 		<div
-			class="relative w-full max-w-2xl bg-[#0e131f] border border-zinc-700/80 rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh] animate-in fade-in zoom-in-95 duration-150"
+			class="relative w-full max-w-2xl bg-white dark:bg-[#0e1422] border border-border rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh] animate-in fade-in zoom-in-95 duration-150"
 		>
 			<!-- Search Input Bar -->
-			<div class="flex items-center px-4 py-3.5 border-b border-zinc-800 gap-3">
-				<svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+			<div class="flex items-center px-4 py-3.5 border-b border-border gap-3 bg-muted/30">
+				<svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
 				</svg>
 
@@ -149,14 +150,14 @@
 					bind:value={query}
 					type="text"
 					placeholder="Search 200+ cheat sheets (e.g. git, docker, python)..."
-					class="w-full bg-transparent text-sm sm:text-base text-zinc-100 placeholder-zinc-500 focus:outline-none"
+					class="w-full bg-transparent text-sm sm:text-base text-foreground placeholder:text-muted-foreground focus:outline-none"
 				/>
 
 				{#if query}
 					<button
 						type="button"
 						onclick={() => (query = '')}
-						class="text-xs px-2 py-0.5 rounded text-zinc-400 hover:text-zinc-200 bg-zinc-800"
+						class="text-xs px-2 py-0.5 rounded text-muted-foreground hover:text-foreground bg-muted cursor-pointer"
 					>
 						Clear
 					</button>
@@ -165,17 +166,17 @@
 				<button
 					type="button"
 					onclick={close}
-					class="text-xs px-2 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 border border-zinc-700"
+					class="text-xs px-2 py-1 rounded bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground border border-border cursor-pointer font-mono"
 				>
 					ESC
 				</button>
 			</div>
 
 			<!-- Results List -->
-			<div class="overflow-y-auto p-2 divide-y divide-zinc-800/40">
+			<div class="overflow-y-auto p-2 divide-y divide-border/40">
 				{#if results.length === 0}
-					<div class="py-12 text-center text-zinc-500 text-sm">
-						No cheatsheet matching "<span class="text-zinc-300 font-medium">{query}</span>"
+					<div class="py-12 text-center text-muted-foreground text-sm">
+						No cheatsheet matching "<span class="text-foreground font-medium">{query}</span>"
 					</div>
 				{:else}
 					{#each results as item, idx}
@@ -183,33 +184,33 @@
 							type="button"
 							onclick={() => selectItem(item)}
 							onmouseenter={() => (selectedIndex = idx)}
-							class="w-full text-left p-3 rounded-lg flex items-center justify-between gap-3 transition-colors duration-100 {idx ===
+							class="w-full text-left p-3 rounded-xl flex items-center justify-between gap-3 transition-colors duration-100 cursor-pointer {idx ===
 							selectedIndex
-								? 'bg-zinc-800 text-white'
-								: 'text-zinc-300 hover:bg-zinc-800/50'}"
+								? 'bg-muted text-foreground font-medium shadow-xs'
+								: 'text-foreground/80 hover:bg-muted/50'}"
 						>
 							<div class="flex items-center gap-3 min-w-0">
-								<div class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-700/60 p-1.5 flex items-center justify-center shrink-0">
-									<img src={item.icon} alt={item.title} class="w-5 h-5 object-contain" />
+								<div class="w-8 h-8 rounded-lg bg-muted border border-border p-1.5 flex items-center justify-center shrink-0">
+									<img src={item.icon} alt={item.title} class="w-full h-full object-contain" />
 								</div>
 
 								<div class="flex-1 min-w-0">
 									<div class="flex items-center gap-2 mb-0.5">
-										<span class="font-medium text-sm text-zinc-100 truncate">
+										<span class="font-medium text-sm text-foreground truncate">
 											{item.title}
 										</span>
-										<span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700">
+										<Badge variant="secondary" class="text-[10px] px-1.5 py-0">
 											{item.category}
-										</span>
+										</Badge>
 									</div>
 
-									<p class="text-xs text-zinc-400 truncate">
+									<p class="text-xs text-muted-foreground truncate">
 										{item.subtitle}
 									</p>
 								</div>
 							</div>
 
-							<svg class="w-4 h-4 text-zinc-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<svg class="w-4 h-4 text-muted-foreground shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
 							</svg>
 						</button>
@@ -218,13 +219,13 @@
 			</div>
 
 			<!-- Footer helper -->
-			<div class="px-4 py-2 bg-zinc-950/80 border-t border-zinc-800 flex items-center justify-between text-[11px] text-zinc-500">
+			<div class="px-4 py-2 bg-muted/40 border-t border-border flex items-center justify-between text-[11px] text-muted-foreground">
 				<div class="flex items-center gap-3">
-					<span><kbd class="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300">↑↓</kbd> navigate</span>
-					<span><kbd class="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300">↵</kbd> select</span>
-					<span><kbd class="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300">esc</kbd> close</span>
+					<span><kbd class="px-1.5 py-0.5 rounded bg-muted text-foreground border border-border">↑↓</kbd> navigate</span>
+					<span><kbd class="px-1.5 py-0.5 rounded bg-muted text-foreground border border-border">↵</kbd> select</span>
+					<span><kbd class="px-1.5 py-0.5 rounded bg-muted text-foreground border border-border">esc</kbd> close</span>
 				</div>
-				<span class="text-zinc-600 font-mono">cheatsheets.zip</span>
+				<span class="font-mono text-muted-foreground">cheatsheets.zip</span>
 			</div>
 		</div>
 	</div>
