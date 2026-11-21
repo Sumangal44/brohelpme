@@ -28,11 +28,11 @@ plugins:
   ```shell script
   $ npm run dev
   ```
-- Create or modify `source/_posts/{name}.md`
+- Create or modify `src/content/cheatsheets/{name}.md`
 - Send us pull request and chill {.marker-timeline}
 
 It's a good practice to refer to the source code of the
-[CheatSheets reference](https://github.com/Sumangal44/brohelpme/blob/main/source/_posts/quickref.md).
+[CheatSheets reference](https://github.com/Sumangal44/brohelpme/blob/main/src/content/cheatsheets/quickref.md).
 
 ### Directory Structure
 

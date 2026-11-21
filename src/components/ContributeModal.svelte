@@ -177,7 +177,7 @@ $ my-tool run --verbose
 
 						<div class="flex flex-col sm:flex-row gap-2.5">
 							<a
-								href={`https://github.com/Sumangal44/brohelpme/blob/main/source/_posts/${currentSlug}.md`}
+								href={`https://github.com/Sumangal44/brohelpme/blob/main/src/content/cheatsheets/${currentSlug}.md`}
 								target="_blank"
 								rel="noopener noreferrer"
 								class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs shadow-sm transition-all text-center"
@@ -189,7 +189,7 @@ $ my-tool run --verbose
 							</a>
 
 							<a
-								href={`https://github.com/Sumangal44/brohelpme/edit/main/source/_posts/${currentSlug}.md`}
+								href={`https://github.com/Sumangal44/brohelpme/edit/main/src/content/cheatsheets/${currentSlug}.md`}
 								target="_blank"
 								rel="noopener noreferrer"
 								class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-card hover:bg-muted text-foreground border border-border font-medium text-xs shadow-xs transition-all text-center"
@@ -247,7 +247,7 @@ $ my-tool run --verbose
 
 						<div class="flex flex-col sm:flex-row gap-2.5 pt-2">
 							<a
-								href="https://github.com/Sumangal44/brohelpme/new/main/source/_posts"
+								href="https://github.com/Sumangal44/brohelpme/new/main/src/content/cheatsheets"
 								target="_blank"
 								rel="noopener noreferrer"
 								class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs shadow-sm transition-all text-center"
