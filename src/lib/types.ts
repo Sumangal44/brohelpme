@@ -16,6 +16,7 @@ export interface CheatsheetCard {
 	title: string;
 	colSpan: number;
 	rowSpan: number;
+	theme?: 'default' | 'primary' | 'secondary' | 'info' | 'warning' | 'danger' | 'success';
 	html: string;
 	codeSnippets: string[];
 }
@@ -23,6 +24,7 @@ export interface CheatsheetCard {
 export interface CheatsheetSection {
 	id: string;
 	title: string;
+	cols?: number;
 	cards: CheatsheetCard[];
 }
 

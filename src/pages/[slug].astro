@@ -140,30 +140,84 @@ const relatedSheets = allSheets
 					</div>
 
 					<!-- Cards Grid (Full Responsive) -->
-					<div class="h3-wrap-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 items-start">
-						{section.cards.map((card) => (
-							<article
-								id={card.id}
-								class={`h3-wrap bg-card border border-border rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col ${
-									card.colSpan === 2 ? 'md:col-span-2 lg:col-span-2' : ''
-								}`}
-							>
-								<!-- Card Header -->
-								<div class="px-4 py-3 bg-muted/50 border-b border-border flex items-center justify-between gap-3">
-									<h3 class="text-sm font-semibold text-foreground tracking-wide truncate">
-										{card.title}
-									</h3>
-									<a href={`#${card.id}`} class="text-muted-foreground hover:text-foreground text-xs font-mono">
-										#
-									</a>
-								</div>
+					<div class={`h3-wrap-list grid gap-5 md:gap-6 items-start ${
+						section.cols === 1
+							? 'grid-cols-1'
+							: section.cols === 2
+							? 'grid-cols-1 md:grid-cols-2'
+							: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+					}`}>
+						{section.cards.map((card) => {
+							const isPrimary = card.theme === 'primary';
+							const isSecondary = card.theme === 'secondary';
+							const isInfo = card.theme === 'info';
+							const isSuccess = card.theme === 'success';
+							const isWarning = card.theme === 'warning';
+							const isDanger = card.theme === 'danger';
 
-								<!-- Card Body Content -->
-								<div class="p-4 sheet-card-body overflow-x-auto flex-1">
-									<Fragment set:html={card.html} />
-								</div>
-							</article>
-						))}
+							return (
+								<article
+									id={card.id}
+									class={`h3-wrap bg-card border rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col ${
+										isPrimary
+											? 'border-rose-500/30 dark:border-rose-500/40'
+											: isSecondary
+											? 'border-amber-500/30 dark:border-amber-500/40'
+											: isInfo
+											? 'border-sky-500/30 dark:border-sky-500/40'
+											: isSuccess
+											? 'border-emerald-500/30 dark:border-emerald-500/40'
+											: isWarning
+											? 'border-orange-500/30 dark:border-orange-500/40'
+											: isDanger
+											? 'border-red-500/30 dark:border-red-500/40'
+											: 'border-border'
+									} ${
+										card.colSpan === 3
+											? 'md:col-span-2 lg:col-span-3'
+											: card.colSpan === 2
+											? 'md:col-span-2 lg:col-span-2'
+											: ''
+									} ${
+										card.rowSpan === 2 ? 'md:row-span-2' : card.rowSpan === 3 ? 'md:row-span-3' : ''
+									}`}
+								>
+									<!-- Card Header -->
+									<div
+										class={`px-4 py-3 border-b flex items-center justify-between gap-3 ${
+											isPrimary
+												? 'bg-rose-500/10 border-rose-500/20 text-rose-600 dark:text-rose-400'
+												: isSecondary
+												? 'bg-amber-500/10 border-amber-500/20 text-amber-600 dark:text-amber-400'
+												: isInfo
+												? 'bg-sky-500/10 border-sky-500/20 text-sky-600 dark:text-sky-400'
+												: isSuccess
+												? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-400'
+												: isWarning
+												? 'bg-orange-500/10 border-orange-500/20 text-orange-600 dark:text-orange-400'
+												: isDanger
+												? 'bg-red-500/10 border-red-500/20 text-red-600 dark:text-red-400'
+												: 'bg-muted/40 border-border text-foreground'
+										}`}
+									>
+										<h3 class="text-sm font-semibold tracking-wide truncate">
+											{card.title}
+										</h3>
+										<a
+											href={`#${card.id}`}
+											class="text-muted-foreground hover:text-foreground text-xs font-mono"
+										>
+											#
+										</a>
+									</div>
+
+									<!-- Card Body Content -->
+									<div class="p-4 sheet-card-body overflow-x-auto flex-1">
+										<Fragment set:html={card.html} />
+									</div>
+								</article>
+							);
+						})}
 					</div>
 				</div>
 			))}
