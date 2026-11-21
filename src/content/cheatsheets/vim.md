@@ -69,7 +69,7 @@ G gg H M L k j ▶ print("to")
 
 {.shortcuts}
 
-#### Words{.left-text}
+#### Words
 
 | Shortcut     | Description               |
 | ------------ | :------------------------ |

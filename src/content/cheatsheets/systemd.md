@@ -216,7 +216,7 @@ plugins:
 
 {.left-text}
 
-#### Types of systemd limits{.col-span-3}
+#### Types of systemd limits
 
 ```markdown
 There are different kinds of limit that can be imposed:

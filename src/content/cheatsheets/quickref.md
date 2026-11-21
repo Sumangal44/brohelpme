@@ -235,9 +235,9 @@ All the magic variants supported by CheatSheets.zip
 | `{.col-span-2}` | [Example](#col-span-2) |
 | `{.col-span-3}` |                        |
 | ...             |                        |
-| `.col-span-6}`  |                        |
+| `{.col-span-6}` |                        |
 
-#### Specifies the number of rows the card spans {.text-left}
+#### Specifies the number of rows the card spans
 
 | -               | -                      |
 | --------------- | ---------------------- |

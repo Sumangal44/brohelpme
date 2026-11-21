@@ -349,15 +349,18 @@ function processCardVariants(rawHtml: string): string {
 	);
 
 	// 2. Process {.shortcuts}
-	// When followed by <p>{.shortcuts}</p>, turn the preceding table into a keyboard shortcuts table
-	// and transform inline <code>...</code> to <kbd>...</kbd>
-	html = html.replace(/<table([^>]*)>([\s\S]*?)<\/table>(\s*<p>\s*\{\.shortcuts\}\s*<\/p>)?/gi, (match, attrs, tableInner, pTag) => {
-		if (pTag || match.includes('{.shortcuts}')) {
-			let formatted = tableInner.replace(/<code>(.*?)<\/code>/g, '<kbd>$1</kbd>');
-			return `<table class="table-shortcuts">${formatted}</table>`;
+	// A table followed (within a short gap) by a <p>{.shortcuts}</p> paragraph becomes a
+	// keyboard shortcuts table, and inline <code>...</code> turns into <kbd>...</kbd>.
+	// The marker must be a *standalone paragraph*: tables that merely mention
+	// `{.shortcuts}` inside a cell (the variant reference tables) must not be converted.
+	html = html.replace(
+		/<table([^>]*)>([\s\S]*?)<\/table>((?:(?!<table)[\s\S]){0,60}?<p>\s*\{\.shortcuts\}\s*<\/p>)/gi,
+		(_match, _attrs, tableInner, between) => {
+			const formatted = tableInner.replace(/<code>(.*?)<\/code>/g, '<kbd>$1</kbd>');
+			return `<table class="table-shortcuts">${formatted}</table>${between.replace(/<p>\s*\{\.shortcuts\}\s*<\/p>/gi, '')}`;
 		}
-		return match;
-	});
+	);
+	// Strip any remaining {.shortcuts} paragraphs (no table above them)
 	html = html.replace(/<p>\s*\{\.shortcuts\}\s*<\/p>/gi, '');
 
 	// 3. Process {.show-header}
@@ -422,6 +425,14 @@ function processCardVariants(rawHtml: string): string {
 
 	// 11. Clean up any remaining leaked paragraph tags containing only {.class}
 	html = html.replace(/<p>\s*\{(?:\.[a-zA-Z0-9_-]+\s*)+\}\s*<\/p>/gi, '');
+
+	// 12. Strip leftover {.variant} markers inside headings. Only ## / ### titles are
+	// parsed for variants, so a marker on h4+ (e.g. `#### Words{.left-text}`) would
+	// otherwise be rendered as visible text.
+	html = html.replace(
+		/(<h[1-6][^>]*>)([\s\S]*?)(<\/h[1-6]>)/gi,
+		(_match, open, inner, close) => open + inner.replace(/\s*\{(?:\.[a-zA-Z0-9_-]+)+\s*\}/g, '') + close
+	);
 
 	return html;
 }
