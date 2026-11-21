@@ -83,6 +83,32 @@
 		<p class="mt-3 text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
 			Fast copy-paste reference cards, command line lookups, and shortcuts across 200+ technologies. Free, modern, and zero clutter.
 		</p>
+
+		<!-- Action CTA buttons in hero -->
+		<div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+			<button
+				type="button"
+				onclick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
+				class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-medium shadow-md shadow-emerald-500/20 transition-all cursor-pointer"
+			>
+				<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+				</svg>
+				<span>Search 200+ Sheets</span>
+				<kbd class="text-[10px] bg-emerald-700/60 px-1.5 py-0.5 rounded font-mono border border-emerald-400/30">⌘K</kbd>
+			</button>
+
+			<button
+				type="button"
+				onclick={() => window.dispatchEvent(new CustomEvent('open-contribute-modal'))}
+				class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-card hover:bg-muted text-foreground text-xs sm:text-sm font-medium border border-border shadow-xs transition-all cursor-pointer"
+			>
+				<svg class="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+				</svg>
+				<span>+ Add Cheatsheet</span>
+			</button>
+		</div>
 	</div>
 
 	<!-- Controls: Categories & Search Filter (Full Responsive & Theme-Aware) -->
@@ -134,8 +160,16 @@
 			<div>
 				Showing <span class="text-foreground font-semibold">{filteredSheets.length}</span> of {sheets.length} cheat sheets
 			</div>
-			<div class="hidden sm:flex items-center gap-2">
-				<span>Press <kbd class="px-1.5 py-0.5 rounded bg-muted text-foreground border border-border font-mono text-[10px]">⌘K</kbd> to search everything</span>
+			<div class="flex items-center gap-3">
+				<button
+					type="button"
+					onclick={() => window.dispatchEvent(new CustomEvent('open-contribute-modal'))}
+					class="text-xs text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1 cursor-pointer"
+				>
+					<span>+ Submit new sheet</span>
+				</button>
+				<span class="hidden sm:inline text-muted-foreground/40">•</span>
+				<span class="hidden sm:flex items-center gap-1">Press <kbd class="px-1.5 py-0.5 rounded bg-muted text-foreground border border-border font-mono text-[10px]">⌘K</kbd> to search</span>
 			</div>
 		</div>
 	</div>
