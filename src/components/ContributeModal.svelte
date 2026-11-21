@@ -88,8 +88,12 @@ $ my-tool run --verbose
 		class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 dark:bg-black/80 backdrop-blur-md animate-in fade-in duration-150"
 		role="dialog"
 		aria-modal="true"
+		tabindex="-1"
 		onclick={(e) => {
 			if (e.target === e.currentTarget) close();
+		}}
+		onkeydown={(e) => {
+			if (e.key === 'Escape') close();
 		}}
 	>
 		<div
