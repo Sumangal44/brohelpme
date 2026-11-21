@@ -203,9 +203,9 @@ $ my-tool run --verbose
 							<div class="p-3.5 rounded-xl bg-muted/40 border border-border flex items-start gap-3">
 								<span class="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center shrink-0">1</span>
 								<div>
-									<h4 class="font-medium text-foreground text-xs mb-0.5">Fork Repository</h4>
+									<h4 class="font-medium text-foreground text-xs mb-0.5">Fork or Branch</h4>
 									<p class="text-[11px] text-muted-foreground leading-normal">
-										Fork <a href="https://github.com/Fechin/reference" target="_blank" class="text-emerald-600 dark:text-emerald-400 underline">Fechin/reference</a> on GitHub.
+										Fork this repository or create a new branch: <code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">feat/my-cheatsheet</code>.
 									</p>
 								</div>
 							</div>
@@ -215,7 +215,7 @@ $ my-tool run --verbose
 								<div>
 									<h4 class="font-medium text-foreground text-xs mb-0.5">Create Markdown File</h4>
 									<p class="text-[11px] text-muted-foreground leading-normal">
-										Add <code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">source/_posts/&lt;name&gt;.md</code>.
+										Add <code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">src/content/cheatsheets/&lt;slug&gt;.md</code> with frontmatter.
 									</p>
 								</div>
 							</div>
@@ -225,7 +225,7 @@ $ my-tool run --verbose
 								<div>
 									<h4 class="font-medium text-foreground text-xs mb-0.5">Structure Cards</h4>
 									<p class="text-[11px] text-muted-foreground leading-normal">
-										Use <code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">##</code> for sections, <code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">###</code> for cards.
+										Use <code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">##</code> for sections, <code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">###</code> for cards, tables, and code fences.
 									</p>
 								</div>
 							</div>
@@ -233,9 +233,9 @@ $ my-tool run --verbose
 							<div class="p-3.5 rounded-xl bg-muted/40 border border-border flex items-start gap-3">
 								<span class="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center shrink-0">4</span>
 								<div>
-									<h4 class="font-medium text-foreground text-xs mb-0.5">Submit Pull Request</h4>
+									<h4 class="font-medium text-foreground text-xs mb-0.5">Build & Submit PR</h4>
 									<p class="text-[11px] text-muted-foreground leading-normal">
-										Send your PR to get published worldwide!
+										Verify with <code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">npm run build</code> and open a Pull Request!
 									</p>
 								</div>
 							</div>
@@ -268,7 +268,7 @@ $ my-tool run --verbose
 				{:else if activeTab === 'template'}
 					<div class="space-y-3">
 						<div class="flex items-center justify-between">
-							<span class="text-xs text-muted-foreground font-mono">source/_posts/my-tool.md</span>
+							<span class="text-xs text-muted-foreground font-mono">src/content/cheatsheets/my-tool.md</span>
 							<Button variant="outline" size="sm" onclick={copyTemplate} class="text-xs gap-1.5 h-7">
 								{#if copied}
 									<span class="text-emerald-500 font-medium">✓ Copied Template!</span>
