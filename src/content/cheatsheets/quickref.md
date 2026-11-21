@@ -24,7 +24,7 @@ plugins:
   ```shell script
   $ npm install
   ```
-- Start a Dev Server [http://localhost:4000](http://localhost:4000)
+- Start a Dev Server [http://localhost:4321](http://localhost:4321)
   ```shell script
   $ npm run dev
   ```
@@ -38,23 +38,27 @@ It's a good practice to refer to the source code of the
 
 ```yaml
 .
-├── source
-│   ├── _posts   # Cheatsheet source files
+├── src/
+│   ├── pages/                 # Routes → index, [slug], search
+│   ├── content/cheatsheets/   # Cheatsheet source files (Markdown)
 │   │   ├── awk.md
-│   │   ├── vim.md # => cheatsheets.zip/vim
+│   │   ├── vim.md             # => cheatsheets.zip/vim
 │   │   ├── php.md
-│   │   ├── css.md # => cheatsheets.zip/css
-│   │   ├── ...
-│   └── widget   # Widget files
-│       └── chmod.html
-├── public       # Distribution files
-├── _config.yml
-├── gulpfile.js
-├── package.json
-├── postcss.config.js
-├── tailwind.config.js
-└── themes
-    └── coo      # Theme files
+│   │   └── ...
+│   ├── components/            # Navbar, CheatList, CommandPalette, Footer, ...
+│   ├── layouts/Layout.astro   # <head> meta + theme bootstrap script
+│   ├── lib/cheatsheets.ts     # Frontmatter loader, icon resolver, categories
+│   ├── styles/global.css      # Tailwind v4 tokens + .dark theme variant
+│   └── ...
+├── public/
+│   ├── icons/                 # Sheet icons → public/icons/vim.svg
+│   ├── logo.svg               # Fallback icon
+│   └── favicon.svg
+├── astro.config.mjs           # Astro config (site, sitemap)
+├── svelte.config.js           # Svelte integration
+├── package.json               # npm run dev | build | preview
+├── CONTRIBUTING.md
+└── LICENSE
 ```
 
 ### Cheatsheet Structure {.row-span-2}
@@ -105,7 +109,7 @@ It's a good practice to refer to the source code of the
 
 All the magic variants supported by CheatSheets.zip
 
-### Create source/\_posts/demo.md
+### Create src/content/cheatsheets/demo.md
 
 ```markdown
 ## Getting Started
