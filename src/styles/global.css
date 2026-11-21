@@ -263,16 +263,39 @@
 	background: var(--code-bg);
 }
 
+.code-block-wrapper pre.shiki,
 .sheet-card-body pre {
-	background: var(--code-bg);
-	border: none;
-	border-radius: 0;
-	padding: 0.75rem;
-	overflow-x: auto;
-	font-family: var(--font-mono);
-	font-size: 0.75rem;
-	color: var(--code-text);
-	line-height: 1.55;
+	background: var(--code-bg) !important;
+	border: none !important;
+	border-radius: 0 !important;
+	padding: 0.75rem !important;
+	margin: 0 !important;
+	overflow-x: auto !important;
+	font-family: var(--font-mono) !important;
+	font-size: 0.75rem !important;
+	line-height: 1.55 !important;
+}
+
+.code-block-wrapper pre.shiki code {
+	background: transparent !important;
+	border: none !important;
+	padding: 0 !important;
+	font-family: inherit !important;
+	font-size: inherit !important;
+}
+
+/* Shiki Dual-Theme Token Rules (GitHub Light / Dark) */
+html.dark .shiki,
+html.dark .shiki span {
+	color: var(--shiki-dark) !important;
+}
+
+html:not(.dark) .shiki {
+	background-color: var(--code-bg) !important;
+}
+
+html.dark .shiki {
+	background-color: var(--code-bg) !important;
 }
 
 .sheet-card-body blockquote {

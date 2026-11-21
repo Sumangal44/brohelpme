@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import YAML from 'yaml';
 import Markdoc from '@markdoc/markdoc';
+import { createHighlighter, type Highlighter } from 'shiki';
 import {
 	type CheatsheetMeta,
 	type CheatsheetCard,
@@ -15,6 +16,81 @@ export * from './types';
 
 const CONTENT_DIR = path.resolve(process.cwd(), 'src/content/cheatsheets');
 const ICONS_DIR = path.resolve(process.cwd(), 'public/icons');
+
+const LANG_MAP: Record<string, string> = {
+	'shell': 'bash',
+	'shell script': 'bash',
+	'sh': 'bash',
+	'console': 'bash',
+	'terminal': 'bash',
+	'cmd': 'bat',
+	'dos': 'bat',
+	'js': 'javascript',
+	'ts': 'typescript',
+	'cs': 'csharp',
+	'rs': 'rust',
+	'py': 'python',
+	'ml': 'ocaml',
+	'golang': 'go',
+	'c++': 'cpp',
+	'text': 'text',
+	'txt': 'text',
+	'plain': 'text',
+	'plaintext': 'text',
+	'katex': 'latex',
+	'mcfunction': 'text',
+	'mongosh': 'javascript',
+	'gitignore': 'ini'
+};
+
+let highlighterPromise: Promise<Highlighter> | null = null;
+
+async function getHighlighter(): Promise<Highlighter> {
+	if (!highlighterPromise) {
+		highlighterPromise = createHighlighter({
+			themes: ['github-light', 'github-dark'],
+			langs: [
+				'bash', 'c', 'cpp', 'csharp', 'css', 'dart', 'diff',
+				'dockerfile', 'go', 'graphql', 'groovy', 'html', 'ini',
+				'java', 'javascript', 'json', 'kotlin', 'latex', 'lisp',
+				'lua', 'make', 'markdown', 'matlab', 'nginx', 'nim',
+				'nix', 'ocaml', 'perl', 'php', 'powershell', 'pug',
+				'python', 'r', 'regex', 'ruby', 'rust', 'scala',
+				'scss', 'sql', 'swift', 'toml', 'typescript',
+				'vhdl', 'vim', 'xml', 'yaml', 'bat'
+			]
+		});
+	}
+	return highlighterPromise;
+}
+
+async function highlightSnippet(highlighter: Highlighter, code: string, rawLang: string): Promise<string> {
+	const cleanLang = (rawLang || 'text').split(/[\s{.]/)[0].toLowerCase();
+	const lang = LANG_MAP[cleanLang] || cleanLang;
+
+	try {
+		const loaded = highlighter.getLoadedLanguages();
+		if (!loaded.includes(lang as any)) {
+			try {
+				await highlighter.loadLanguage(lang as any);
+			} catch {
+				// language not bundled or unknown, will use text
+			}
+		}
+
+		const finalLang = highlighter.getLoadedLanguages().includes(lang as any) ? lang : 'text';
+		return highlighter.codeToHtml(code, {
+			lang: finalLang,
+			themes: { light: 'github-light', dark: 'github-dark' }
+		});
+	} catch {
+		const escaped = code
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;');
+		return `<pre class="p-3 text-xs font-mono overflow-x-auto leading-relaxed"><code>${escaped}</code></pre>`;
+	}
+}
 
 function extractHexColor(bg?: string): string {
 	if (!bg) return '#4f46e5';
@@ -165,11 +241,13 @@ export function getAllCheatsheets(): CheatsheetMeta[] {
 	return sheets;
 }
 
-export function getCheatsheet(slug: string): CheatsheetDetail | null {
+export async function getCheatsheet(slug: string): Promise<CheatsheetDetail | null> {
 	const filePath = path.join(CONTENT_DIR, `${slug}.md`);
 	if (!fs.existsSync(filePath)) {
 		return null;
 	}
+
+	const highlighter = await getHighlighter();
 
 	const content = fs.readFileSync(filePath, 'utf-8');
 	const fmMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
@@ -228,14 +306,52 @@ export function getCheatsheet(slug: string): CheatsheetDetail | null {
 				if (cm[1]) codeSnippets.push(cm[1].trim());
 			}
 
-			// Render card body using Markdoc
+			// Render card body using Markdoc and Shiki
 			let cardHtml = '';
 			try {
+				const codeBlocks: { id: string; lang: string; code: string }[] = [];
 				const ast = Markdoc.parse(cardRawBody);
-				const transformed = Markdoc.transform(ast, markdocConfig as any);
+				const transformed = Markdoc.transform(ast, {
+					nodes: {
+						fence: {
+							render: 'div',
+							transform(node: any) {
+								const lang = node.attributes?.language || 'code';
+								const codeContent = node.attributes?.content || '';
+								const id = `__SHIKI_BLOCK_${codeBlocks.length}__`;
+								codeBlocks.push({ id, lang, code: codeContent });
+								return new Markdoc.Tag('div', { class: 'shiki-placeholder', 'data-id': id });
+							}
+						}
+					}
+				} as any);
+
 				cardHtml = Markdoc.renderers.html(transformed);
+
+				for (const block of codeBlocks) {
+					const shikiHtml = await highlightSnippet(highlighter, block.code, block.lang);
+					const cleanDisplayLang = (block.lang || 'code').split(/[\s{.]/)[0].toLowerCase();
+					const safeDataCode = block.code
+						.replace(/&/g, '&amp;')
+						.replace(/"/g, '&quot;');
+
+					const wrapper = `
+<div class="code-block-wrapper my-2 relative group rounded-lg overflow-hidden border border-border">
+	<div class="code-block-header flex items-center justify-between px-3 py-1 bg-muted/80 border-b border-border text-[11px] font-mono text-muted-foreground">
+		<span class="font-medium uppercase tracking-wider text-[10px]">${cleanDisplayLang}</span>
+		<button type="button" class="copy-code-btn px-2 py-0.5 rounded bg-card hover:bg-muted text-foreground text-[11px] font-sans border border-border transition-colors cursor-pointer shadow-xs" data-code="${safeDataCode}">Copy</button>
+	</div>
+	${shikiHtml}
+</div>`.trim();
+
+					cardHtml = cardHtml.replace(
+						`<div class="shiki-placeholder" data-id="${block.id}"></div>`,
+						wrapper
+					);
+				}
 			} catch {
-				cardHtml = `<pre>${cardRawBody}</pre>`;
+				const escaped = cardRawBody.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+				cardHtml = `<pre class="p-3 text-xs font-mono overflow-x-auto leading-relaxed"><code>${escaped}</code></pre>`;
 			}
 
 			cards.push({

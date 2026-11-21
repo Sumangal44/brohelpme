@@ -10,7 +10,7 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const sheet = getCheatsheet(slug as string);
+const sheet = await getCheatsheet(slug as string);
 
 if (!sheet) {
 	return Astro.redirect('/');
