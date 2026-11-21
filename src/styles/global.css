@@ -28,8 +28,8 @@
 		--border: #e2e8f0;
 		--input: #e2e8f0;
 		--ring: #10b981;
-		--code-bg: #0f172a;
-		--code-text: #38bdf8;
+		--code-bg: #f8fafc;
+		--code-text: #0f172a;
 		--table-header: #f1f5f9;
 		--table-border: #e2e8f0;
 		--table-td-bg: #ffffff;
@@ -255,16 +255,47 @@
 	border-color: #23304a;
 }
 
+.sheet-card-body .code-block-wrapper {
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	overflow: hidden;
+	margin: 0.625rem 0;
+	background: var(--code-bg);
+}
+
 .sheet-card-body pre {
-	background: #090d16;
-	border: 1px solid #1e293b;
-	border-radius: 6px;
+	background: var(--code-bg);
+	border: none;
+	border-radius: 0;
 	padding: 0.75rem;
 	overflow-x: auto;
 	font-family: var(--font-mono);
 	font-size: 0.75rem;
-	color: #38bdf8;
-	line-height: 1.5;
+	color: var(--code-text);
+	line-height: 1.55;
+}
+
+.sheet-card-body blockquote {
+	border-left: 3px solid var(--primary);
+	padding: 0.35rem 0.75rem;
+	margin: 0.625rem 0;
+	font-style: italic;
+	color: var(--muted-foreground);
+	background: var(--muted);
+	border-radius: 0 6px 6px 0;
+	font-size: 0.8rem;
+}
+
+.sheet-card-body strong,
+.sheet-card-body b {
+	color: var(--foreground);
+	font-weight: 600;
+}
+
+.sheet-card-body hr {
+	border: 0;
+	border-top: 1px solid var(--border);
+	margin: 0.75rem 0;
 }
 
 .sheet-card-body h4 {

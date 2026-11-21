@@ -2,6 +2,7 @@
 import Navbar from '../components/Navbar.svelte';
 import Footer from '../components/Footer.astro';
 import CommandPalette from '../components/CommandPalette.svelte';
+import ContributeModal from '../components/ContributeModal.svelte';
 import { getAllCheatsheets } from '../lib/cheatsheets';
 import '../styles/global.css';
 
@@ -31,9 +32,29 @@ const allSheets = getAllCheatsheets();
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
 
-		<!-- Zero-flash Theme Hydration Script -->
+		<!-- Zero-flash Theme Hydration Script & Theme Helpers -->
 		<script is:inline>
 			(function() {
+				function applyTheme(isDark) {
+					if (isDark) {
+						document.documentElement.classList.add('dark');
+						localStorage.setItem('theme', 'dark');
+					} else {
+						document.documentElement.classList.remove('dark');
+						localStorage.setItem('theme', 'light');
+					}
+					window.dispatchEvent(new CustomEvent('theme-changed', { detail: { isDark } }));
+				}
+
+				window.__setTheme = function(theme) {
+					applyTheme(theme === 'dark');
+				};
+
+				window.__toggleTheme = function() {
+					const isDark = document.documentElement.classList.contains('dark');
+					applyTheme(!isDark);
+				};
+
 				const storedTheme = localStorage.getItem('theme');
 				if (storedTheme === 'light') {
 					document.documentElement.classList.remove('dark');
@@ -58,5 +79,8 @@ const allSheets = getAllCheatsheets();
 
 		<!-- Global Command Palette Search -->
 		<CommandPalette client:load sheets={allSheets} />
+
+		<!-- Global Contribute / Add Cheatsheet Modal -->
+		<ContributeModal client:load />
 	</body>
 </html>

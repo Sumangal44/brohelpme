@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import type { CheatsheetMeta } from '../lib/types';
 	import { Badge } from '$lib/components/ui/badge';
 
@@ -11,33 +12,178 @@
 	let isOpen = $state(false);
 	let query = $state('');
 	let selectedIndex = $state(0);
+	let isDark = $state(true);
 	let inputElement = $state<HTMLInputElement | null>(null);
 
-	interface SearchResult {
+	onMount(() => {
+		isDark = document.documentElement.classList.contains('dark');
+		const onTheme = () => {
+			isDark = document.documentElement.classList.contains('dark');
+		};
+		window.addEventListener('theme-changed', onTheme);
+		return () => window.removeEventListener('theme-changed', onTheme);
+	});
+
+	interface PaletteItem {
+		type: 'sheet' | 'action';
 		id: string;
 		title: string;
 		subtitle: string;
 		category: string;
-		url: string;
-		icon: string;
+		url?: string;
+		icon?: string;
+		color?: string;
+		action?: () => void;
 	}
 
-	let results = $derived.by<SearchResult[]>(() => {
+	function toggleTheme() {
+		if (typeof (window as any).__toggleTheme === 'function') {
+			(window as any).__toggleTheme();
+		} else {
+			isDark = !isDark;
+			if (isDark) {
+				document.documentElement.classList.add('dark');
+				localStorage.setItem('theme', 'dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+				localStorage.setItem('theme', 'light');
+			}
+			window.dispatchEvent(new CustomEvent('theme-changed', { detail: { isDark } }));
+		}
+	}
+
+	function setTheme(theme: 'light' | 'dark') {
+		if (typeof (window as any).__setTheme === 'function') {
+			(window as any).__setTheme(theme);
+		} else {
+			isDark = theme === 'dark';
+			if (isDark) {
+				document.documentElement.classList.add('dark');
+				localStorage.setItem('theme', 'dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+				localStorage.setItem('theme', 'light');
+			}
+			window.dispatchEvent(new CustomEvent('theme-changed', { detail: { isDark } }));
+		}
+	}
+
+	function openContributeModal() {
+		close();
+		window.dispatchEvent(new CustomEvent('open-contribute-modal'));
+	}
+
+	let results = $derived.by<PaletteItem[]>(() => {
 		const q = query.trim().toLowerCase();
-		if (!q) {
-			// Show top 12 recommended cheatsheets
-			return sheets.slice(0, 12).map((sheet) => ({
-				id: sheet.slug,
-				title: sheet.title,
-				subtitle: sheet.intro,
-				category: sheet.category,
-				url: `/${sheet.slug}`,
-				icon: sheet.icon
-			}));
+		const list: PaletteItem[] = [];
+
+		// Check for Theme & Contribution keyword actions
+		const isThemeQuery = q.includes('theme') || q.includes('dark') || q.includes('light') || q.includes('mode') || q.includes('color');
+		const isAddQuery = q.includes('add') || q.includes('contribut') || q.includes('new') || q.includes('create');
+
+		if (isThemeQuery) {
+			list.push({
+				type: 'action',
+				id: 'action-toggle-theme',
+				title: isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme',
+				subtitle: isDark ? 'Enable clean, high-contrast light theme' : 'Enable deep dark theme with emerald accents',
+				category: 'Theme Action',
+				color: '#10b981',
+				action: () => toggleTheme()
+			});
+
+			list.push({
+				type: 'action',
+				id: 'action-light-theme',
+				title: 'Set Theme: Light ☀️',
+				subtitle: 'Switch application color palette to light mode',
+				category: 'Theme Action',
+				color: '#f59e0b',
+				action: () => setTheme('light')
+			});
+
+			list.push({
+				type: 'action',
+				id: 'action-dark-theme',
+				title: 'Set Theme: Dark 🌙',
+				subtitle: 'Switch application color palette to dark mode',
+				category: 'Theme Action',
+				color: '#6366f1',
+				action: () => setTheme('dark')
+			});
 		}
 
-		const list: SearchResult[] = [];
+		if (isAddQuery) {
+			list.push({
+				type: 'action',
+				id: 'action-add-cheatsheet',
+				title: 'Add / Contribute a Cheatsheet',
+				subtitle: 'Submit a new cheat sheet or edit existing reference cards',
+				category: 'Contribution',
+				color: '#10b981',
+				action: () => openContributeModal()
+			});
 
+			list.push({
+				type: 'action',
+				id: 'action-syntax-manual',
+				title: 'CheatSheets Syntax Manual',
+				subtitle: 'Formatting guide, layout variants, code blocks and tables',
+				category: 'Guide',
+				url: '/quickref',
+				color: '#8b5cf6'
+			});
+
+			list.push({
+				type: 'action',
+				id: 'action-github-repo',
+				title: 'Fechin/reference on GitHub',
+				subtitle: 'Open the upstream repository to contribute pull requests',
+				category: 'External',
+				color: '#24292f',
+				action: () => window.open('https://github.com/Fechin/reference', '_blank')
+			});
+		}
+
+		if (!q) {
+			// Show top 12 recommended cheatsheets + Quick theme action
+			list.push({
+				type: 'action',
+				id: 'action-toggle-theme-default',
+				title: isDark ? 'Switch to Light Mode ☀️' : 'Switch to Dark Mode 🌙',
+				subtitle: 'Press Enter to toggle application color scheme',
+				category: 'Theme',
+				color: '#10b981',
+				action: () => toggleTheme()
+			});
+
+			list.push({
+				type: 'action',
+				id: 'action-contribute-default',
+				title: 'Contribute / Add Cheatsheet ➕',
+				subtitle: 'Learn how to publish a new reference card to cheatsheets.zip',
+				category: 'Contribute',
+				color: '#06b6d4',
+				action: () => openContributeModal()
+			});
+
+			for (const sheet of sheets.slice(0, 10)) {
+				list.push({
+					type: 'sheet',
+					id: sheet.slug,
+					title: sheet.title,
+					subtitle: sheet.intro,
+					category: sheet.category,
+					url: `/${sheet.slug}`,
+					icon: sheet.icon,
+					color: sheet.color
+				});
+			}
+
+			return list;
+		}
+
+		// Cheatsheet search filtering
 		for (const sheet of sheets) {
 			const sheetTitleMatch = sheet.title.toLowerCase().includes(q) || sheet.slug.toLowerCase().includes(q);
 			const tagMatch = sheet.tags.some((t) => t.toLowerCase().includes(q));
@@ -45,17 +191,19 @@
 
 			if (sheetTitleMatch || tagMatch || introMatch) {
 				list.push({
+					type: 'sheet',
 					id: sheet.slug,
 					title: sheet.title,
 					subtitle: sheet.intro,
 					category: sheet.category,
 					url: `/${sheet.slug}`,
-					icon: sheet.icon
+					icon: sheet.icon,
+					color: sheet.color
 				});
 			}
 		}
 
-		return list.slice(0, 20);
+		return list.slice(0, 25);
 	});
 
 	$effect(() => {
@@ -73,9 +221,13 @@
 		isOpen = false;
 	}
 
-	function selectItem(res: SearchResult) {
+	function selectItem(item: PaletteItem) {
 		close();
-		window.location.href = res.url;
+		if (item.action) {
+			item.action();
+		} else if (item.url) {
+			window.location.href = item.url;
+		}
 	}
 
 	function handleKeydown(e: KeyboardEvent) {
@@ -137,10 +289,10 @@
 		}}
 	>
 		<div
-			class="relative w-full max-w-2xl bg-white dark:bg-[#0e1422] border border-border rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh] animate-in fade-in zoom-in-95 duration-150"
+			class="relative w-full max-w-2xl bg-white dark:bg-[#0d121f] border border-border rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh] animate-in fade-in zoom-in-95 duration-150"
 		>
 			<!-- Search Input Bar -->
-			<div class="flex items-center px-4 py-3.5 border-b border-border gap-3 bg-muted/30">
+			<div class="flex items-center px-4 py-3.5 border-b border-border gap-3 bg-muted/40">
 				<svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
 				</svg>
@@ -149,7 +301,7 @@
 					bind:this={inputElement}
 					bind:value={query}
 					type="text"
-					placeholder="Search 200+ cheat sheets (e.g. git, docker, python)..."
+					placeholder="Search cheat sheets, or type 'theme', 'dark', 'light', 'add'..."
 					class="w-full bg-transparent text-sm sm:text-base text-foreground placeholder:text-muted-foreground focus:outline-none"
 				/>
 
@@ -173,10 +325,19 @@
 			</div>
 
 			<!-- Results List -->
-			<div class="overflow-y-auto p-2 divide-y divide-border/40">
+			<div class="overflow-y-auto p-2 divide-y divide-border/30">
 				{#if results.length === 0}
 					<div class="py-12 text-center text-muted-foreground text-sm">
-						No cheatsheet matching "<span class="text-foreground font-medium">{query}</span>"
+						No cheatsheet or action matching "<span class="text-foreground font-medium">{query}</span>"
+						<div class="mt-3">
+							<button
+								type="button"
+								onclick={openContributeModal}
+								class="text-xs px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors cursor-pointer"
+							>
+								+ Contribute this sheet to cheatsheets.zip
+							</button>
+						</div>
 					</div>
 				{:else}
 					{#each results as item, idx}
@@ -184,15 +345,37 @@
 							type="button"
 							onclick={() => selectItem(item)}
 							onmouseenter={() => (selectedIndex = idx)}
-							class="w-full text-left p-3 rounded-xl flex items-center justify-between gap-3 transition-colors duration-100 cursor-pointer {idx ===
+							class="w-full text-left p-2.5 sm:p-3 rounded-xl flex items-center justify-between gap-3 transition-colors duration-100 cursor-pointer {idx ===
 							selectedIndex
 								? 'bg-muted text-foreground font-medium shadow-xs'
 								: 'text-foreground/80 hover:bg-muted/50'}"
 						>
 							<div class="flex items-center gap-3 min-w-0">
-								<div class="w-8 h-8 rounded-lg bg-muted border border-border p-1.5 flex items-center justify-center shrink-0">
-									<img src={item.icon} alt={item.title} class="w-full h-full object-contain" />
-								</div>
+								{#if item.icon}
+									<!-- Cheatsheet Tech Icon Badge -->
+									<div
+										class="w-8 h-8 rounded-lg p-1.5 flex items-center justify-center shrink-0 shadow-xs border border-white/10"
+										style="background: linear-gradient(135deg, {item.color || '#10b981'} 0%, {item.color || '#10b981'}bb 100%);"
+									>
+										<img src={item.icon} alt={item.title} class="w-full h-full object-contain filter brightness-110 drop-shadow-xs" />
+									</div>
+								{:else}
+									<!-- Action Icon Badge -->
+									<div
+										class="w-8 h-8 rounded-lg p-1.5 flex items-center justify-center shrink-0 shadow-xs text-white"
+										style="background: linear-gradient(135deg, {item.color || '#10b981'} 0%, {item.color || '#10b981'}bb 100%);"
+									>
+										{#if item.category.includes('Theme')}
+											<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+												<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+											</svg>
+										{:else}
+											<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+												<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+											</svg>
+										{/if}
+									</div>
+								{/if}
 
 								<div class="flex-1 min-w-0">
 									<div class="flex items-center gap-2 mb-0.5">
@@ -218,14 +401,24 @@
 				{/if}
 			</div>
 
-			<!-- Footer helper -->
-			<div class="px-4 py-2 bg-muted/40 border-t border-border flex items-center justify-between text-[11px] text-muted-foreground">
+			<!-- Footer helper with Theme Indicator -->
+			<div class="px-4 py-2.5 bg-muted/40 border-t border-border flex items-center justify-between text-[11px] text-muted-foreground">
 				<div class="flex items-center gap-3">
-					<span><kbd class="px-1.5 py-0.5 rounded bg-muted text-foreground border border-border">↑↓</kbd> navigate</span>
-					<span><kbd class="px-1.5 py-0.5 rounded bg-muted text-foreground border border-border">↵</kbd> select</span>
-					<span><kbd class="px-1.5 py-0.5 rounded bg-muted text-foreground border border-border">esc</kbd> close</span>
+					<span><kbd class="px-1.5 py-0.5 rounded bg-card text-foreground border border-border">↑↓</kbd> navigate</span>
+					<span><kbd class="px-1.5 py-0.5 rounded bg-card text-foreground border border-border">↵</kbd> select</span>
+					<span><kbd class="px-1.5 py-0.5 rounded bg-card text-foreground border border-border">esc</kbd> close</span>
 				</div>
-				<span class="font-mono text-muted-foreground">cheatsheets.zip</span>
+
+				<div class="flex items-center gap-2">
+					<button
+						type="button"
+						onclick={toggleTheme}
+						class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-card hover:bg-muted text-foreground border border-border cursor-pointer transition-colors"
+					>
+						<span>Theme:</span>
+						<span class="font-medium text-emerald-600 dark:text-emerald-400">{isDark ? 'Dark 🌙' : 'Light ☀️'}</span>
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>

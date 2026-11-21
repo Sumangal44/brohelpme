@@ -79,16 +79,16 @@ const markdocConfig = {
 			transform(node: any) {
 				const lang = node.attributes?.language || 'code';
 				const codeContent = node.attributes?.content || '';
-				return new Markdoc.Tag('div', { class: 'code-block-wrapper my-2 relative group rounded-lg overflow-hidden border border-slate-800' }, [
-					new Markdoc.Tag('div', { class: 'flex items-center justify-between px-3 py-1 bg-slate-900 border-b border-slate-800 text-[11px] font-mono text-slate-400' }, [
-						new Markdoc.Tag('span', {}, [lang]),
+				return new Markdoc.Tag('div', { class: 'code-block-wrapper my-2 relative group rounded-lg overflow-hidden border border-border' }, [
+					new Markdoc.Tag('div', { class: 'code-block-header flex items-center justify-between px-3 py-1 bg-muted/80 border-b border-border text-[11px] font-mono text-muted-foreground' }, [
+						new Markdoc.Tag('span', { class: 'font-medium uppercase tracking-wider text-[10px]' }, [lang]),
 						new Markdoc.Tag('button', {
 							type: 'button',
-							class: 'copy-code-btn px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-sans transition-colors cursor-pointer',
+							class: 'copy-code-btn px-2 py-0.5 rounded bg-background hover:bg-muted text-foreground text-[11px] font-sans border border-border transition-colors cursor-pointer shadow-xs',
 							'data-code': codeContent
 						}, ['Copy'])
 					]),
-					new Markdoc.Tag('pre', { class: 'p-3 text-xs font-mono text-sky-300 bg-[#070b14] overflow-x-auto leading-relaxed' }, [
+					new Markdoc.Tag('pre', { class: 'p-3 text-xs font-mono overflow-x-auto leading-relaxed' }, [
 						new Markdoc.Tag('code', {}, [codeContent])
 					])
 				]);
