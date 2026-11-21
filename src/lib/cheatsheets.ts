@@ -348,44 +348,39 @@ function processCardVariants(rawHtml: string): string {
 		}
 	);
 
-	// 2. Process {.shortcuts}
-	// A table followed (within a short gap) by a <p>{.shortcuts}</p> paragraph becomes a
-	// keyboard shortcuts table, and inline <code>...</code> turns into <kbd>...</kbd>.
-	// The marker must be a *standalone paragraph*: tables that merely mention
-	// `{.shortcuts}` inside a cell (the variant reference tables) must not be converted.
+	// 2. Process table variant paragraphs: {.shortcuts}, {.show-header}, {.bold-first},
+	// {.left-text} and {.no-wrap}. Markers may be combined (e.g. {.show-header .shortcuts}).
+	// The paragraph must follow its table within a small gap (an <hr> is allowed) and must
+	// contain at least one *table* variant — otherwise it is left untouched so that markers
+	// belonging to a following <ul> (e.g. {.cols-3}) can be handled by rule 10.
+	const TABLE_VARIANTS = ['.shortcuts', '.show-header', '.bold-first', '.left-text', '.no-wrap'];
 	html = html.replace(
-		/<table([^>]*)>([\s\S]*?)<\/table>((?:(?!<table)[\s\S]){0,60}?<p>\s*\{\.shortcuts\}\s*<\/p>)/gi,
-		(_match, _attrs, tableInner, between) => {
-			const formatted = tableInner.replace(/<code>(.*?)<\/code>/g, '<kbd>$1</kbd>');
-			return `<table class="table-shortcuts">${formatted}</table>${between.replace(/<p>\s*\{\.shortcuts\}\s*<\/p>/gi, '')}`;
+		/<table([^>]*)>([\s\S]*?)<\/table>((?:(?!<table)[\s\S]){0,60}?<p>\s*\{([^}]+)\}\s*<\/p>)/gi,
+		(match, attrs, tableInner, between, markerText) => {
+			const classes = markerText.match(/\.[a-zA-Z0-9_-]+/g) || [];
+			if (!classes.some((c: string) => TABLE_VARIANTS.includes(c))) return match;
+
+			let inner: string = tableInner;
+			const extra: string[] = [];
+			if (classes.includes('.shortcuts')) {
+				inner = inner.replace(/<code>(.*?)<\/code>/g, '<kbd>$1</kbd>');
+				extra.push('table-shortcuts');
+			}
+			if (classes.includes('.show-header')) {
+				// A compact table hides its (dummy) header; this variant reveals it again.
+				inner = inner.replace(/<thead class="hidden">/gi, '<thead>');
+				extra.push('table-show-header');
+			}
+			if (classes.includes('.bold-first')) extra.push('table-bold-first');
+			if (classes.includes('.left-text')) extra.push('table-left-text');
+			if (classes.includes('.no-wrap')) extra.push('table-no-wrap');
+
+			const existing = (attrs.match(/class="([^"]*)"/) || [])[1] || '';
+			const cls = [...new Set([...(existing ? [existing] : []), ...extra])].join(' ');
+			const newAttrs = existing ? attrs.replace(/class="[^"]*"/, `class="${cls}"`) : ` class="${cls}"`;
+			return `<table${newAttrs}>${inner}</table>${between.replace(/<p>\s*\{[^}]+\}\s*<\/p>/gi, '')}`;
 		}
 	);
-	// Strip any remaining {.shortcuts} paragraphs (no table above them)
-	html = html.replace(/<p>\s*\{\.shortcuts\}\s*<\/p>/gi, '');
-
-	// 3. Process {.show-header}
-	html = html.replace(/<table class="table-compact">([\s\S]*?)<thead class="hidden">([\s\S]*?)<\/thead>([\s\S]*?)<\/table>\s*<p>\s*\{\.show-header\}\s*<\/p>/gi, 
-		'<table class="table-show-header">$1<thead>$2</thead>$3</table>'
-	);
-	html = html.replace(/<p>\s*\{\.show-header\}\s*<\/p>/gi, '');
-
-	// 4. Process {.bold-first}
-	html = html.replace(/<table([^>]*)>([\s\S]*?)<\/table>\s*<p>\s*\{\.bold-first\}\s*<\/p>/gi,
-		'<table$1 class="table-bold-first">$2</table>'
-	);
-	html = html.replace(/<p>\s*\{\.bold-first\}\s*<\/p>/gi, '');
-
-	// 5. Process {.left-text}
-	html = html.replace(/<table([^>]*)>([\s\S]*?)<\/table>\s*<p>\s*\{\.left-text\}\s*<\/p>/gi,
-		'<table$1 class="table-left-text">$2</table>'
-	);
-	html = html.replace(/<p>\s*\{\.left-text\}\s*<\/p>/gi, '');
-
-	// 6. Process {.no-wrap}
-	html = html.replace(/<table([^>]*)>([\s\S]*?)<\/table>\s*<p>\s*\{\.no-wrap\}\s*<\/p>/gi,
-		'<table$1 class="table-no-wrap">$2</table>'
-	);
-	html = html.replace(/<p>\s*\{\.no-wrap\}\s*<\/p>/gi, '');
 
 	// 7. Process {.link-arrow}
 	// e.g. <p><a href="...">Preview</a> {.link-arrow}</p> or <a href="...">Preview</a> {.link-arrow}
@@ -443,7 +438,7 @@ function processCardVariants(rawHtml: string): string {
 		if (!secHeader.startsWith('## ')) continue;
 
 		const rawSecTitle = secHeader.replace(/^##\s+/, '').trim();
-		const secTitle = rawSecTitle.replace(/\{[^}]+\}/, '').trim();
+		const secTitle = rawSecTitle.replace(/\{[^}]+\}/g, '').trim();
 		const secId = slugify(secTitle) || `sec-${sections.length + 1}`;
 		const secCols = rawSecTitle.includes('.cols-1') ? 1 : rawSecTitle.includes('.cols-2') ? 2 : 3;
 
@@ -456,7 +451,7 @@ function processCardVariants(rawHtml: string): string {
 			if (!cardHeader.startsWith('### ')) continue;
 
 			const rawCardTitle = cardHeader.replace(/^###\s+/, '').trim();
-			const cardTitle = rawCardTitle.replace(/\{[^}]+\}/, '').trim();
+			const cardTitle = rawCardTitle.replace(/\{[^}]+\}/g, '').trim();
 			const colSpan = rawCardTitle.includes('.col-span-3') || rawCardTitle.includes('.cols-3') ? 3 : rawCardTitle.includes('.col-span-2') || rawCardTitle.includes('.cols-2') ? 2 : 1;
 			const rowSpan = rawCardTitle.includes('.row-span-3') ? 3 : rawCardTitle.includes('.row-span-2') ? 2 : 1;
 			const theme = rawCardTitle.includes('.primary')
