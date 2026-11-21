@@ -112,7 +112,7 @@
 	</div>
 
 	<!-- Controls: Categories & Search Filter (Full Responsive & Theme-Aware) -->
-	<div class="bg-card/90 border border-border rounded-2xl p-3.5 sm:p-5 backdrop-blur-md shadow-lg sticky top-20 z-30">
+	<div class="bg-white/95 dark:bg-card/90 border border-slate-200/90 dark:border-border rounded-2xl p-3.5 sm:p-5 backdrop-blur-md shadow-md shadow-slate-200/40 dark:shadow-lg sticky top-20 z-30 transition-colors">
 		<div class="flex flex-col md:flex-row md:items-center justify-between gap-3.5">
 			<!-- Category Tabs -->
 			<div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none max-w-full">
@@ -122,8 +122,8 @@
 						onclick={() => (activeCategory = cat)}
 						class="px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-all duration-150 cursor-pointer {activeCategory ===
 						cat
-							? 'bg-emerald-500 text-black font-semibold shadow-sm shadow-emerald-500/30'
-							: 'bg-muted/80 text-muted-foreground hover:text-foreground hover:bg-muted'}"
+							? 'bg-emerald-600 dark:bg-emerald-500 text-white font-semibold shadow-xs shadow-emerald-600/30 ring-1 ring-emerald-500'
+							: 'bg-slate-100 hover:bg-slate-200/90 text-slate-700 hover:text-slate-900 border border-slate-200/80 dark:bg-muted/80 dark:text-muted-foreground dark:hover:text-foreground dark:hover:bg-muted dark:border-transparent'}"
 					>
 						{cat}
 					</button>
@@ -132,7 +132,7 @@
 
 			<!-- Inline Search Input -->
 			<div class="relative w-full md:w-72 shrink-0">
-				<svg class="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<svg class="w-4 h-4 text-slate-400 dark:text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
 				</svg>
 
@@ -140,14 +140,15 @@
 					type="text"
 					bind:value={searchQuery}
 					placeholder="Filter 200+ cheat sheets..."
-					class="w-full pl-9 pr-8 py-2 text-xs bg-muted/40 border border-input rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-emerald-500 transition-colors"
+					class="w-full pl-9 pr-8 py-2 text-xs bg-slate-50 hover:bg-white focus:bg-white dark:bg-muted/40 dark:focus:bg-muted/60 border border-slate-300 dark:border-input rounded-xl text-slate-900 dark:text-foreground placeholder:text-slate-400 dark:placeholder:text-muted-foreground focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all shadow-2xs"
 				/>
 
 				{#if searchQuery}
 					<button
 						type="button"
 						onclick={clearSearch}
-						class="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground text-xs p-1"
+						class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:text-muted-foreground dark:hover:text-foreground text-xs p-1 rounded-full hover:bg-slate-100 dark:hover:bg-muted transition-colors"
+						title="Clear search"
 					>
 						×
 					</button>
@@ -156,11 +157,18 @@
 		</div>
 
 		<!-- Status bar -->
-		<div class="mt-3 pt-3 border-t border-border flex items-center justify-between text-xs text-muted-foreground">
+		<div class="mt-3 pt-3 border-t border-slate-200/90 dark:border-border flex items-center justify-between text-xs text-slate-500 dark:text-muted-foreground">
 			<div>
-				Showing <span class="text-foreground font-semibold">{filteredSheets.length}</span> of {sheets.length} cheat sheets
+				Showing <span class="text-slate-900 dark:text-foreground font-semibold">{filteredSheets.length}</span> of {sheets.length} cheat sheets
 			</div>
 			<div class="flex items-center gap-3">
+				<a
+					href="/search"
+					class="text-xs text-slate-600 dark:text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 flex items-center gap-1 font-medium transition-colors"
+				>
+					<span>Dedicated Search Page →</span>
+				</a>
+				<span class="hidden sm:inline text-slate-300 dark:text-muted-foreground/40">•</span>
 				<button
 					type="button"
 					onclick={() => window.dispatchEvent(new CustomEvent('open-contribute-modal'))}
@@ -168,8 +176,8 @@
 				>
 					<span>+ Submit new sheet</span>
 				</button>
-				<span class="hidden sm:inline text-muted-foreground/40">•</span>
-				<span class="hidden sm:flex items-center gap-1">Press <kbd class="px-1.5 py-0.5 rounded bg-muted text-foreground border border-border font-mono text-[10px]">⌘K</kbd> to search</span>
+				<span class="hidden sm:inline text-slate-300 dark:text-muted-foreground/40">•</span>
+				<span class="hidden sm:flex items-center gap-1">Press <kbd class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-muted text-slate-700 dark:text-foreground border border-slate-200 dark:border-border font-mono text-[10px]">⌘K</kbd> to search</span>
 			</div>
 		</div>
 	</div>
@@ -179,18 +187,32 @@
 		<!-- Filtered Mode Grid -->
 		<div>
 			{#if filteredSheets.length === 0}
-				<div class="text-center py-16 bg-muted/30 border border-dashed border-border rounded-2xl">
-					<p class="text-muted-foreground text-base">No cheat sheet matches your query.</p>
-					<button
-						type="button"
-						onclick={() => {
-							activeCategory = 'All';
-							searchQuery = '';
-						}}
-						class="mt-3 px-4 py-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 rounded-xl border border-emerald-500/30 transition-colors cursor-pointer"
-					>
-						Reset all filters
-					</button>
+				<div class="text-center py-16 bg-slate-50/80 dark:bg-muted/20 border border-dashed border-slate-300 dark:border-border rounded-2xl p-6">
+					<div class="w-12 h-12 rounded-2xl bg-slate-200/70 dark:bg-muted flex items-center justify-center mx-auto mb-3 text-slate-400">
+						<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+						</svg>
+					</div>
+					<p class="text-slate-700 dark:text-foreground font-medium text-base">No cheat sheet matches your query.</p>
+					<p class="text-xs text-slate-500 dark:text-muted-foreground mt-1">Try another keyword, or check our dedicated search page.</p>
+					<div class="flex items-center justify-center gap-3 mt-4">
+						<button
+							type="button"
+							onclick={() => {
+								activeCategory = 'All';
+								searchQuery = '';
+							}}
+							class="px-4 py-1.5 text-xs font-medium text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 rounded-xl border border-emerald-300 dark:border-emerald-500/30 transition-colors cursor-pointer"
+						>
+							Reset all filters
+						</button>
+						<a
+							href="/search"
+							class="px-4 py-1.5 text-xs font-medium text-slate-700 dark:text-foreground bg-white dark:bg-muted hover:bg-slate-100 rounded-xl border border-slate-200 dark:border-border transition-colors shadow-2xs"
+						>
+							Go to Search Page
+						</a>
+					</div>
 				</div>
 			{:else}
 				<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">

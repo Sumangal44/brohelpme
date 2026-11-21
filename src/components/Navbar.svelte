@@ -69,15 +69,15 @@
 			<button
 				type="button"
 				onclick={triggerSearch}
-				class="w-full flex items-center justify-between px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-muted/60 hover:bg-muted border border-border text-muted-foreground hover:text-foreground transition-all text-xs sm:text-sm group cursor-pointer shadow-xs"
+				class="w-full flex items-center justify-between px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-muted/60 dark:hover:bg-muted border border-slate-200 dark:border-border text-slate-500 dark:text-muted-foreground hover:text-slate-900 dark:hover:text-foreground transition-all text-xs sm:text-sm group cursor-pointer shadow-xs"
 			>
 				<div class="flex items-center gap-2 sm:gap-2.5 truncate">
-					<svg class="w-4 h-4 text-muted-foreground group-hover:text-emerald-500 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+					<svg class="w-4 h-4 text-slate-400 group-hover:text-emerald-500 dark:text-muted-foreground transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
 					</svg>
 					<span class="truncate">Search 200+ cheatsheets...</span>
 				</div>
-				<kbd class="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-background border border-border text-muted-foreground">
+				<kbd class="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-white dark:bg-background border border-slate-200/90 dark:border-border text-slate-600 dark:text-muted-foreground shadow-2xs">
 					<span>⌘</span>K
 				</kbd>
 			</button>
@@ -101,6 +101,9 @@
 
 			<!-- Quick navigation for desktop -->
 			<div class="hidden xl:flex items-center gap-1">
+				<Button variant="ghost" size="sm" href="/search" class="text-xs text-slate-700 dark:text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400">
+					Search
+				</Button>
 				<Button variant="ghost" size="sm" href="/git" class="text-xs">
 					Git
 				</Button>

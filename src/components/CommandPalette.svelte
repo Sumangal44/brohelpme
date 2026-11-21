@@ -281,7 +281,7 @@
 
 {#if isOpen}
 	<div
-		class="fixed inset-0 z-50 flex items-start justify-center pt-14 sm:pt-24 px-3 sm:px-4 bg-black/60 dark:bg-black/80 backdrop-blur-md"
+		class="fixed inset-0 z-50 flex items-start justify-center pt-14 sm:pt-24 px-3 sm:px-4 bg-slate-900/40 dark:bg-black/80 backdrop-blur-sm transition-all duration-150"
 		role="dialog"
 		aria-modal="true"
 		onclick={(e) => {
@@ -289,10 +289,10 @@
 		}}
 	>
 		<div
-			class="relative w-full max-w-2xl bg-white dark:bg-[#0d121f] border border-border rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh] animate-in fade-in zoom-in-95 duration-150"
+			class="relative w-full max-w-2xl bg-white dark:bg-[#0d121f] border border-slate-200 dark:border-border rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh] animate-in fade-in zoom-in-95 duration-150"
 		>
 			<!-- Search Input Bar -->
-			<div class="flex items-center px-4 py-3.5 border-b border-border gap-3 bg-muted/40">
+			<div class="flex items-center px-4 py-3.5 border-b border-slate-200 dark:border-border gap-3 bg-slate-50/80 dark:bg-muted/40">
 				<svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
 				</svg>
@@ -301,15 +301,15 @@
 					bind:this={inputElement}
 					bind:value={query}
 					type="text"
-					placeholder="Search cheat sheets, or type 'theme', 'dark', 'light', 'add'..."
-					class="w-full bg-transparent text-sm sm:text-base text-foreground placeholder:text-muted-foreground focus:outline-none"
+					placeholder="Search 200+ cheat sheets, or type 'theme', 'dark', 'light'..."
+					class="w-full bg-transparent text-sm sm:text-base text-slate-900 dark:text-foreground placeholder:text-slate-400 dark:placeholder:text-muted-foreground focus:outline-none"
 				/>
 
 				{#if query}
 					<button
 						type="button"
 						onclick={() => (query = '')}
-						class="text-xs px-2 py-0.5 rounded text-muted-foreground hover:text-foreground bg-muted cursor-pointer"
+						class="text-xs px-2 py-0.5 rounded text-slate-500 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 dark:bg-muted dark:text-muted-foreground dark:hover:text-foreground cursor-pointer transition-colors"
 					>
 						Clear
 					</button>
@@ -318,17 +318,17 @@
 				<button
 					type="button"
 					onclick={close}
-					class="text-xs px-2 py-1 rounded bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground border border-border cursor-pointer font-mono"
+					class="text-xs px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 border border-slate-200 dark:bg-muted dark:hover:bg-muted/80 dark:text-muted-foreground dark:hover:text-foreground dark:border-border cursor-pointer font-mono transition-colors"
 				>
 					ESC
 				</button>
 			</div>
 
 			<!-- Results List -->
-			<div class="overflow-y-auto p-2 divide-y divide-border/30">
+			<div class="overflow-y-auto p-2 divide-y divide-slate-100 dark:divide-border/30">
 				{#if results.length === 0}
-					<div class="py-12 text-center text-muted-foreground text-sm">
-						No cheatsheet or action matching "<span class="text-foreground font-medium">{query}</span>"
+					<div class="py-12 text-center text-slate-500 dark:text-muted-foreground text-sm">
+						No cheatsheet or action matching "<span class="text-slate-900 dark:text-foreground font-medium">{query}</span>"
 						<div class="mt-3">
 							<button
 								type="button"
@@ -347,8 +347,8 @@
 							onmouseenter={() => (selectedIndex = idx)}
 							class="w-full text-left p-2.5 sm:p-3 rounded-xl flex items-center justify-between gap-3 transition-colors duration-100 cursor-pointer {idx ===
 							selectedIndex
-								? 'bg-muted text-foreground font-medium shadow-xs'
-								: 'text-foreground/80 hover:bg-muted/50'}"
+								? 'bg-slate-100 dark:bg-muted text-slate-900 dark:text-foreground font-medium shadow-xs'
+								: 'text-slate-700 dark:text-foreground/80 hover:bg-slate-50 dark:hover:bg-muted/50'}"
 						>
 							<div class="flex items-center gap-3 min-w-0">
 								{#if item.icon}
@@ -379,21 +379,21 @@
 
 								<div class="flex-1 min-w-0">
 									<div class="flex items-center gap-2 mb-0.5">
-										<span class="font-medium text-sm text-foreground truncate">
+										<span class="font-medium text-sm text-slate-900 dark:text-foreground truncate">
 											{item.title}
 										</span>
-										<Badge variant="secondary" class="text-[10px] px-1.5 py-0">
+										<span class="text-[10px] font-mono uppercase px-2 py-0.2 rounded-full bg-slate-200/70 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-300/60 dark:border-slate-700 shrink-0">
 											{item.category}
-										</Badge>
+										</span>
 									</div>
 
-									<p class="text-xs text-muted-foreground truncate">
+									<p class="text-xs text-slate-500 dark:text-muted-foreground truncate">
 										{item.subtitle}
 									</p>
 								</div>
 							</div>
 
-							<svg class="w-4 h-4 text-muted-foreground shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<svg class="w-4 h-4 text-slate-400 dark:text-muted-foreground shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
 							</svg>
 						</button>
@@ -402,18 +402,18 @@
 			</div>
 
 			<!-- Footer helper with Theme Indicator -->
-			<div class="px-4 py-2.5 bg-muted/40 border-t border-border flex items-center justify-between text-[11px] text-muted-foreground">
+			<div class="px-4 py-2.5 bg-slate-50/80 dark:bg-muted/40 border-t border-slate-200 dark:border-border flex items-center justify-between text-[11px] text-slate-500 dark:text-muted-foreground">
 				<div class="flex items-center gap-3">
-					<span><kbd class="px-1.5 py-0.5 rounded bg-card text-foreground border border-border">↑↓</kbd> navigate</span>
-					<span><kbd class="px-1.5 py-0.5 rounded bg-card text-foreground border border-border">↵</kbd> select</span>
-					<span><kbd class="px-1.5 py-0.5 rounded bg-card text-foreground border border-border">esc</kbd> close</span>
+					<span><kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-card text-slate-700 dark:text-foreground border border-slate-200 dark:border-border shadow-xs">↑↓</kbd> navigate</span>
+					<span><kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-card text-slate-700 dark:text-foreground border border-slate-200 dark:border-border shadow-xs">↵</kbd> select</span>
+					<span><kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-card text-slate-700 dark:text-foreground border border-slate-200 dark:border-border shadow-xs">esc</kbd> close</span>
 				</div>
 
 				<div class="flex items-center gap-2">
 					<button
 						type="button"
 						onclick={toggleTheme}
-						class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-card hover:bg-muted text-foreground border border-border cursor-pointer transition-colors"
+						class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 dark:bg-card dark:hover:bg-muted dark:text-foreground dark:border-border shadow-xs cursor-pointer transition-colors"
 					>
 						<span>Theme:</span>
 						<span class="font-medium text-emerald-600 dark:text-emerald-400">{isDark ? 'Dark 🌙' : 'Light ☀️'}</span>
