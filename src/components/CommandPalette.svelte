@@ -1,5 +1,11 @@
 <script lang="ts">
-	import { CHEATSHEETS } from '../data/cheatsheets';
+	import type { CheatsheetMeta } from '../lib/cheatsheets';
+
+	interface Props {
+		sheets: CheatsheetMeta[];
+	}
+
+	let { sheets = [] }: Props = $props();
 
 	let isOpen = $state(false);
 	let query = $state('');
@@ -12,70 +18,39 @@
 		subtitle: string;
 		category: string;
 		url: string;
-		badgeClass: string;
-		codeSnippet?: string;
+		icon: string;
 	}
 
 	let results = $derived.by<SearchResult[]>(() => {
 		const q = query.trim().toLowerCase();
 		if (!q) {
-			// Show top recommended cheatsheets
-			return CHEATSHEETS.slice(0, 10).map((sheet) => ({
+			// Show top 12 recommended cheatsheets
+			return sheets.slice(0, 12).map((sheet) => ({
 				id: sheet.slug,
 				title: sheet.title,
 				subtitle: sheet.intro,
 				category: sheet.category,
 				url: `/${sheet.slug}`,
-				badgeClass: sheet.badgeClass
+				icon: sheet.icon
 			}));
 		}
 
 		const list: SearchResult[] = [];
 
-		for (const sheet of CHEATSHEETS) {
-			const sheetTitleMatch = sheet.title.toLowerCase().includes(q) || sheet.shortTitle.toLowerCase().includes(q);
+		for (const sheet of sheets) {
+			const sheetTitleMatch = sheet.title.toLowerCase().includes(q) || sheet.slug.toLowerCase().includes(q);
 			const tagMatch = sheet.tags.some((t) => t.toLowerCase().includes(q));
+			const introMatch = sheet.intro.toLowerCase().includes(q);
 
-			if (sheetTitleMatch || tagMatch) {
+			if (sheetTitleMatch || tagMatch || introMatch) {
 				list.push({
 					id: sheet.slug,
 					title: sheet.title,
 					subtitle: sheet.intro,
 					category: sheet.category,
 					url: `/${sheet.slug}`,
-					badgeClass: sheet.badgeClass
+					icon: sheet.icon
 				});
-			}
-
-			// Also search inside sections & items
-			for (const sec of sheet.sections) {
-				const secTitleMatch = sec.title.toLowerCase().includes(q);
-				if (secTitleMatch) {
-					list.push({
-						id: `${sheet.slug}-${sec.id}`,
-						title: `${sheet.shortTitle} › ${sec.title}`,
-						subtitle: `Section in ${sheet.title}`,
-						category: sheet.category,
-						url: `/${sheet.slug}#${sec.id}`,
-						badgeClass: sheet.badgeClass
-					});
-				}
-
-				if (sec.items) {
-					for (const item of sec.items) {
-						if ((item.code && item.code.toLowerCase().includes(q)) || item.explanation.toLowerCase().includes(q)) {
-							list.push({
-								id: `${sheet.slug}-${sec.id}-${item.code?.slice(0, 15)}`,
-								title: `${sheet.shortTitle} › ${item.explanation}`,
-								subtitle: item.code ?? '',
-								category: sheet.category,
-								url: `/${sheet.slug}#${sec.id}`,
-								badgeClass: sheet.badgeClass,
-								codeSnippet: item.code
-							});
-						}
-					}
-				}
 			}
 		}
 
@@ -145,7 +120,6 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
-<!-- Custom global event listener -->
 <svelte:document
 	onopen-command-palette={() => {
 		open();
@@ -154,7 +128,7 @@
 
 {#if isOpen}
 	<div
-		class="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/75 backdrop-blur-md"
+		class="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/80 backdrop-blur-md"
 		role="dialog"
 		aria-modal="true"
 		onclick={(e) => {
@@ -162,11 +136,11 @@
 		}}
 	>
 		<div
-			class="relative w-full max-w-2xl bg-zinc-900 border border-zinc-700/80 rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh] animate-in fade-in zoom-in-95 duration-150"
+			class="relative w-full max-w-2xl bg-[#0e131f] border border-zinc-700/80 rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh] animate-in fade-in zoom-in-95 duration-150"
 		>
 			<!-- Search Input Bar -->
 			<div class="flex items-center px-4 py-3.5 border-b border-zinc-800 gap-3">
-				<svg class="w-5 h-5 text-zinc-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+				<svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
 				</svg>
 
@@ -174,7 +148,7 @@
 					bind:this={inputElement}
 					bind:value={query}
 					type="text"
-					placeholder="Search 20+ cheatsheets, topics, syntax, or commands..."
+					placeholder="Search 200+ cheat sheets (e.g. git, docker, python)..."
 					class="w-full bg-transparent text-sm sm:text-base text-zinc-100 placeholder-zinc-500 focus:outline-none"
 				/>
 
@@ -201,7 +175,7 @@
 			<div class="overflow-y-auto p-2 divide-y divide-zinc-800/40">
 				{#if results.length === 0}
 					<div class="py-12 text-center text-zinc-500 text-sm">
-						No cheatsheets or commands matching "<span class="text-zinc-300 font-medium">{query}</span>"
+						No cheatsheet matching "<span class="text-zinc-300 font-medium">{query}</span>"
 					</div>
 				{:else}
 					{#each results as item, idx}
@@ -214,25 +188,25 @@
 								? 'bg-zinc-800 text-white'
 								: 'text-zinc-300 hover:bg-zinc-800/50'}"
 						>
-							<div class="flex-1 min-w-0">
-								<div class="flex items-center gap-2 mb-0.5">
-									<span class="text-xs font-semibold px-2 py-0.5 rounded border {item.badgeClass}">
-										{item.category}
-									</span>
-									<span class="font-medium text-sm text-zinc-100 truncate">
-										{item.title}
-									</span>
+							<div class="flex items-center gap-3 min-w-0">
+								<div class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-700/60 p-1.5 flex items-center justify-center shrink-0">
+									<img src={item.icon} alt={item.title} class="w-5 h-5 object-contain" />
 								</div>
 
-								{#if item.codeSnippet}
-									<p class="font-mono text-xs text-sky-400 truncate bg-black/40 px-2 py-1 rounded mt-1 border border-zinc-800">
-										{item.codeSnippet}
-									</p>
-								{:else}
+								<div class="flex-1 min-w-0">
+									<div class="flex items-center gap-2 mb-0.5">
+										<span class="font-medium text-sm text-zinc-100 truncate">
+											{item.title}
+										</span>
+										<span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700">
+											{item.category}
+										</span>
+									</div>
+
 									<p class="text-xs text-zinc-400 truncate">
 										{item.subtitle}
 									</p>
-								{/if}
+								</div>
 							</div>
 
 							<svg class="w-4 h-4 text-zinc-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -244,7 +218,7 @@
 			</div>
 
 			<!-- Footer helper -->
-			<div class="px-4 py-2 bg-zinc-950/80 border-t border-zinc-800/80 flex items-center justify-between text-[11px] text-zinc-500">
+			<div class="px-4 py-2 bg-zinc-950/80 border-t border-zinc-800 flex items-center justify-between text-[11px] text-zinc-500">
 				<div class="flex items-center gap-3">
 					<span><kbd class="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300">↑↓</kbd> navigate</span>
 					<span><kbd class="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300">↵</kbd> select</span>
