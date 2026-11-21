@@ -27,7 +27,8 @@ const allSheets = getAllCheatsheets();
 		<link rel="icon" type="image/svg+xml" href="/logo.svg" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<meta name="theme-color" content="#10b981" />
+		<meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#070a12" media="(prefers-color-scheme: dark)" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
@@ -43,7 +44,17 @@ const allSheets = getAllCheatsheets();
 						document.documentElement.classList.remove('dark');
 						localStorage.setItem('theme', 'light');
 					}
+					// Keep the browser chrome colour in sync with the *toggled* theme.
+					syncThemeColor(isDark);
 					window.dispatchEvent(new CustomEvent('theme-changed', { detail: { isDark } }));
+				}
+
+				function syncThemeColor(isDark) {
+					var metas = document.querySelectorAll('meta[name="theme-color"]');
+					for (var i = 0; i < metas.length; i++) {
+						metas[i].setAttribute('content', isDark ? '#070a12' : '#f8fafc');
+						metas[i].removeAttribute('media');
+					}
 				}
 
 				window.__setTheme = function(theme) {
@@ -56,15 +67,16 @@ const allSheets = getAllCheatsheets();
 				};
 
 				const storedTheme = localStorage.getItem('theme');
+				let isDark;
 				if (storedTheme === 'light') {
-					document.documentElement.classList.remove('dark');
+					isDark = false;
 				} else if (storedTheme === 'dark') {
-					document.documentElement.classList.add('dark');
-				} else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-					document.documentElement.classList.remove('dark');
+					isDark = true;
 				} else {
-					document.documentElement.classList.add('dark');
+					isDark = !window.matchMedia('(prefers-color-scheme: light)').matches;
 				}
+				document.documentElement.classList.toggle('dark', isDark);
+				syncThemeColor(isDark);
 			})();
 		</script>
 	</head>

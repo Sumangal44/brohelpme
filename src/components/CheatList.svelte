@@ -112,7 +112,7 @@
 	</div>
 
 	<!-- Controls: Categories & Search Filter (Full Responsive & Theme-Aware) -->
-	<div class="bg-white/95 dark:bg-card/90 border border-slate-200/90 dark:border-border rounded-2xl p-3.5 sm:p-5 backdrop-blur-md shadow-md shadow-slate-200/40 dark:shadow-lg sticky top-20 z-30 transition-colors">
+	<div class="bg-card/95 border border-border rounded-2xl p-3.5 sm:p-5 backdrop-blur-md shadow-md shadow-slate-200/40 dark:shadow-lg/50 sticky top-16 z-30 transition-colors">
 		<div class="flex flex-col md:flex-row md:items-center justify-between gap-3.5">
 			<!-- Category Tabs -->
 			<div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none max-w-full">

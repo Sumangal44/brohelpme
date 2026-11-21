@@ -4,21 +4,42 @@
 	import { Badge } from '$lib/components/ui/badge';
 
 	let isDark = $state(true);
+	let menuOpen = $state(false);
+
+	const links = [
+		{ href: '/search', label: 'Search' },
+		{ href: '/git', label: 'Git' },
+		{ href: '/python', label: 'Python' },
+		{ href: '/docker', label: 'Docker' },
+		{ href: '/bash', label: 'Bash' }
+	];
 
 	onMount(() => {
 		isDark = document.documentElement.classList.contains('dark');
 
-		const onThemeChange = (e: any) => {
-			if (typeof e.detail?.isDark === 'boolean') {
-				isDark = e.detail.isDark;
+		const onThemeChange = (e: Event) => {
+			const detail = (e as CustomEvent).detail;
+			if (typeof detail?.isDark === 'boolean') {
+				isDark = detail.isDark;
 			} else {
 				isDark = document.documentElement.classList.contains('dark');
 			}
 		};
 
+		const onKeydown = (e: KeyboardEvent) => {
+			if (e.key === 'Escape') menuOpen = false;
+		};
+
+		// Close the mobile panel whenever the palette/modal opens over it.
+		const onOpenPalette = () => (menuOpen = false);
+
 		window.addEventListener('theme-changed', onThemeChange);
+		window.addEventListener('keydown', onKeydown);
+		document.addEventListener('open-command-palette', onOpenPalette);
 		return () => {
 			window.removeEventListener('theme-changed', onThemeChange);
+			window.removeEventListener('keydown', onKeydown);
+			document.removeEventListener('open-command-palette', onOpenPalette);
 		};
 	});
 
@@ -27,134 +48,213 @@
 			(window as any).__toggleTheme();
 		} else {
 			isDark = !isDark;
-			if (isDark) {
-				document.documentElement.classList.add('dark');
-				localStorage.setItem('theme', 'dark');
-			} else {
-				document.documentElement.classList.remove('dark');
-				localStorage.setItem('theme', 'light');
-			}
+			document.documentElement.classList.toggle('dark', isDark);
+			localStorage.setItem('theme', isDark ? 'dark' : 'light');
 			window.dispatchEvent(new CustomEvent('theme-changed', { detail: { isDark } }));
 		}
 	}
 
 	function triggerSearch() {
+		menuOpen = false;
 		document.dispatchEvent(new CustomEvent('open-command-palette'));
 	}
 
 	function triggerContribute() {
+		menuOpen = false;
 		window.dispatchEvent(new CustomEvent('open-contribute-modal'));
 	}
 </script>
 
-<header class="sticky top-0 z-40 w-full border-b border-border/80 bg-background/85 backdrop-blur-md transition-colors duration-200">
-	<div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
-		<!-- Brand Logo -->
-		<a href="/" class="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-			<div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center p-1.5 shadow-sm group-hover:scale-105 transition-transform duration-200">
-				<img src="/logo.svg" alt="cheatsheets.zip logo" class="w-full h-full object-contain" />
-			</div>
-			<div class="flex items-center gap-1.5">
-				<span class="font-bold text-base sm:text-lg tracking-tight text-foreground group-hover:text-emerald-500 transition-colors">
+{#snippet searchButton(className = '')}
+	<button
+		type="button"
+		onclick={triggerSearch}
+		class="group flex min-w-0 items-center gap-2.5 rounded-xl border border-border bg-muted/50 px-3 py-2 text-sm text-muted-foreground shadow-xs transition-all hover:bg-muted hover:text-foreground {className}"
+	>
+		<svg
+			class="size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-emerald-500"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke="currentColor"
+			stroke-width="2"
+			aria-hidden="true"
+		>
+			<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+		</svg>
+		<span class="truncate">Search 200+ cheatsheets...</span>
+		<kbd
+			class="ml-auto hidden shrink-0 items-center gap-0.5 rounded-md border border-border bg-background px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted-foreground sm:inline-flex"
+		>
+			<span>⌘</span>K
+		</kbd>
+	</button>
+{/snippet}
+
+{#snippet themeToggle()}
+	<Button
+		variant="outline"
+		size="icon"
+		onclick={toggleTheme}
+		aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+		title={isDark ? 'Light mode' : 'Dark mode'}
+		class="size-9 rounded-xl cursor-pointer"
+	>
+		{#if isDark}
+			<svg class="size-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+				/>
+			</svg>
+		{:else}
+			<svg class="size-4 text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+				/>
+			</svg>
+		{/if}
+	</Button>
+{/snippet}
+
+{#snippet githubButton(className = '')}
+	<Button
+		variant="outline"
+		size="sm"
+		href="https://github.com/Fechin/reference"
+		target="_blank"
+		rel="noopener noreferrer"
+		class="size-9 rounded-xl p-0 cursor-pointer {className}"
+		aria-label="Star on GitHub"
+		title="Star on GitHub"
+	>
+		<svg class="size-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+			<path
+				fill-rule="evenodd"
+				clip-rule="evenodd"
+				d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+			/>
+		</svg>
+	</Button>
+{/snippet}
+
+{#snippet contributeButton(className = '')}
+	<Button
+		variant="outline"
+		size="sm"
+		onclick={triggerContribute}
+		class="rounded-xl border-emerald-500/30 text-emerald-600 hover:bg-emerald-500/10 hover:text-emerald-600 dark:text-emerald-400 dark:hover:bg-emerald-500/10 dark:hover:text-emerald-400 text-xs font-medium gap-1.5 cursor-pointer {className}"
+	>
+		<svg class="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+			<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+		</svg>
+		<span class="hidden sm:inline">Contribute</span>
+		<span class="sm:hidden">Add</span>
+	</Button>
+{/snippet}
+
+<header
+	class="sticky top-0 z-50 w-full border-b border-border/70 bg-background/85 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70 transition-colors duration-200"
+>
+	<div class="mx-auto flex h-16 max-w-7xl items-center gap-2 px-4 sm:gap-3 sm:px-6 lg:px-8">
+		<!-- Brand -->
+		<a href="/" class="group flex shrink-0 items-center gap-2.5">
+			<span
+				class="flex size-9 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-1.5 shadow-xs transition-transform duration-200 group-hover:scale-105"
+			>
+				<img src="/logo.svg" alt="" class="size-full object-contain" />
+			</span>
+			<span class="flex items-center gap-1.5">
+				<span class="text-base font-bold tracking-tight text-foreground transition-colors group-hover:text-emerald-600 sm:text-lg dark:group-hover:text-emerald-400">
 					cheatsheets<span class="text-emerald-500">.zip</span>
 				</span>
-				<Badge variant="outline" class="hidden sm:inline-flex text-[10px] uppercase font-mono px-1.5 py-0">
+				<Badge
+					variant="outline"
+					class="hidden rounded-md px-1.5 py-0 font-mono text-[10px] uppercase tracking-wide sm:inline-flex"
+				>
 					v2.0
 				</Badge>
-			</div>
+			</span>
 		</a>
 
-		<!-- Search Trigger Input / Button (Fully responsive) -->
-		<div class="flex-1 max-w-xs sm:max-w-sm md:max-w-md mx-1 sm:mx-4">
-			<button
-				type="button"
-				onclick={triggerSearch}
-				class="w-full flex items-center justify-between px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-muted/60 dark:hover:bg-muted border border-slate-200 dark:border-border text-slate-500 dark:text-muted-foreground hover:text-slate-900 dark:hover:text-foreground transition-all text-xs sm:text-sm group cursor-pointer shadow-xs"
-			>
-				<div class="flex items-center gap-2 sm:gap-2.5 truncate">
-					<svg class="w-4 h-4 text-slate-400 group-hover:text-emerald-500 dark:text-muted-foreground transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-					</svg>
-					<span class="truncate">Search 200+ cheatsheets...</span>
-				</div>
-				<kbd class="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-white dark:bg-background border border-slate-200/90 dark:border-border text-slate-600 dark:text-muted-foreground shadow-2xs">
-					<span>⌘</span>K
-				</kbd>
-			</button>
+		<!-- Search: pill on md+, icon on mobile -->
+		{@render searchButton('mx-1 hidden min-w-0 flex-1 md:flex md:max-w-sm lg:max-w-md xl:max-w-lg')}
+		<button
+			type="button"
+			onclick={triggerSearch}
+			aria-label="Search cheatsheets"
+			class="ml-auto flex size-9 shrink-0 items-center justify-center rounded-xl border border-border bg-muted/50 text-muted-foreground transition-all hover:bg-muted hover:text-foreground md:hidden"
+		>
+			<svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+			</svg>
+		</button>
+
+		<!-- Desktop quick links -->
+		<nav class="hidden items-center gap-0.5 lg:flex" aria-label="Quick links">
+			{#each links as link}
+				<a
+					href={link.href}
+					class="rounded-lg px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+				>
+					{link.label}
+				</a>
+			{/each}
+		</nav>
+
+		<!-- Actions -->
+		<div class="hidden items-center gap-2 md:flex">
+			<div class="h-5 w-px bg-border"></div>
+			{@render themeToggle()}
+			{@render githubButton()}
+			{@render contributeButton()}
 		</div>
 
-		<!-- Action Buttons: Contribute + Fast Links + Theme Toggle + GitHub -->
-		<div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-			<!-- Contribute Button -->
-			<Button
-				variant="outline"
-				size="sm"
-				onclick={triggerContribute}
-				class="rounded-xl border-emerald-500/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10 text-xs gap-1 cursor-pointer font-medium"
-			>
-				<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+		<!-- Mobile / tablet menu trigger -->
+		<button
+			type="button"
+			onclick={() => (menuOpen = !menuOpen)}
+			aria-label="Toggle menu"
+			aria-expanded={menuOpen}
+			class="flex size-9 shrink-0 items-center justify-center rounded-xl border border-border bg-muted/50 text-foreground transition-all hover:bg-muted lg:hidden"
+		>
+			{#if menuOpen}
+				<svg class="size-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
 				</svg>
-				<span class="hidden sm:inline">Contribute</span>
-				<span class="sm:hidden">Add</span>
-			</Button>
-
-			<!-- Quick navigation for desktop -->
-			<div class="hidden xl:flex items-center gap-1">
-				<Button variant="ghost" size="sm" href="/search" class="text-xs text-slate-700 dark:text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400">
-					Search
-				</Button>
-				<Button variant="ghost" size="sm" href="/git" class="text-xs">
-					Git
-				</Button>
-				<Button variant="ghost" size="sm" href="/python" class="text-xs">
-					Python
-				</Button>
-				<Button variant="ghost" size="sm" href="/docker" class="text-xs">
-					Docker
-				</Button>
-				<Button variant="ghost" size="sm" href="/bash" class="text-xs">
-					Bash
-				</Button>
-			</div>
-
-			<div class="h-4 w-px bg-border hidden xl:block"></div>
-
-			<!-- Theme Toggle Button (shadcn button) -->
-			<Button
-				variant="outline"
-				size="icon-sm"
-				onclick={toggleTheme}
-				aria-label="Toggle Theme"
-				class="rounded-xl border-border hover:bg-muted text-foreground cursor-pointer"
-			>
-				{#if isDark}
-					<!-- Sun icon when dark -->
-					<svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-					</svg>
-				{:else}
-					<!-- Moon icon when light -->
-					<svg class="w-4 h-4 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-					</svg>
-				{/if}
-			</Button>
-
-			<!-- GitHub Star Button (shadcn button) -->
-			<Button
-				variant="outline"
-				size="sm"
-				href="https://github.com/Fechin/reference"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="rounded-xl border-border hover:bg-muted text-xs gap-1.5"
-			>
-				<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-					<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+			{:else}
+				<svg class="size-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
 				</svg>
-				<span class="hidden md:inline">Star</span>
-			</Button>
-		</div>
+			{/if}
+		</button>
 	</div>
+
+	<!-- Collapsible panel: search, links and actions below xl -->
+	{#if menuOpen}
+		<div class="border-t border-border/70 bg-background/95 backdrop-blur-xl lg:hidden">
+			<div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 sm:px-6">
+				{@render searchButton('w-full')}
+
+				<nav class="grid grid-cols-2 gap-1 sm:grid-cols-3" aria-label="Quick links">
+					{#each links as link}
+						<a
+							href={link.href}
+							class="rounded-xl border border-border bg-card px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+						>
+							{link.label}
+						</a>
+					{/each}
+				</nav>
+
+				<div class="flex items-center gap-2">
+					{@render contributeButton('flex-1 justify-center h-9')}
+					{@render themeToggle()}
+					{@render githubButton()}
+				</div>
+			</div>
+		</div>
+	{/if}
 </header>

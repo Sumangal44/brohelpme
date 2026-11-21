@@ -353,7 +353,7 @@
 								</span>
 							{/each}
 							{#if sheet.tags.length > 3}
-								<span class="text-[10px] font-mono text-slate-400">+{sheet.tags.length - 3}</span>
+								<span class="text-[10px] font-mono text-muted-foreground">+{sheet.tags.length - 3}</span>
 							{/if}
 						</div>
 					{/if}
