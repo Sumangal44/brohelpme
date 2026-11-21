@@ -1,0 +1,57 @@
+---
+import { publishedSpecialities } from '../../data/specialities';
+import { getIcon } from '../../lib/icons';
+import SectionHeading from '../ui/SectionHeading.astro';
+import EmptyState from '../ui/EmptyState.astro';
+
+const Arrow = getIcon('arrow-right');
+---
+
+<section class="section-pad bg-white">
+	<div class="editorial-container">
+		<div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+			<SectionHeading
+				eyebrow="Specialities"
+				title="Care Across Key Specialities."
+				titleBn="প্রয়োজনীয় বিশেষায়িত সেবা"
+				description="Verified consulting departments — listed only once confirmed by the chamber."
+			/>
+			{publishedSpecialities.length > 0 && (
+				<a href="/specialities" class="btn btn-ghost shrink-0 text-sm" data-reveal>
+					View specialities
+					<Arrow size={15} class="arrow" strokeWidth={2.2} />
+				</a>
+			)}
+		</div>
+
+		{publishedSpecialities.length > 0 ? (
+			<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+				{publishedSpecialities.map((s) => {
+					const Icon = getIcon(s.icon);
+					return (
+						<a href="/specialities" class="soft-card group flex flex-col gap-4 p-7" data-reveal-child>
+							<span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-medical/12 to-teal/12 text-medical transition-colors duration-300 group-hover:from-medical group-hover:to-teal group-hover:text-white">
+								<Icon size={24} strokeWidth={2} />
+							</span>
+							<span>
+								<strong class="block text-lg font-extrabold text-navy">{s.name}</strong>
+								{s.nameBn && <span class="font-bengali block text-sm text-medical">{s.nameBn}</span>}
+							</span>
+							<span class="text-sm leading-relaxed text-ink-soft">{s.description}</span>
+						</a>
+					);
+				})}
+			</div>
+		) : (
+			<div class="mt-12">
+				<EmptyState
+					icon="sparkles"
+					title="Verified specialities coming soon"
+					description="We publish only departments confirmed by the chamber. Call us to find out which consulting specialities are available today."
+					actionLabel="Contact the chamber"
+					href="/contact"
+				/>
+			</div>
+		)}
+	</div>
+</section>

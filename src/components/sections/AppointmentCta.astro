@@ -1,0 +1,83 @@
+---
+import { site } from '../../data/site';
+import { publishedDoctors } from '../../data/doctors';
+import { getIcon } from '../../lib/icons';
+import AppointmentForm from '../forms/AppointmentForm.svelte';
+
+const Phone = getIcon('phone');
+const Message = getIcon('message-circle');
+const Clock = getIcon('clock');
+const Shield = getIcon('shield-check');
+
+const doctorOptions = publishedDoctors.map((d) => ({ name: d.name, speciality: d.speciality }));
+---
+
+<section class="section-pad relative overflow-hidden bg-gradient-to-b from-white to-offwhite" id="appointment">
+	<div class="pointer-events-none absolute -right-40 top-10 h-96 w-96 rounded-full bg-teal/10 blur-[130px]" aria-hidden="true"></div>
+
+	<div class="editorial-container relative">
+		<div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+			<!-- Copy + alternatives -->
+			<div class="lg:col-span-5">
+				<p class="eyebrow" data-reveal>Appointment</p>
+				<h2 class="mt-5 text-3xl font-extrabold leading-[1.08] sm:text-4xl lg:text-[2.9rem]" data-reveal>
+					Your Next Step Towards Better Healthcare.
+				</h2>
+				<p class="font-bengali mt-3 text-lg text-medical" data-reveal>সুস্বাস্থ্যের দিকে পরবর্তী পদক্ষেপ।</p>
+				<p class="mt-5 max-w-md text-base leading-relaxed text-ink-soft" data-reveal>
+					Send us a request with your preferred doctor, date and time. Our team will call you to
+					confirm the appointment.
+				</p>
+
+				<div class="mt-8 flex flex-col gap-3" data-reveal-group>
+					<a
+						href={site.phone.whatsapp}
+						target="_blank"
+						rel="noopener"
+						class="soft-card flex items-center gap-4 p-5"
+						data-reveal-child
+					>
+						<span class="flex h-11 w-11 items-center justify-center rounded-xl bg-teal/15 text-teal">
+							<Message size={20} />
+						</span>
+						<span>
+							<strong class="block text-sm font-bold text-navy">Chat on WhatsApp</strong>
+							<span class="text-xs text-ink-soft">Quick replies during working hours</span>
+						</span>
+					</a>
+					<a href={site.phone.tel} class="soft-card flex items-center gap-4 p-5" data-reveal-child>
+						<span class="flex h-11 w-11 items-center justify-center rounded-xl bg-medical/10 text-medical">
+							<Phone size={20} />
+						</span>
+						<span>
+							<strong class="block text-sm font-bold text-navy">Call {site.phone.display}</strong>
+							<span class="text-xs text-ink-soft">Speak to the reception directly</span>
+						</span>
+					</a>
+					<div class="soft-card flex items-center gap-4 p-5" data-reveal-child>
+						<span class="flex h-11 w-11 items-center justify-center rounded-xl bg-navy/8 text-navy">
+							<Clock size={20} />
+						</span>
+						<span>
+							<strong class="block text-sm font-bold text-navy">{site.hours[0].days}: {site.hours[0].time}</strong>
+							<span class="text-xs text-ink-soft">{site.hoursNote}</span>
+						</span>
+					</div>
+				</div>
+
+				<p class="mt-6 flex items-start gap-2.5 text-xs leading-relaxed text-ink-soft" data-reveal>
+					<Shield size={15} class="mt-0.5 shrink-0 text-teal" />
+					Your details are used only to arrange your visit — see our
+					<a href="/privacy-policy" class="font-semibold text-medical underline-offset-2 hover:underline">privacy policy</a>.
+				</p>
+			</div>
+
+			<!-- Form -->
+			<div class="lg:col-span-7" data-reveal>
+				<div class="soft-card p-6 sm:p-9">
+					<AppointmentForm doctors={doctorOptions} client:load />
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

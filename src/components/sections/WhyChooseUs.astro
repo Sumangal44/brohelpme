@@ -1,0 +1,71 @@
+---
+import { site } from '../../data/site';
+import { getIcon } from '../../lib/icons';
+
+const reasons = [
+	{
+		icon: 'map-pin',
+		title: 'Convenient location',
+		text: `Capsule Healthcare Street, near CPI Jela Office — easy to find in Rabindra Nagar, Midnapore.`
+	},
+	{
+		icon: 'clipboard-list',
+		title: 'Clear doctor information',
+		text: 'Profiles, qualifications and consultation schedules so you know exactly who you are visiting.'
+	},
+	{
+		icon: 'calendar-check',
+		title: 'Appointment assistance',
+		text: 'Request an appointment online, on WhatsApp or by phone — we help you find the right slot.'
+	},
+	{
+		icon: 'concierge-bell',
+		title: 'Patient-friendly reception',
+		text: 'A reception team that guides you through registration, queues and your next steps.'
+	},
+	{
+		icon: 'phone-call',
+		title: 'Always reachable',
+		text: `Call, WhatsApp or get directions in one tap — help is ${site.phone.display} away.`
+	}
+];
+---
+
+<section class="relative overflow-hidden bg-navy section-pad">
+	<div class="pointer-events-none absolute -left-32 top-1/3 h-96 w-96 rounded-full bg-medical/25 blur-[130px]" data-parallax="36" aria-hidden="true"></div>
+	<div class="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-teal/15 blur-[120px]" data-parallax="26" aria-hidden="true"></div>
+
+	<div class="editorial-container relative">
+		<div class="max-w-3xl" data-reveal>
+			<p class="eyebrow text-teal-light">Why choose us</p>
+			<h2 class="mt-5 text-3xl font-extrabold leading-[1.08] text-white sm:text-4xl lg:text-[2.9rem]">
+				Everything around the consult, taken care of.
+			</h2>
+			<p class="mt-5 text-base leading-relaxed text-white/70 sm:text-lg">
+				What matters when you visit a doctor — finding the chamber, knowing the doctor, booking a
+				slot, being guided at the desk, and reaching us afterwards.
+			</p>
+		</div>
+
+		<div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+			{reasons.map((r, i) => {
+				const Icon = getIcon(r.icon);
+				return (
+					<div
+						class="group relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-7 backdrop-blur transition-all duration-500 hover:-translate-y-1.5 hover:border-teal/50 hover:bg-white/[0.07] {i === 4 ? 'lg:col-span-1' : ''}"
+						data-reveal-child
+					>
+						<span class="pointer-events-none absolute -right-3 -top-4 font-display text-7xl font-extrabold text-white/[0.05] transition-colors duration-500 group-hover:text-teal/10">
+							0{i + 1}
+						</span>
+						<span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal/15 text-teal-light transition-colors duration-300 group-hover:bg-teal group-hover:text-navy">
+							<Icon size={22} strokeWidth={2} />
+						</span>
+						<h3 class="mt-5 text-lg font-extrabold text-white">{r.title}</h3>
+						<p class="mt-2.5 text-sm leading-relaxed text-white/65">{r.text}</p>
+					</div>
+				);
+			})}
+		</div>
+	</div>
+</section>
