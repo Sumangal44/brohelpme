@@ -227,6 +227,28 @@ $ my-tool run --verbose
 							<div class="p-3.5 rounded-xl bg-muted/40 border border-border flex items-start gap-3">
 								<span class="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center shrink-0">3</span>
 								<div>
+									<h4 class="font-medium text-foreground text-xs mb-0.5">Add an Icon</h4>
+									<p class="text-[11px] text-muted-foreground leading-normal">
+										Optionally drop an SVG at
+										<a
+											href="https://github.com/Sumangal44/brohelpme/tree/main/public/icons"
+											target="_blank"
+											rel="noopener noreferrer"
+											class="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 hover:underline"
+										>
+											<code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">public/icons/&lt;slug&gt;.svg</code>
+											<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+												<path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+											</svg>
+										</a>
+										— the site logo is used as fallback.
+									</p>
+								</div>
+							</div>
+
+							<div class="p-3.5 rounded-xl bg-muted/40 border border-border flex items-start gap-3">
+								<span class="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center shrink-0">4</span>
+								<div>
 									<h4 class="font-medium text-foreground text-xs mb-0.5">Structure Cards</h4>
 									<p class="text-[11px] text-muted-foreground leading-normal">
 										Use <code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">##</code> for sections, <code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">###</code> for cards, tables, and code fences.
@@ -234,8 +256,8 @@ $ my-tool run --verbose
 								</div>
 							</div>
 
-							<div class="p-3.5 rounded-xl bg-muted/40 border border-border flex items-start gap-3">
-								<span class="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center shrink-0">4</span>
+							<div class="p-3.5 rounded-xl bg-muted/40 border border-border flex items-start gap-3 sm:col-span-2">
+								<span class="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center shrink-0">5</span>
 								<div>
 									<h4 class="font-medium text-foreground text-xs mb-0.5">Build & Submit PR</h4>
 									<p class="text-[11px] text-muted-foreground leading-normal">
