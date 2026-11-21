@@ -161,14 +161,14 @@
 			</span>
 			<span class="flex items-center gap-1.5">
 				<span class="text-base font-bold tracking-tight text-foreground transition-colors group-hover:text-emerald-600 sm:text-lg dark:group-hover:text-emerald-400">
-					cheatsheets<span class="text-emerald-500">.zip</span>
+					BroHelp<span class="text-emerald-500">Me</span>
 				</span>
-				<Badge
+				<!-- <Badge
 					variant="outline"
 					class="hidden rounded-md px-1.5 py-0 font-mono text-[10px] uppercase tracking-wide sm:inline-flex"
 				>
 					v2.0
-				</Badge>
+				</Badge> -->
 			</span>
 		</a>
 

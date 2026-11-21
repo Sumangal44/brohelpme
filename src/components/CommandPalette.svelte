@@ -21,7 +21,11 @@
 			isDark = document.documentElement.classList.contains('dark');
 		};
 		window.addEventListener('theme-changed', onTheme);
-		return () => window.removeEventListener('theme-changed', onTheme);
+		document.addEventListener('open-command-palette', open);
+		return () => {
+			window.removeEventListener('theme-changed', onTheme);
+			document.removeEventListener('open-command-palette', open);
+		};
 	});
 
 	interface PaletteItem {
@@ -271,21 +275,20 @@
 	}
 </script>
 
-<svelte:window onkeydown={handleKeydown} />
 
-<svelte:document
-	onopen-command-palette={() => {
-		open();
-	}}
-/>
+<svelte:window onkeydown={handleKeydown} />
 
 {#if isOpen}
 	<div
 		class="fixed inset-0 z-50 flex items-start justify-center pt-14 sm:pt-24 px-3 sm:px-4 bg-slate-900/40 dark:bg-black/80 backdrop-blur-sm transition-all duration-150"
 		role="dialog"
 		aria-modal="true"
+		tabindex="-1"
 		onclick={(e) => {
 			if (e.target === e.currentTarget) close();
+		}}
+		onkeydown={(e) => {
+			if (e.key === 'Escape') close();
 		}}
 	>
 		<div

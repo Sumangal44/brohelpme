@@ -246,7 +246,7 @@
 					</h2>
 				</div>
 				<div class="h-1 bg-border rounded-full overflow-hidden mb-6 w-24">
-					<div class="w-full h-full bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+					<div class="w-full h-full bg-linear-to-r from-emerald-500 to-teal-400"></div>
 				</div>
 
 				<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
@@ -281,7 +281,7 @@
 						</span>
 					</div>
 					<div class="h-1 bg-border rounded-full overflow-hidden mb-6 w-24">
-						<div class="w-full h-full bg-gradient-to-r from-indigo-500 to-purple-600"></div>
+						<div class="w-full h-full bg-linear-to-r from-indigo-500 to-purple-600"></div>
 					</div>
 
 					<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
