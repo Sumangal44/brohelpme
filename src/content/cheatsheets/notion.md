@@ -81,24 +81,40 @@ Type the following at the beginning of an empty line, then press `Space`:
 
 ### Basic Formatting
 
-Select text first, then use the shortcut: | Action | Mac Shortcut | Windows/Linux Shortcut | |
-:------------------------- | :------------------------ | :----------------------- | | Bold | `Cmd` `B` | `Ctrl` `B` | |
-Italic | `Cmd` `I` | `Ctrl` `I` | | Underline | `Cmd` `U` | `Ctrl` `U` | | Strikethrough | `Cmd` `Shift` `S` | `Ctrl`
-`Shift` `S` | | Inline Code | `Cmd` `E` | `Ctrl` `E` | | Create Link | `Cmd` `K` | `Ctrl` `K` | | Change Color /
-Highlight | `Cmd` `Shift` `H` | `Ctrl` `Shift` `H` | | Clear Formatting | `Cmd` `\` | `Ctrl` `\` | {.show-header
-.shortcuts}
+Select text first, then use the shortcut:
+
+| Action                   | Mac Shortcut          | Windows/Linux Shortcut |
+| :----------------------- | :-------------------- | :--------------------- |
+| Bold                     | `Cmd` `B`             | `Ctrl` `B`             |
+| Italic                   | `Cmd` `I`             | `Ctrl` `I`             |
+| Underline                | `Cmd` `U`             | `Ctrl` `U`             |
+| Strikethrough            | `Cmd` `Shift` `S`     | `Ctrl` `Shift` `S`     |
+| Inline Code              | `Cmd` `E`             | `Ctrl` `E`             |
+| Create Link              | `Cmd` `K`             | `Ctrl` `K`             |
+| Change Color / Highlight | `Cmd` `Shift` `H`     | `Ctrl` `Shift` `H`     |
+| Clear Formatting         | `Cmd` `\`             | `Ctrl` `\`             |
+
+{.show-header .shortcuts}
 
 ### Block Type Conversion
 
-Select the block(s) first, then use the shortcut: | Action | Mac Shortcut | Windows/Linux Shortcut | |
-:------------------------- | :------------------------ | :----------------------- | | Turn into Text block | `Cmd`
-`Option` `0` | `Ctrl` `Alt` `0` | | Turn into H1 Heading | `Cmd` `Option` `1` | `Ctrl` `Alt` `1` | | Turn into H2
-Heading | `Cmd` `Option` `2` | `Ctrl` `Alt` `2` | | Turn into H3 Heading | `Cmd` `Option` `3` | `Ctrl` `Alt` `3` | |
-Turn into To-do list | `Cmd` `Option` `4` | `Ctrl` `Alt` `4` | | Turn into Bulleted list | `Cmd` `Option` `5` | `Ctrl`
-`Alt` `5` | | Turn into Numbered list | `Cmd` `Option` `6` | `Ctrl` `Alt` `6` | | Turn into Toggle list | `Cmd` `Option`
-`7` | `Ctrl` `Alt` `7` | | Turn into Code block | `Cmd` `Option` `8` | `Ctrl` `Alt` `8` | | Turn into Page | `Cmd`
-`Option` `9` | `Ctrl` `Alt` `9` | | Turn into Callout | `Cmd` `Option` `C` | `Ctrl` `Alt` `C` | {.show-header
-.shortcuts}
+Select the block(s) first, then use the shortcut:
+
+| Action                    | Mac Shortcut       | Windows/Linux Shortcut |
+| :------------------------ | :----------------- | :--------------------- |
+| Turn into Text block      | `Cmd` `Option` `0` | `Ctrl` `Alt` `0`       |
+| Turn into H1 Heading      | `Cmd` `Option` `1` | `Ctrl` `Alt` `1`       |
+| Turn into H2 Heading      | `Cmd` `Option` `2` | `Ctrl` `Alt` `2`       |
+| Turn into H3 Heading      | `Cmd` `Option` `3` | `Ctrl` `Alt` `3`       |
+| Turn into To-do list      | `Cmd` `Option` `4` | `Ctrl` `Alt` `4`       |
+| Turn into Bulleted list   | `Cmd` `Option` `5` | `Ctrl` `Alt` `5`       |
+| Turn into Numbered list   | `Cmd` `Option` `6` | `Ctrl` `Alt` `6`       |
+| Turn into Toggle list     | `Cmd` `Option` `7` | `Ctrl` `Alt` `7`       |
+| Turn into Code block      | `Cmd` `Option` `8` | `Ctrl` `Alt` `8`       |
+| Turn into Page            | `Cmd` `Option` `9` | `Ctrl` `Alt` `9`       |
+| Turn into Callout         | `Cmd` `Option` `C` | `Ctrl` `Alt` `C`       |
+
+{.show-header .shortcuts}
 
 ### Editing
 

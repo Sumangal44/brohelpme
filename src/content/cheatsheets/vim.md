@@ -332,10 +332,10 @@ See `:help text-objects`
 
 | Shortcut                                            | Description                               |
 | --------------------------------------------------- | :---------------------------------------- |
-| `v`<pur>i</pur><yel>"</yel>                         | Select inner quotes "`...`{.underline}"   |
-| `v`<pur>a</pur><yel>"</yel>                         | Select quotes `"..."`{.underline}         |
-| `v`<pur>i</pur><yel>[</yel>                         | Select inner brackets [`...`{.underline}] |
-| `v`<pur>a</pur><yel>[</yel>                         | Select brackets `[...]`{.underline}       |
+| `v`<pur>i</pur><yel>"</yel>                         | Select inner quotes "`..."   |
+| `v`<pur>a</pur><yel>"</yel>                         | Select quotes `"..."         |
+| `v`<pur>i</pur><yel>[</yel>                         | Select inner brackets [`...] |
+| `v`<pur>a</pur><yel>[</yel>                         | Select brackets `[...]       |
 | `v`<pur>i</pur><yel>w</yel>                         | Select inner word                         |
 | `v`<pur>i</pur><yel>p</yel>                         | Select inner paragraph                    |
 | `v`<pur>i</pur><yel>p</yel><pur>i</pur><yel>p</yel> | Select more paragraph                     |
