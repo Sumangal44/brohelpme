@@ -162,13 +162,6 @@
 				Showing <span class="text-slate-900 dark:text-foreground font-semibold">{filteredSheets.length}</span> of {sheets.length} cheat sheets
 			</div>
 			<div class="flex items-center gap-3">
-				<a
-					href="/search"
-					class="text-xs text-slate-600 dark:text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 flex items-center gap-1 font-medium transition-colors"
-				>
-					<span>Dedicated Search Page →</span>
-				</a>
-				<span class="hidden sm:inline text-slate-300 dark:text-muted-foreground/40">•</span>
 				<button
 					type="button"
 					onclick={() => window.dispatchEvent(new CustomEvent('open-contribute-modal'))}
