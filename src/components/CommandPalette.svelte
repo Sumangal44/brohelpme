@@ -137,11 +137,11 @@
 			list.push({
 				type: 'action',
 				id: 'action-github-repo',
-				title: 'Fechin/reference on GitHub',
+				title: 'Sumangal44/brohelpme on GitHub',
 				subtitle: 'Open the upstream repository to contribute pull requests',
 				category: 'External',
 				color: '#24292f',
-				action: () => window.open('https://github.com/Fechin/reference', '_blank')
+				action: () => window.open('https://github.com/Sumangal44/brohelpme', '_blank')
 			});
 		}
 

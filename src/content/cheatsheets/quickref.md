@@ -16,9 +16,9 @@ plugins:
 
 ### Develop Setup
 
-- Clone Repository [View on GitHub](https://github.com/Fechin/reference.git)
+- Clone Repository [View on GitHub](https://github.com/Sumangal44/brohelpme.git)
   ```shell script {.wrap}
-  $ git clone https://github.com/Fechin/reference.git
+  $ git clone https://github.com/Sumangal44/brohelpme.git
   ```
 - Install Dependencies in the project directory
   ```shell script
@@ -32,7 +32,7 @@ plugins:
 - Send us pull request and chill {.marker-timeline}
 
 It's a good practice to refer to the source code of the
-[CheatSheets reference](https://github.com/Fechin/reference/blob/main/source/_posts/quickref.md).
+[CheatSheets reference](https://github.com/Sumangal44/brohelpme/blob/main/source/_posts/quickref.md).
 
 ### Directory Structure
 

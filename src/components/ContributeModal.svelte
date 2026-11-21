@@ -177,7 +177,7 @@ $ my-tool run --verbose
 
 						<div class="flex flex-col sm:flex-row gap-2.5">
 							<a
-								href={`https://github.com/Fechin/reference/blob/main/source/_posts/${currentSlug}.md`}
+								href={`https://github.com/Sumangal44/brohelpme/blob/main/source/_posts/${currentSlug}.md`}
 								target="_blank"
 								rel="noopener noreferrer"
 								class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs shadow-sm transition-all text-center"
@@ -189,7 +189,7 @@ $ my-tool run --verbose
 							</a>
 
 							<a
-								href={`https://github.com/Fechin/reference/edit/main/source/_posts/${currentSlug}.md`}
+								href={`https://github.com/Sumangal44/brohelpme/edit/main/source/_posts/${currentSlug}.md`}
 								target="_blank"
 								rel="noopener noreferrer"
 								class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-card hover:bg-muted text-foreground border border-border font-medium text-xs shadow-xs transition-all text-center"
@@ -247,7 +247,7 @@ $ my-tool run --verbose
 
 						<div class="flex flex-col sm:flex-row gap-2.5 pt-2">
 							<a
-								href="https://github.com/Fechin/reference/new/main/source/_posts"
+								href="https://github.com/Sumangal44/brohelpme/new/main/source/_posts"
 								target="_blank"
 								rel="noopener noreferrer"
 								class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs shadow-sm transition-all text-center"
@@ -293,12 +293,12 @@ $ my-tool run --verbose
 			<!-- Footer -->
 			<div class="px-5 py-3 border-t border-border bg-muted/30 flex items-center justify-between text-xs text-muted-foreground">
 				<a
-					href="https://github.com/Fechin/reference"
+					href="https://github.com/Sumangal44/brohelpme"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="hover:text-foreground transition-colors inline-flex items-center gap-1.5"
 				>
-					<span>Fechin/reference on GitHub</span>
+					<span>Sumangal44/brohelpme on GitHub</span>
 					<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
 					</svg>
