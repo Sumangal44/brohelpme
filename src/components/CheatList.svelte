@@ -89,7 +89,7 @@
 			<button
 				type="button"
 				onclick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
-				class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-medium shadow-md shadow-emerald-500/20 transition-all cursor-pointer"
+				class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-medium shadow-md shadow-emerald-500/20 transition-all cursor-pointer"
 			>
 				<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -122,7 +122,7 @@
 						onclick={() => (activeCategory = cat)}
 						class="px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-all duration-150 cursor-pointer {activeCategory ===
 						cat
-							? 'bg-emerald-600 dark:bg-emerald-500 text-white font-semibold shadow-xs shadow-emerald-600/30 ring-1 ring-emerald-500'
+							? 'bg-emerald-600 text-white font-semibold shadow-xs shadow-emerald-600/30 ring-1 ring-emerald-500'
 							: 'bg-slate-100 hover:bg-slate-200/90 text-slate-700 hover:text-slate-900 border border-slate-200/80 dark:bg-muted/80 dark:text-muted-foreground dark:hover:text-foreground dark:hover:bg-muted dark:border-transparent'}"
 					>
 						{cat}

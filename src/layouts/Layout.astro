@@ -12,7 +12,7 @@ interface Props {
 }
 
 const {
-	title = 'CheatSheets.zip — Quick Reference for Developers',
+	title = 'BroHelpMe — Quick Reference for Developers',
 	description = 'Free, fast, and clean developer cheat sheets, command line references, and syntax guides without clutter.'
 } = Astro.props;
 
@@ -80,7 +80,7 @@ const allSheets = getAllCheatsheets();
 			})();
 		</script>
 	</head>
-	<body class="bg-[var(--background)] text-[var(--foreground)] antialiased min-h-screen flex flex-col font-sans transition-colors duration-200">
+	<body class="bg-(--background) text-(--foreground) antialiased min-h-screen flex flex-col font-sans transition-colors duration-200">
 		<Navbar client:load />
 
 		<main class="flex-1 w-full overflow-x-hidden">

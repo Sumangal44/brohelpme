@@ -58,7 +58,7 @@
 		--card-header: #f8fafc;
 		--popover: #ffffff;
 		--popover-foreground: #0f172a;
-		--primary: #10b981;
+		--primary: #059669;
 		--primary-foreground: #ffffff;
 		--secondary: #f1f5f9;
 		--secondary-foreground: #0f172a;
@@ -68,7 +68,7 @@
 		--accent-foreground: #0f172a;
 		--border: #e2e8f0;
 		--input: #e2e8f0;
-		--ring: #10b981;
+		--ring: #059669;
 		--destructive: #ef4444;
 		--destructive-foreground: #ffffff;
 		--chart-1: #10b981;
@@ -102,7 +102,7 @@
 		--popover: #0d121f;
 		--popover-foreground: #f8fafc;
 		--primary: #10b981;
-		--primary-foreground: #ffffff;
+		--primary-foreground: #052e16;
 		--secondary: #1e293b;
 		--secondary-foreground: #f8fafc;
 		--muted: #1e293b;
@@ -163,8 +163,8 @@
 	}
 
 	::selection {
-		background: #10b981;
-		color: #ffffff;
+		background: var(--primary);
+		color: var(--primary-foreground);
 	}
 
 	/* Scrollbars */
