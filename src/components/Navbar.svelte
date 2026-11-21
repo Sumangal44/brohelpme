@@ -4,21 +4,19 @@
 	}
 </script>
 
-<header class="sticky top-0 z-40 w-full border-b border-zinc-800/80 bg-black/80 backdrop-blur-md">
+<header class="sticky top-0 z-40 w-full border-b border-zinc-800/80 bg-[#05070d]/90 backdrop-blur-md">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
 		<!-- Brand Logo -->
-		<a href="/" class="flex items-center gap-2.5 group">
-			<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform duration-200">
-				<svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-				</svg>
+		<a href="/" class="flex items-center gap-3 group">
+			<div class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-700/80 flex items-center justify-center p-1 shadow-md shadow-emerald-500/10 group-hover:border-emerald-500/50 transition-colors">
+				<img src="/logo.svg" alt="cheatsheets.zip logo" class="w-6 h-6 object-contain" />
 			</div>
 			<div class="flex flex-col">
 				<div class="flex items-center gap-1.5">
-					<span class="font-bold text-base sm:text-lg text-white tracking-tight group-hover:text-sky-400 transition-colors">
-						cheatsheets<span class="text-sky-400">.zip</span>
+					<span class="font-bold text-base sm:text-lg text-white tracking-tight group-hover:text-emerald-400 transition-colors">
+						cheatsheets<span class="text-emerald-400">.zip</span>
 					</span>
-					<span class="text-[10px] uppercase font-mono px-1.5 py-0.2 bg-zinc-800 text-zinc-400 rounded border border-zinc-700/60 font-semibold">
+					<span class="text-[10px] uppercase font-mono px-1.5 py-0.2 bg-zinc-800 text-zinc-400 rounded border border-zinc-700 font-semibold">
 						v2.0
 					</span>
 				</div>
@@ -30,15 +28,15 @@
 			<button
 				type="button"
 				onclick={triggerSearch}
-				class="w-full flex items-center justify-between px-3.5 py-1.5 rounded-lg bg-zinc-900/90 hover:bg-zinc-800/90 border border-zinc-700/60 hover:border-zinc-600 text-zinc-400 hover:text-zinc-200 transition-all text-sm group cursor-pointer shadow-inner"
+				class="w-full flex items-center justify-between px-3.5 py-1.5 rounded-lg bg-zinc-900/90 hover:bg-zinc-850 border border-zinc-750 hover:border-zinc-600 text-zinc-400 hover:text-zinc-200 transition-all text-sm group cursor-pointer shadow-inner"
 			>
 				<div class="flex items-center gap-2.5">
-					<svg class="w-4 h-4 text-zinc-400 group-hover:text-sky-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+					<svg class="w-4 h-4 text-zinc-400 group-hover:text-emerald-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
 					</svg>
-					<span class="text-zinc-400 group-hover:text-zinc-300">Search for cheatsheet...</span>
+					<span class="text-zinc-400 group-hover:text-zinc-300">Search 200+ cheatsheets...</span>
 				</div>
-				<kbd class="hidden sm:inline-flex items-center gap-1 text-[11px] font-mono font-medium px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700/80">
+				<kbd class="hidden sm:inline-flex items-center gap-1 text-[11px] font-mono font-medium px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700">
 					<span class="text-xs">⌘</span>K
 				</kbd>
 			</button>
@@ -63,6 +61,12 @@
 				class="hidden md:inline-flex text-xs font-medium text-zinc-400 hover:text-white px-2 py-1 rounded transition-colors"
 			>
 				Docker
+			</a>
+			<a
+				href="/bash"
+				class="hidden md:inline-flex text-xs font-medium text-zinc-400 hover:text-white px-2 py-1 rounded transition-colors"
+			>
+				Bash
 			</a>
 
 			<div class="h-4 w-px bg-zinc-800 hidden md:block"></div>

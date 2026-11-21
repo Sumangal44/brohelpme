@@ -53,8 +53,6 @@
 		color: var(--text-body);
 		margin: 0;
 		overflow-x: hidden;
-		selection-background-color: #38bdf8;
-		selection-color: #000000;
 	}
 
 	::selection {
@@ -86,26 +84,111 @@
 	}
 }
 
-/* Glass & Glow utilities */
-.glass-panel {
-	background: rgba(12, 17, 29, 0.75);
-	backdrop-filter: blur(12px);
-	border: 1px solid rgba(255, 255, 255, 0.08);
+/* Card Content Markdown Styles */
+.sheet-card-body {
+	font-size: 0.8125rem;
+	color: #cbd5e1;
+	line-height: 1.55;
 }
 
-.card-hover-glow {
-	transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+.sheet-card-body p {
+	margin-bottom: 0.625rem;
+	color: #94a3b8;
 }
 
-.card-hover-glow:hover {
-	transform: translateY(-2px);
-	border-color: rgba(56, 189, 248, 0.4);
-	box-shadow: 0 12px 30px -10px rgba(56, 189, 248, 0.12);
+.sheet-card-body p:last-child {
+	margin-bottom: 0;
 }
 
-/* Code block highlight styling */
-.code-block {
-	background: #080c16;
+.sheet-card-body a {
+	color: #38bdf8;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+	transition: color 0.15s;
+}
+
+.sheet-card-body a:hover {
+	color: #7dd3fc;
+}
+
+.sheet-card-body ul {
+	list-style-type: disc;
+	padding-left: 1.25rem;
+	margin: 0.5rem 0;
+	color: #94a3b8;
+}
+
+.sheet-card-body ol {
+	list-style-type: decimal;
+	padding-left: 1.25rem;
+	margin: 0.5rem 0;
+	color: #94a3b8;
+}
+
+.sheet-card-body li {
+	margin-bottom: 0.25rem;
+}
+
+/* Tables inside cards */
+.sheet-card-body table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0.75rem 0;
+	font-size: 0.75rem;
+	border-radius: 6px;
+	overflow: hidden;
 	border: 1px solid #1e293b;
-	border-radius: 8px;
+}
+
+.sheet-card-body th {
+	background: #181d29;
+	color: #f1f5f9;
+	font-weight: 600;
+	text-align: left;
+	padding: 0.45rem 0.65rem;
+	border: 1px solid #1e293b;
+}
+
+.sheet-card-body td {
+	padding: 0.4rem 0.65rem;
+	border: 1px solid #1e293b;
+	color: #94a3b8;
+	background: #090d16;
+}
+
+.sheet-card-body td:first-child {
+	color: #38bdf8;
+	font-family: var(--font-mono);
+	font-weight: 500;
+}
+
+/* Inline code tags */
+.sheet-card-body code:not(pre code) {
+	background: #182030;
+	color: #38bdf8;
+	padding: 0.125rem 0.35rem;
+	border-radius: 4px;
+	font-size: 0.8em;
+	border: 1px solid #293548;
+	font-family: var(--font-mono);
+}
+
+.sheet-card-body pre {
+	background: #070a12;
+	border: 1px solid #1e293b;
+	border-radius: 6px;
+	padding: 0.75rem;
+	overflow-x: auto;
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	color: #38bdf8;
+	line-height: 1.5;
+}
+
+.sheet-card-body h4 {
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: #f1f5f9;
+	margin-top: 0.75rem;
+	margin-bottom: 0.35rem;
 }
