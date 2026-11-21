@@ -129,7 +129,7 @@
 		</div>
 
 		<h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-foreground">
-			Find Any <span class="bg-gradient-to-r from-emerald-600 via-teal-500 to-sky-600 dark:from-emerald-400 dark:via-teal-300 dark:to-sky-400 bg-clip-text text-transparent">Cheat Sheet</span>
+			Find Any <span class="bg-linear-to-r from-emerald-600 via-teal-500 to-sky-600 dark:from-emerald-400 dark:via-teal-300 dark:to-sky-400 bg-clip-text text-transparent">Cheat Sheet</span>
 		</h1>
 
 		<p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-muted-foreground max-w-xl mx-auto leading-relaxed">
@@ -348,7 +348,7 @@
 					{#if sheet.tags.length > 0}
 						<div class="mt-3 pt-2.5 border-t border-slate-100 dark:border-border/40 flex items-center gap-1 overflow-hidden">
 							{#each sheet.tags.slice(0, 3) as tag}
-								<span class="text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-muted/50 px-1.5 py-0.2 rounded border border-slate-200/50 dark:border-transparent truncate max-w-[80px]">
+								<span class="text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-muted/50 px-1.5 py-0.2 rounded border border-slate-200/50 dark:border-transparent truncate max-w-20">
 									#{tag}
 								</span>
 							{/each}

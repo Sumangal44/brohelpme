@@ -6,14 +6,6 @@
 	let isDark = $state(true);
 	let menuOpen = $state(false);
 
-	const links = [
-		{ href: '/search', label: 'Search' },
-		{ href: '/git', label: 'Git' },
-		{ href: '/python', label: 'Python' },
-		{ href: '/docker', label: 'Docker' },
-		{ href: '/bash', label: 'Bash' }
-	];
-
 	onMount(() => {
 		isDark = document.documentElement.classList.contains('dark');
 
@@ -156,7 +148,7 @@
 {/snippet}
 
 <header
-	class="sticky top-0 z-50 w-full border-b border-border/70 bg-background/85 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70 transition-colors duration-200"
+	class="sticky top-0 z-50 w-full border-b border-border/70 bg-background/85 backdrop-blur-xl supports-backdrop-filter:bg-background/70 transition-colors duration-200"
 >
 	<div class="mx-auto flex h-16 max-w-7xl items-center gap-2 px-4 sm:gap-3 sm:px-6 lg:px-8">
 		<!-- Brand -->
@@ -192,18 +184,6 @@
 			</svg>
 		</button>
 
-		<!-- Desktop quick links -->
-		<nav class="hidden items-center gap-0.5 lg:flex" aria-label="Quick links">
-			{#each links as link}
-				<a
-					href={link.href}
-					class="rounded-lg px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-				>
-					{link.label}
-				</a>
-			{/each}
-		</nav>
-
 		<!-- Actions -->
 		<div class="hidden items-center gap-2 md:flex">
 			<div class="h-5 w-px bg-border"></div>
@@ -218,7 +198,7 @@
 			onclick={() => (menuOpen = !menuOpen)}
 			aria-label="Toggle menu"
 			aria-expanded={menuOpen}
-			class="flex size-9 shrink-0 items-center justify-center rounded-xl border border-border bg-muted/50 text-foreground transition-all hover:bg-muted lg:hidden"
+			class="flex size-9 shrink-0 items-center justify-center rounded-xl border border-border bg-muted/50 text-foreground transition-all hover:bg-muted md:hidden"
 		>
 			{#if menuOpen}
 				<svg class="size-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -232,22 +212,11 @@
 		</button>
 	</div>
 
-	<!-- Collapsible panel: search, links and actions below xl -->
+	<!-- Collapsible panel: search + actions on small screens -->
 	{#if menuOpen}
-		<div class="border-t border-border/70 bg-background/95 backdrop-blur-xl lg:hidden">
+		<div class="border-t border-border/70 bg-background/95 backdrop-blur-xl md:hidden">
 			<div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 sm:px-6">
 				{@render searchButton('w-full')}
-
-				<nav class="grid grid-cols-2 gap-1 sm:grid-cols-3" aria-label="Quick links">
-					{#each links as link}
-						<a
-							href={link.href}
-							class="rounded-xl border border-border bg-card px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
-						>
-							{link.label}
-						</a>
-					{/each}
-				</nav>
 
 				<div class="flex items-center gap-2">
 					{@render contributeButton('flex-1 justify-center h-9')}

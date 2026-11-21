@@ -77,7 +77,7 @@
 		</div>
 
 		<h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-foreground">
-			Cheat Sheets for <span class="bg-gradient-to-r from-emerald-500 via-teal-400 to-sky-500 bg-clip-text text-transparent">Developers</span>
+			Cheat Sheets for <span class="bg-linear-to-r from-emerald-500 via-teal-400 to-sky-500 bg-clip-text text-transparent">Developers</span>
 		</h1>
 
 		<p class="mt-3 text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
