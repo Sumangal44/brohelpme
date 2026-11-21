@@ -2,6 +2,7 @@
 import Navbar from '../components/Navbar.svelte';
 import Footer from '../components/Footer.astro';
 import CommandPalette from '../components/CommandPalette.svelte';
+import { getAllCheatsheets } from '../lib/cheatsheets';
 import '../styles/global.css';
 
 interface Props {
@@ -13,6 +14,8 @@ const {
 	title = 'CheatSheets.zip — Quick Reference for Developers',
 	description = 'Free, fast, and clean developer cheat sheets, command line references, and syntax guides without clutter.'
 } = Astro.props;
+
+const allSheets = getAllCheatsheets();
 ---
 
 <!doctype html>
@@ -20,7 +23,7 @@ const {
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="/logo.svg" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<meta name="theme-color" content="#05070d" />
@@ -28,7 +31,7 @@ const {
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
 	</head>
-	<body class="bg-[#05070d] text-zinc-200 antialiased min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-black">
+	<body class="bg-[#05070d] text-zinc-200 antialiased min-h-screen flex flex-col font-sans selection:bg-emerald-500 selection:text-black">
 		<Navbar client:load />
 
 		<main class="flex-1">
@@ -37,7 +40,7 @@ const {
 
 		<Footer />
 
-		<!-- Global Command Palette Search -->
-		<CommandPalette client:load />
+		<!-- Global Command Palette Search with all 216 cheatsheets -->
+		<CommandPalette client:load sheets={allSheets} />
 	</body>
 </html>

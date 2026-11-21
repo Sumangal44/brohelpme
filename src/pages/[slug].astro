@@ -1,54 +1,29 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import CopyButton from '../components/CopyButton.svelte';
-import { CHEATSHEETS, type CheatSheet } from '../data/cheatsheets';
+import { getAllCheatsheets, getCheatsheet, type CheatsheetDetail } from '../lib/cheatsheets';
 
 export async function getStaticPaths() {
-	return CHEATSHEETS.map((sheet) => ({
-		params: { slug: sheet.slug },
-		props: { sheet }
+	const all = getAllCheatsheets();
+	return all.map((sheet) => ({
+		params: { slug: sheet.slug }
 	}));
 }
 
-interface Props {
-	sheet: CheatSheet;
+const { slug } = Astro.params;
+const sheet = getCheatsheet(slug as string);
+
+if (!sheet) {
+	return Astro.redirect('/');
 }
 
-const { sheet } = Astro.props;
-
-// Related sheets
-const relatedSheets = CHEATSHEETS.filter(
-	(s) => s.slug !== sheet.slug && (s.category === sheet.category || s.tags.some((t) => sheet.tags.includes(t)))
-).slice(0, 4);
-
-function getTechIcon(shortTitle: string) {
-	const name = shortTitle.toLowerCase();
-	if (name.includes('git')) return '🐙';
-	if (name.includes('python')) return '🐍';
-	if (name.includes('docker')) return '🐳';
-	if (name.includes('bash')) return '🐚';
-	if (name.includes('javascript') || name.includes('es6')) return '⚡';
-	if (name.includes('typescript')) return '🔷';
-	if (name.includes('linux')) return '🐧';
-	if (name.includes('sql') || name.includes('postgres')) return '🗄️';
-	if (name.includes('react')) return '⚛️';
-	if (name.includes('markdown')) return '📝';
-	if (name.includes('css')) return '🎨';
-	if (name.includes('vim')) return '🟩';
-	if (name.includes('regex')) return '🔍';
-	if (name.includes('kuber')) return '☸️';
-	if (name.includes('rust')) return '🦀';
-	if (name.includes('go')) return '🐹';
-	if (name.includes('nginx')) return '🟢';
-	if (name.includes('redis')) return '🔴';
-	if (name.includes('action')) return '🚀';
-	if (name.includes('http')) return '🌐';
-	return '📄';
-}
+const allSheets = getAllCheatsheets();
+const relatedSheets = allSheets
+	.filter((s) => s.slug !== sheet.slug && (s.category === sheet.category || s.tags.some((t) => sheet.tags.includes(t))))
+	.slice(0, 4);
 ---
 
 <Layout
-	title={`${sheet.title} — Quick Reference & Syntax Guide`}
+	title={`${sheet.title} Cheat Sheet — Quick Reference & Syntax Guide`}
 	description={sheet.intro}
 >
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
@@ -58,24 +33,24 @@ function getTechIcon(shortTitle: string) {
 			<span>›</span>
 			<span class="text-zinc-400">{sheet.category}</span>
 			<span>›</span>
-			<span class="text-sky-400 font-medium">{sheet.shortTitle}</span>
+			<span class="text-emerald-400 font-medium">{sheet.title}</span>
 		</nav>
 
 		<!-- Sheet Hero Header -->
-		<div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 sm:p-8 backdrop-blur-md mb-8 shadow-xl">
+		<div class="bg-[#0c101c]/90 border border-zinc-800 rounded-2xl p-6 sm:p-8 backdrop-blur-md mb-8 shadow-xl">
 			<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
 				<div class="flex items-start gap-4 sm:gap-5">
-					<div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-zinc-800 flex items-center justify-center text-3xl shadow-inner border border-zinc-700/60 shrink-0">
-						<span>{getTechIcon(sheet.shortTitle)}</span>
+					<div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-zinc-900 border border-zinc-750 p-2.5 flex items-center justify-center shrink-0 shadow-inner">
+						<img src={sheet.icon} alt={sheet.title} class="w-10 h-10 object-contain" />
 					</div>
 
 					<div>
 						<div class="flex items-center gap-2.5 flex-wrap mb-2">
-							<span class={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${sheet.badgeClass}`}>
+							<span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
 								{sheet.category}
 							</span>
 							<span class="text-xs text-zinc-500">
-								{sheet.sections.length} topic sections
+								{sheet.cardCount} cards in {sheet.sections.length} topics
 							</span>
 						</div>
 
@@ -91,144 +66,94 @@ function getTechIcon(shortTitle: string) {
 
 				<!-- Quick action buttons -->
 				<div class="flex items-center gap-3 shrink-0 self-start md:self-center">
-					{sheet.officialUrl && (
-						<a
-							href={sheet.officialUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white text-xs font-medium border border-zinc-700 transition-colors"
-						>
-							<span>Docs</span>
-							<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-							</svg>
-						</a>
-					)}
 					<button
 						type="button"
 						onclick="window.print()"
-						class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white text-xs font-medium border border-zinc-700 transition-colors cursor-pointer"
+						class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-850 hover:bg-zinc-750 text-zinc-300 hover:text-white text-xs font-medium border border-zinc-700 transition-colors cursor-pointer"
 					>
 						<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
 						</svg>
 						<span>Print</span>
 					</button>
+
+					<a
+						href="https://github.com/Fechin/reference"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-850 hover:bg-zinc-750 text-zinc-300 hover:text-white text-xs font-medium border border-zinc-700 transition-colors"
+					>
+						<span>GitHub</span>
+						<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+						</svg>
+					</a>
 				</div>
 			</div>
 
 			<!-- Quick jump section pills -->
-			<div class="mt-6 pt-5 border-t border-zinc-800 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-				<span class="text-xs font-medium text-zinc-500 whitespace-nowrap mr-1">Quick Jump:</span>
-				{sheet.sections.map((section) => (
-					<a
-						href={`#${section.id}`}
-						class="px-2.5 py-1 rounded-md bg-zinc-800/80 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 text-xs whitespace-nowrap border border-zinc-700/60 transition-colors"
-					>
-						{section.title}
-					</a>
-				))}
-			</div>
+			{sheet.sections.length > 1 && (
+				<div class="mt-6 pt-5 border-t border-zinc-800 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+					<span class="text-xs font-medium text-zinc-500 whitespace-nowrap mr-1">Sections:</span>
+					{sheet.sections.map((section) => (
+						<a
+							href={`#${section.id}`}
+							class="px-2.5 py-1 rounded-md bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 text-xs whitespace-nowrap border border-zinc-700/60 transition-colors"
+						>
+							{section.title}
+						</a>
+					))}
+				</div>
+			)}
 		</div>
 
-		<!-- Masonry/Grid of Cheatsheet Topic Cards -->
-		<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+		<!-- Sections List -->
+		<div class="space-y-12">
 			{sheet.sections.map((section) => (
-				<section
-					id={section.id}
-					class={`bg-zinc-900/70 border border-zinc-800 hover:border-zinc-700 rounded-xl overflow-hidden transition-all duration-200 shadow-lg ${section.colSpan === 2 ? 'lg:col-span-2' : ''}`}
-				>
-					<!-- Card Header -->
-					<div class="px-5 py-3.5 bg-zinc-850/80 border-b border-zinc-800 flex items-center justify-between gap-3">
-						<div class="flex items-center gap-2.5">
-							<h2 class="text-sm sm:text-base font-bold text-white tracking-wide">
-								{section.title}
-							</h2>
-							{section.badge && (
-								<span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700/60 font-semibold">
-									{section.badge}
-								</span>
-							)}
-						</div>
-
-						<a href={`#${section.id}`} class="text-zinc-600 hover:text-zinc-400 text-xs font-mono">
-							#
-						</a>
+				<div id={section.id} class="scroll-mt-20">
+					<!-- Section Title Header -->
+					<div class="flex items-center gap-3 mb-6 pb-2 border-b border-zinc-800">
+						<h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+							{section.title}
+						</h2>
+						<span class="text-xs text-zinc-500 font-mono">
+							({section.cards.length} cards)
+						</span>
 					</div>
 
-					<!-- Card Content -->
-					<div class="p-5 space-y-4">
-						{section.description && (
-							<p class="text-xs text-zinc-400 leading-relaxed mb-3">
-								{section.description}
-							</p>
-						)}
-
-						<!-- Items List (Commands + Explanations) -->
-						{section.items && (
-							<div class="space-y-3">
-								{section.items.map((item) => (
-									<div class="p-3 rounded-lg bg-zinc-950/60 border border-zinc-850 hover:border-zinc-800 transition-colors group">
-										{item.code && (
-											<div class="flex items-start justify-between gap-3 mb-1.5">
-												<pre class="font-mono text-xs sm:text-sm text-sky-400 overflow-x-auto whitespace-pre-wrap break-all selection:bg-sky-500 selection:text-black"><code>{item.code}</code></pre>
-												<CopyButton client:load text={item.code} class="shrink-0" />
-											</div>
-										)}
-										<p class="text-xs text-zinc-400 leading-relaxed">
-											{item.explanation}
-										</p>
-									</div>
-								))}
-							</div>
-						)}
-
-						<!-- Table Data -->
-						{section.table && (
-							<div class="overflow-x-auto rounded-lg border border-zinc-800">
-								<table class="w-full text-left text-xs">
-									<thead class="bg-zinc-850/90 text-zinc-300 font-semibold border-b border-zinc-800">
-										<tr>
-											{section.table.headers.map((h) => (
-												<th class="px-3.5 py-2.5">{h}</th>
-											))}
-										</tr>
-									</thead>
-									<tbody class="divide-y divide-zinc-850 text-zinc-400 font-mono">
-										{section.table.rows.map((row) => (
-											<tr class="hover:bg-zinc-800/40 transition-colors">
-												{row.map((cell, idx) => (
-													<td class={`px-3.5 py-2.5 ${idx === 0 ? 'text-sky-400 font-medium' : 'text-zinc-300 font-sans'}`}>
-														{cell}
-													</td>
-												))}
-											</tr>
-										))}
-									</tbody>
-								</table>
-							</div>
-						)}
-
-						<!-- Code Block -->
-						{section.codeBlock && (
-							<div class="rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950">
-								<div class="px-4 py-2 bg-zinc-900 border-b border-zinc-800 flex items-center justify-between text-xs text-zinc-400">
-									<span class="font-mono text-zinc-300 font-medium">
-										{section.codeBlock.caption || section.codeBlock.lang}
-									</span>
-									<CopyButton client:load text={section.codeBlock.code} label="Copy" />
+					<!-- Masonry/Grid of Cards -->
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-start">
+						{section.cards.map((card) => (
+							<article
+								id={card.id}
+								class={`bg-[#0c101c] border border-zinc-800 hover:border-zinc-700 rounded-xl overflow-hidden shadow-lg transition-all ${
+									card.colSpan === 2 ? 'md:col-span-2' : ''
+								}`}
+							>
+								<!-- Card Header -->
+								<div class="px-4 py-3 bg-[#111728] border-b border-zinc-800 flex items-center justify-between gap-3">
+									<h3 class="text-sm font-bold text-white tracking-wide truncate">
+										{card.title}
+									</h3>
+									<a href={`#${card.id}`} class="text-zinc-600 hover:text-zinc-400 text-xs font-mono">
+										#
+									</a>
 								</div>
-								<pre class="p-4 font-mono text-xs text-zinc-200 overflow-x-auto leading-relaxed"><code>{section.codeBlock.code}</code></pre>
-							</div>
-						)}
+
+								<!-- Card Body Content -->
+								<div class="p-4 sheet-card-body overflow-x-auto">
+									<Fragment set:html={card.html} />
+								</div>
+							</article>
+						))}
 					</div>
-				</section>
+				</div>
 			))}
 		</div>
 
 		<!-- Related Cheatsheets -->
 		{relatedSheets.length > 0 && (
-			<div class="mt-16 pt-8 border-t border-zinc-800">
+			<div class="mt-20 pt-8 border-t border-zinc-800">
 				<h3 class="text-lg font-bold text-white mb-4">
 					Related Cheat Sheets
 				</h3>
@@ -236,17 +161,17 @@ function getTechIcon(shortTitle: string) {
 					{relatedSheets.map((rel) => (
 						<a
 							href={`/${rel.slug}`}
-							class="p-4 rounded-xl bg-zinc-900/60 hover:bg-zinc-850 border border-zinc-800 hover:border-zinc-700 transition-all flex items-center gap-3 group"
+							class="p-4 rounded-xl bg-[#0c101c] hover:bg-[#111728] border border-zinc-800 hover:border-zinc-700 transition-all flex items-center gap-3 group"
 						>
-							<div class="w-10 h-10 rounded-lg bg-zinc-800 flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition-transform">
-								<span>{getTechIcon(rel.shortTitle)}</span>
+							<div class="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-750 p-2 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+								<img src={rel.icon} alt={rel.title} class="w-6 h-6 object-contain" />
 							</div>
 							<div class="min-w-0">
-								<div class="font-semibold text-sm text-zinc-200 group-hover:text-sky-400 transition-colors truncate">
-									{rel.shortTitle}
+								<div class="font-semibold text-sm text-zinc-200 group-hover:text-emerald-400 transition-colors truncate">
+									{rel.title}
 								</div>
 								<div class="text-xs text-zinc-500 truncate">
-									{rel.sections.length} topics
+									{rel.cardCount} cards
 								</div>
 							</div>
 						</a>
@@ -255,4 +180,38 @@ function getTechIcon(shortTitle: string) {
 			</div>
 		)}
 	</div>
+
+	<!-- Interactive Copy Button Delegate Script -->
+	<script is:inline>
+		document.addEventListener('click', (e) => {
+			const btn = e.target.closest('.copy-code-btn');
+			if (!btn) return;
+
+			e.preventDefault();
+			e.stopPropagation();
+
+			const code = btn.getAttribute('data-code') || '';
+			if (!code) return;
+
+			if (navigator.clipboard) {
+				navigator.clipboard.writeText(code);
+			} else {
+				const ta = document.createElement('textarea');
+				ta.value = code;
+				document.body.appendChild(ta);
+				ta.select();
+				document.execCommand('copy');
+				document.body.removeChild(ta);
+			}
+
+			const originalText = btn.textContent;
+			btn.textContent = 'Copied!';
+			btn.classList.add('bg-emerald-500/20', 'text-emerald-300', 'border', 'border-emerald-500/30');
+
+			setTimeout(() => {
+				btn.textContent = originalText;
+				btn.classList.remove('bg-emerald-500/20', 'text-emerald-300', 'border', 'border-emerald-500/30');
+			}, 1800);
+		});
+	</script>
 </Layout>

@@ -1,13 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import CheatList from '../components/CheatList.svelte';
+import { getAllCheatsheets, getAllCategories } from '../lib/cheatsheets';
+
+const sheets = getAllCheatsheets();
+const categories = getAllCategories();
 ---
 
 <Layout
 	title="CheatSheets.zip — Quick Reference Cheat Sheets for Developers"
-	description="Instant copy-paste syntax, commands, and shortcuts for Git, Python, Docker, Linux, Bash, JavaScript, React, SQL, and more."
+	description="Instant copy-paste syntax, commands, and shortcuts for Git, Python, Docker, Linux, Bash, JavaScript, React, SQL, and 200+ developer tools."
 >
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-		<CheatList client:load />
+		<CheatList client:load sheets={sheets} categories={categories} />
 	</div>
 </Layout>
