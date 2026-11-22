@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { cn } from '$lib/utils';
 	import { Button } from '$lib/components/ui/button';
 	import { formatStarCount } from '$lib/github';
 
@@ -111,7 +112,10 @@
 	<button
 		type="button"
 		onclick={triggerSearch}
-		class="group border-border bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground flex min-w-0 items-center gap-2.5 rounded-xl border px-3 py-2 text-sm shadow-xs transition-all {className}"
+		class={cn(
+			'group border-border bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground items-center gap-2.5 rounded-xl border px-3 py-2 text-sm shadow-xs transition-all',
+			className
+		)}
 	>
 		<svg
 			class="text-muted-foreground size-4 shrink-0 transition-colors group-hover:text-emerald-500"
@@ -343,7 +347,7 @@
 	{#if menuOpen}
 		<div class="border-border/70 bg-background/95 border-t backdrop-blur-xl sm:hidden">
 			<div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 sm:px-6">
-				{@render searchButton('w-full')}
+				{@render searchButton('flex w-full min-w-0')}
 
 				<div class="flex items-center gap-2">
 					{@render contributeButton('flex-1 justify-center h-9')}
