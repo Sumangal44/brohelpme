@@ -2,6 +2,7 @@
 
 [![Website](https://img.shields.io/badge/website-BroHelp.Me-059669?style=flat-square)](https://brohelpme.netlify.app/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-emerald?style=flat-square)](LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/Sumangal44/brohelpme?style=flat-square&logo=github&label=stars)](https://github.com/Sumangal44/brohelpme/stargazers)
 [![Astro](https://img.shields.io/badge/Astro-7-static?style=flat-square&logo=astro&logoColor=white)](https://astro.build)
 [![Svelte](https://img.shields.io/badge/Svelte-5-ff3e00?style=flat-square&logo=svelte&logoColor=white)](https://svelte.dev)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)

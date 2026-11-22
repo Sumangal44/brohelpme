@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import CommandPalette from '../components/CommandPalette.svelte';
 import ContributeModal from '../components/ContributeModal.svelte';
 import { getAllCheatsheets } from '../lib/cheatsheets';
+import { getStarCount } from '../lib/github';
 import '../styles/global.css';
 
 interface Props {
@@ -17,6 +18,7 @@ const {
 } = Astro.props;
 
 const allSheets = getAllCheatsheets();
+const starCount = await getStarCount();
 ---
 
 <!doctype html>
@@ -81,7 +83,7 @@ const allSheets = getAllCheatsheets();
 		</script>
 	</head>
 	<body class="bg-(--background) text-(--foreground) antialiased min-h-screen flex flex-col font-sans transition-colors duration-200">
-		<Navbar client:load />
+		<Navbar client:load starCount={starCount} />
 
 		<main class="flex-1 w-full overflow-x-hidden">
 			<slot />

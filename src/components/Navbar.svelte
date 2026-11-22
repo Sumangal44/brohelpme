@@ -2,6 +2,10 @@
 	import { onMount } from 'svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
+	import { formatStarCount } from '$lib/github';
+
+	/** Repo star count, resolved at build time (see src/lib/github.ts). */
+	let { starCount = null }: { starCount?: number | null } = $props();
 
 	let isDark = $state(true);
 	let menuOpen = $state(false);
@@ -119,8 +123,10 @@
 		target="_blank"
 		rel="noopener noreferrer"
 		class="h-9 gap-1.5 rounded-xl px-3 cursor-pointer {className}"
-		aria-label="Star on GitHub"
-		title="Star on GitHub"
+		aria-label={starCount === null
+			? 'Star on GitHub'
+			: `Star on GitHub — ${starCount} ${starCount === 1 ? 'star' : 'stars'}`}
+		title={starCount === null ? 'Star on GitHub' : `Star on GitHub · ${starCount} stars`}
 	>
 		<svg class="size-4 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true">
 			<path
@@ -130,6 +136,14 @@
 			/>
 		</svg>
 		<span class="whitespace-nowrap">Star</span>
+		{#if starCount !== null}
+			<span
+				class="ml-0.5 -mr-1 flex h-5 min-w-5 items-center justify-center rounded-md border border-border bg-muted px-1 font-mono text-[10px] font-semibold tabular-nums text-muted-foreground transition-colors group-hover:text-foreground"
+				aria-hidden="true"
+			>
+				{formatStarCount(starCount)}
+			</span>
+		{/if}
 	</Button>
 {/snippet}
 
