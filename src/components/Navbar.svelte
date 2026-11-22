@@ -243,7 +243,7 @@
 			<span
 				class="flex size-9 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-1.5 shadow-xs transition-transform duration-200 group-hover:scale-105"
 			>
-				<img src="/logo.svg" alt="" class="size-full object-contain" />
+				<img src="/logo.png" alt="BroHelpMe Logo" class="size-full object-contain" />
 			</span>
 			<span class="flex items-center gap-1.5">
 				<span class="text-base font-bold tracking-tight text-foreground transition-colors group-hover:text-emerald-600 sm:text-lg dark:group-hover:text-emerald-400">

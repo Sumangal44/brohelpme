@@ -73,7 +73,7 @@
 	<!-- Hero Header -->
 	<div class="text-center max-w-3xl mx-auto pt-4 sm:pt-8 pb-2 px-2">
 		<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-medium mb-4">
-			<img src="/logo.svg" alt="logo" class="w-3.5 h-3.5" />
+			<img src="/logo.png" alt="logo" class="w-3.5 h-3.5 object-contain" />
 			<span>Community-driven developer quick reference repository</span>
 		</div>
 

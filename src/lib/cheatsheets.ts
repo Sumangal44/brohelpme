@@ -198,7 +198,7 @@ export function resolveIcon(slug: string): string {
 		return `/icons/${aliasMap[slug]}.svg`;
 	}
 
-	return '/logo.svg';
+	return '/logo.png';
 }
 
 function slugify(text: string): string {
