@@ -147,7 +147,7 @@
 	>
 		{#if isDark}
 			<svg
-				class="size-4 text-amber-400 transition-transform duration-300 hover:rotate-45"
+				class="size-4 text-foreground transition-transform duration-300 hover:rotate-45"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
