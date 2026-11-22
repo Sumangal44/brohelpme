@@ -1,0 +1,1 @@
+import{j as e}from"./client.C6g-RR7H.js";e(),typeof window<`u`&&((globalThis.__svelte??={}).v??=new Set).add(`5`);
