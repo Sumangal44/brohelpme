@@ -72,7 +72,7 @@
 				title: 'Sumangal44/brohelpme on GitHub',
 				subtitle: 'Open the upstream repository to contribute pull requests',
 				category: 'External',
-				color: '#f59e0b',
+				color: '#24292f',
 				action: () => window.open('https://github.com/Sumangal44/brohelpme', '_blank')
 			});
 		}
@@ -256,7 +256,7 @@
 								onclick={openContributeModal}
 								class="text-xs px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors cursor-pointer"
 							>
-								+ Contribute this sheet to cheatsheets.zip
+								+ Contribute this sheet to BroHelp.Me
 							</button>
 						</div>
 					</div>
@@ -289,7 +289,7 @@
 										{#if item.id === 'action-github-repo'}
 											<!-- GitHub octocat — yellow and twinkling, like the Star buttons -->
 											<svg
-												class="w-4 h-4 fill-white animate-star-twinkle transition-transform duration-300"
+												class="w-4 h-4 fill-black dark:fill-white animate-star-twinkle transition-transform duration-300"
 												viewBox="0 0 24 24"
 												aria-hidden="true"
 											>

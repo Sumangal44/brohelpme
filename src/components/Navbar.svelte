@@ -193,7 +193,7 @@
 		title={starCount === null ? 'Star on GitHub' : `Star on GitHub · ${starCount} stars`}
 	>
 		<!-- GitHub mark (restored) + yellow twinkling star -->
-		<svg class="size-4 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+		<svg class="size-4 shrink-0 fill-black dark:fill-white animate-star-twinkle transition-transform duration-300" viewBox="0 0 24 24" aria-hidden="true">
 			<path
 				fill-rule="evenodd"
 				clip-rule="evenodd"
