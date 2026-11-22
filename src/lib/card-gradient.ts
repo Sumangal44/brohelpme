@@ -8,7 +8,7 @@
  * every tile reads as a rich, "deep" surface with crisp white text in both
  * light and dark mode.
  *
- * Used by the homepage card grids and the search results page.
+ * Used by the homepage card grids.
  */
 
 /** Near-black the colour is mixed toward (matches the dark theme base). */

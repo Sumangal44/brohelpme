@@ -245,7 +245,7 @@
 						No cheat sheet matches your query.
 					</p>
 					<p class="dark:text-muted-foreground mt-1 text-xs text-slate-500">
-						Try another keyword, or check our dedicated search page.
+						Try another keyword, or use Command Palette to search across all cheat sheets.
 					</p>
 					<div class="mt-4 flex items-center justify-center gap-3">
 						<button
@@ -258,12 +258,15 @@
 						>
 							Reset all filters
 						</button>
-						<a
-							href="/search"
-							class="dark:text-foreground dark:bg-muted dark:border-border rounded-xl border border-slate-200 bg-white px-4 py-1.5 text-xs font-medium text-slate-700 shadow-2xs transition-colors hover:bg-slate-100"
+						<button
+							type="button"
+							onclick={() => {
+								document.dispatchEvent(new CustomEvent('open-command-palette'));
+							}}
+							class="dark:text-foreground dark:bg-muted dark:border-border cursor-pointer rounded-xl border border-slate-200 bg-white px-4 py-1.5 text-xs font-medium text-slate-700 shadow-2xs transition-colors hover:bg-slate-100"
 						>
-							Go to Search Page
-						</a>
+							Open Command Palette (⌘K)
+						</button>
 					</div>
 				</div>
 			{:else}
