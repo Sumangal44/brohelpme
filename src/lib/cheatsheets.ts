@@ -337,7 +337,14 @@ export async function getCheatsheet(slug: string): Promise<CheatsheetDetail | nu
 	let totalCards = 0;
 
 function processCardVariants(rawHtml: string): string {
-	let html = rawHtml;
+	// 0. Protect rendered code blocks first. The syntax manual shows literal
+	//    markers (e.g. `{.marker-timeline}`) inside fenced examples — those must
+	//    survive verbatim, while the same markers in prose are consumed below.
+	const codeBlocks: string[] = [];
+	let html = rawHtml.replace(
+		/<pre[\s\S]*?<\/pre>/gi,
+		(match) => `@@PREBLOCK${codeBlocks.push(match) - 1}@@`
+	);
 
 	// 1. Process tables with dummy '-' headers:
 	// e.g. <thead><tr><th>-</th>...</tr></thead>
@@ -390,33 +397,77 @@ function processCardVariants(rawHtml: string): string {
 	html = html.replace(/\{\.link-arrow\}/gi, '');
 
 	// 8. Process timeline lists: {.marker-timeline} or {.style-timeline}
-	html = html.replace(/<ul>([\s\S]*?)<\/ul>\s*<p>\s*\{\.(?:marker|style)-timeline\}\s*<\/p>/gi,
+	// (The list-level marker is attached by rule 9 below; only the per-item
+	//  form is handled here.)
+	html = html.replace(
+		/<ul>([\s\S]*?)<\/ul>\s*<p>\s*\{\.(?:marker|style)-timeline\}\s*<\/p>/gi,
 		'<ul class="list-timeline">$1</ul>'
 	);
 	html = html.replace(/<li([^>]*)>([\s\S]*?)\{\.(?:marker|style)-timeline\}<\/li>/gi,
 		'<li$1 class="list-timeline-item">$2</li>'
 	);
 	html = html.replace(/<p>\s*\{\.(?:marker|style)-timeline\}\s*<\/p>/gi, '');
-	html = html.replace(/\{\.(?:marker|style)-timeline\}/gi, '');
 
-	// 9. Process {.marker-none} and {.marker-round}
-	html = html.replace(/<ul>([\s\S]*?)<\/ul>\s*<p>\s*\{\.marker-none\}\s*<\/p>/gi,
-		'<ul class="list-none-marker">$1</ul>'
-	);
-	html = html.replace(/<p>\s*\{\.marker-none\}\s*<\/p>/gi, '');
-	html = html.replace(/<ul>([\s\S]*?)<\/ul>\s*<p>\s*\{\.marker-round\}\s*<\/p>/gi,
-		'<ul class="list-round-marker">$1</ul>'
-	);
-	html = html.replace(/<p>\s*\{\.marker-round\}\s*<\/p>/gi, '');
+	// 9. List variants — generalised. A marker paragraph following a <ul> may
+	//    combine any number of classes in any order, e.g.
+	//    <ul>…</ul><p>{.marker-none .cols-3}</p> (283 occurrences in content)
+	//    → <ul class="list-none-marker list-cols-3">.
+	const LIST_CLASS_MAP: Record<string, string> = {
+		'.marker-none': 'list-none-marker',
+		'.marker-round': 'list-round-marker',
+		'.marker-timeline': 'list-timeline',
+		'.style-timeline': 'list-timeline',
+		'.icon-list': 'icon-list'
+	};
+	const toListClasses = (classes: string[]): string[] => {
+		const out: string[] = [];
+		for (const c of classes) {
+			if (LIST_CLASS_MAP[c]) out.push(LIST_CLASS_MAP[c]);
+			const cols = /^\.cols-([1-9])$/.exec(c);
+			if (cols && Number(cols[1]) >= 2) out.push(`list-cols-${cols[1]}`);
+		}
+		return [...new Set(out)];
+	};
+	const hasListVariant = (classes: string[]) =>
+		classes.some((c) => c in LIST_CLASS_MAP || /^\.cols-[1-9]$/.test(c));
 
-	// 10. Process list columns {.cols-2}, {.cols-3}
-	html = html.replace(/<ul>([\s\S]*?)<\/ul>\s*<p>\s*\{\.cols-2(?:\s+\.marker-none)?\}\s*<\/p>/gi,
-		'<ul class="list-cols-2 list-none-marker">$1</ul>'
+	html = html.replace(
+		/<ul([^>]*)>([\s\S]*?)<\/ul>((?:(?!<ul|<table)[\s\S]){0,60}?<p>\s*\{([^}]+)\}\s*<\/p>)/gi,
+		(match, ulAttrs, inner, between, markerText) => {
+			const classes = markerText.match(/\.[a-zA-Z0-9_-]+/g) || [];
+			if (!hasListVariant(classes)) return match;
+			const extra = toListClasses(classes);
+			if (!extra.length) return match;
+			const existing = (ulAttrs.match(/class="([^"]*)"/) || [])[1] || '';
+			const cls = [...new Set([...(existing ? existing.split(/\s+/).filter(Boolean) : []), ...extra])].join(' ');
+			const newUlAttrs = existing
+				? ulAttrs.replace(/class="[^"]*"/, `class="${cls}"`)
+				: ` class="${cls}"`;
+			return `<ul${newUlAttrs}>${inner}</ul>${between.replace(/<p>\s*\{[^}]+\}\s*<\/p>/gi, '')}`;
+		}
 	);
-	html = html.replace(/<ul>([\s\S]*?)<\/ul>\s*<p>\s*\{\.cols-3\}\s*<\/p>/gi,
-		'<ul class="list-cols-3">$1</ul>'
-	);
-	html = html.replace(/<p>\s*\{\.cols-\d+(?:\s+\.[^}]+)?\}\s*<\/p>/gi, '');
+
+	// 10. Markers glued to a list item's text (`- Ansible playbooks … {.marker-round}`)
+	//     belong to the whole list: move them onto the <ul>, then drop the marker.
+	html = html.replace(/<ul([^>]*)>([\s\S]*?)<\/ul>/gi, (match, ulAttrs, inner) => {
+		if (!/\{\s*\.[a-zA-Z0-9_-]+/.test(inner)) return match;
+		const glued: string[] = [];
+		const cleaned = inner.replace(
+			/<li([^>]*)>([\s\S]*?)\{\s*((?:\.[a-zA-Z0-9_-]+\s*)+)\}\s*<\/li>/gi,
+			(_m, liAttrs, liInner, markerText) => {
+				glued.push(...(markerText.match(/\.[a-zA-Z0-9_-]+/g) || []));
+				return `<li${liAttrs}>${liInner}</li>`;
+			}
+		);
+		const extra = toListClasses(glued);
+		if (!extra.length) return match;
+		const existing = (ulAttrs.match(/class="([^"]*)"/) || [])[1] || '';
+		const cls = [...new Set([...(existing ? existing.split(/\s+/).filter(Boolean) : []), ...extra])].join(' ');
+		const newUlAttrs = existing
+			? ulAttrs.replace(/class="[^"]*"/, `class="${cls}"`)
+			: ` class="${cls}"`;
+		return `<ul${newUlAttrs}>${cleaned}</ul>`;
+	});
 
 	// 11. Clean up any remaining leaked paragraph tags containing only {.class}
 	html = html.replace(/<p>\s*\{(?:\.[a-zA-Z0-9_-]+\s*)+\}\s*<\/p>/gi, '');
@@ -428,6 +479,20 @@ function processCardVariants(rawHtml: string): string {
 		/(<h[1-6][^>]*>)([\s\S]*?)(<\/h[1-6]>)/gi,
 		(_match, open, inner, close) => open + inner.replace(/\s*\{(?:\.[a-zA-Z0-9_-]+)+\s*\}/g, '') + close
 	);
+
+	// 13. Catch-all: drop any marker still glued to prose (table cells, paragraphs,
+	//     list items…) so nothing renders as literal `{.class}` text. Inline <code>
+	//     is exempt — docs may legitimately show marker syntax there.
+	const inlineCodes: string[] = [];
+	let step = html.replace(
+		/<code(?:\s[^>]*)?>[\s\S]*?<\/code>/gi,
+		(match) => `@@INLINECODE${inlineCodes.push(match) - 1}@@`
+	);
+	step = step.replace(/\{\s*\.[a-zA-Z0-9_-]+(?:\s+\.[a-zA-Z0-9_-]+)*\s*\}/g, '');
+	html = step.replace(/@@INLINECODE(\d+)@@/g, (_m, i) => inlineCodes[Number(i)]);
+
+	// Restore the code blocks protected in step 0.
+	html = html.replace(/@@PREBLOCK(\d+)@@/g, (_m, i) => codeBlocks[Number(i)]);
 
 	return html;
 }

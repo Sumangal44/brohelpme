@@ -409,6 +409,24 @@ kbd {
 	gap: 0.35rem 1rem;
 }
 
+.sheet-card-body ul.list-cols-4 {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 0.35rem 1rem;
+}
+
+.sheet-card-body ul.list-cols-5 {
+	display: grid;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+	gap: 0.35rem 1rem;
+}
+
+.sheet-card-body ul.list-cols-6 {
+	display: grid;
+	grid-template-columns: repeat(6, minmax(0, 1fr));
+	gap: 0.35rem 1rem;
+}
+
 .sheet-card-body ul.list-none-marker,
 .sheet-card-body ul.list-none-marker > li {
 	list-style: none !important;

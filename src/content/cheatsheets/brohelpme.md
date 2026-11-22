@@ -630,7 +630,10 @@ List markers
   ```shell script
   $ git push origin -u <new_name>
   ```
-- **Delete** remote branch `shell script     $ git push origin --delete <old>     `
+- **Delete** remote branch
+  ```shell script
+  $ git push origin --delete <old>
+  ```
 
 {.marker-timeline}
 
@@ -645,7 +648,10 @@ List markers
   ```shell script
   $ git push origin -u <new_name>
   ```
-- **Delete** remote branch `shell script     $ git push origin --delete <old>     `
+- **Delete** remote branch
+  ```shell script
+  $ git push origin --delete <old>
+  ```
 
 {.marker-timeline}
 ````

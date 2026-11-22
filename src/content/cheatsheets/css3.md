@@ -353,12 +353,13 @@ See also: [Attribute selectors](https://developer.mozilla.org/en-US/docs/Web/CSS
 | `font-family:`    | \<font> <fontN> |
 | `font-size:`      | \<size>         |
 | `letter-spacing:` | \<size>         |
-| `line-height:`    | \<number>       |
+| `line-height:`    | \<number>                     |
+| `font-weight:`    | \<number> / bold / normal     |
+| `font-style:`     | italic / normal               |
+| `text-decoration:` | underline / none             |
+| `text-align:`     | left / right<br>center / justify |
+| `text-transform:` | capitalize / uppercase / lowercase |
 
-| `font-weight:` | \<number> / bold / normal | | `font-style:` | italic / normal | | `text-decoration:` | underline /
-none |
-
-| `text-align:` | left / right<br>center / justify | | `text-transform:` | capitalize / uppercase / lowercase |
 {.left-text}
 
 See also: [Font](https://developer.mozilla.org/en-US/docs/Web/CSS/font)
@@ -460,11 +461,15 @@ color: currentcolor; /* keyword */
 | Property      | Description   |
 | ------------- | ------------- |
 | `background:` | _(Shorthand)_ |
+| `background-color:` | See: [Colors](#css-colors) |
+| `background-image:` | url(...) |
+| `background-position:` | left/center/right<br/>top/center/bottom |
+| `background-size:` | cover X Y |
+| `background-clip:` | border-box<br/>padding-box<br/>content-box |
+| `background-repeat:` | no-repeat<br/>repeat-x<br/>repeat-y |
+| `background-attachment:` | scroll/fixed/local |
 
-| `background-color:` | See: [Colors](#css-colors) | | `background-image:` | url(...) | | `background-position:` |
-left/center/right<br/>top/center/bottom | | `background-size:` | cover X Y | | `background-clip:` |
-border-box<br/>padding-box<br/>content-box | | `background-repeat:` | no-repeat<br/>repeat-x<br/>repeat-y | |
-`background-attachment:` | scroll/fixed/local | {.left-text}
+{.left-text}
 
 ### Shorthand {.secondary .col-span-2}
 
