@@ -248,7 +248,7 @@ intro: |
 | `U`                             | Unflag photo                                |
 | `Shift` `U`                     | Unflag photo and go to next photo           |
 | `Ctrl` `Up/Down`                | Increase/decrease flag status               |
-| <code>\`</code>                 | Cycle flag settings                         |
+| `` ` ``                         | Cycle flag settings                         |
 | `Ctrl` `Alt` `R`                | Refine photos                               |
 | `\`                             | Show/hide Library Filter bar                |
 | `Shift` `(click filter labels)` | Open multiple filters in the Filter bar     |

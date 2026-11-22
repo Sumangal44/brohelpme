@@ -355,5 +355,4 @@ warnings.filterwarnings('ignore', category=pd.errors.PerformanceWarning)
 - [PyArrow integration](https://arrow.apache.org/docs/python/pandas.html)
 - [API Reference](https://pandas.pydata.org/docs/reference/index.html)
 - [User Guide](https://pandas.pydata.org/docs/user_guide/index.html)
-```
 

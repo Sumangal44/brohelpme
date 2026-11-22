@@ -714,18 +714,17 @@ here.is.some.more();
 
 #### ↓ Source Code
 
-`````markdown
-````js
+````markdown
+```js
 brohelpme.is(() => {
   awesome.site()
 })
-\```
+```
 
 ```js
 here.is.some.more()
-\```
+```
 ````
-`````
 
 Code blocks can be placed one after the other.
 

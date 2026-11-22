@@ -13,6 +13,13 @@ export default {
 			options: {
 				parser: 'svelte'
 			}
+		},
+		{
+			files: '*.md',
+			options: {
+				parser: 'markdown',
+				proseWrap: 'preserve'
+			}
 		}
 	],
 	semi: true,

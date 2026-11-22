@@ -51,7 +51,7 @@ plugins:
 
 ---
 
-# Markdown Style Formatting {.cols-1}
+## Markdown Style Formatting {.cols-1}
 
 ### On New Lines
 
@@ -77,7 +77,7 @@ Type the following at the beginning of an empty line, then press `Space`:
 
 ---
 
-# Text Formatting & Editing {.cols-2}
+## Text Formatting & Editing {.cols-2}
 
 ### Basic Formatting
 
@@ -126,7 +126,7 @@ Select the block(s) first, then use the shortcut:
 
 ---
 
-# Creating & Modifying Blocks {.cols-2}
+## Creating & Modifying Blocks {.cols-2}
 
 ### Creation & Selection
 
@@ -162,7 +162,7 @@ Select the block(s) first, then use the shortcut:
 
 ---
 
-# Comments & Mentions {.cols-2}
+## Comments & Mentions {.cols-2}
 
 ### Comments
 
@@ -192,7 +192,7 @@ Select the block(s) first, then use the shortcut:
 
 ---
 
-# Database Shortcuts {.cols-2}
+## Database Shortcuts {.cols-2}
 
 ### Navigation & Selection
 

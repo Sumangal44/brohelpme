@@ -14,6 +14,8 @@ intro:
   conversational experience with Alan AI
 ---
 
+## Overview
+
 ### Legend
 
 - `pattern` — phrase to invoke a voice/text command or a response to be played

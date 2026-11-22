@@ -111,12 +111,12 @@ Migrate: Will read the migrations files and create the actual database and table
 
 ### Configuration settings
 
-##### Project base templates directory and Apps templates directory:
+#### Project base templates directory and Apps templates directory:
 
 - create folder project/templates
 - create folder appfolder/templates/appname
 
-##### Create Static folder in base root and separate for apps:
+#### Create Static folder in base root and separate for apps:
 
 - project_name\static\root
 - app_name\static\app_name
@@ -898,7 +898,7 @@ class ArticleForm(ModelForm):
 </form>
 ```
 
-##### A Tailwind CSS template pack for the wonderful django-crispy-forms.
+#### A Tailwind CSS template pack for the wonderful django-crispy-forms.
 
 ```bash
 pip install crispy-tailwind

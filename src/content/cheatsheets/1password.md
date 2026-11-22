@@ -5,11 +5,10 @@ background: bg-[#397fe4]
 label:
 tags:
   - tools
-  -
 categories:
   - Keyboard Shortcuts
 intro: |
-  A cheat sheet for 1password's keyboard shortcuts in Mac, Windows, iOS, Linux.
+  A cheat sheet for 1Password's keyboard shortcuts on Mac, Windows, iOS, and Linux.
 ---
 
 ## 1Password Keyboard Shortcuts for Mac
@@ -80,7 +79,7 @@ intro: |
 | `Right Arrow`               | Select the item details.                                                                  |
 | `Left Arrow`                | Select the item list.                                                                     |
 | `Space`                     | Expand item overview banners.                                                             |
-| `Return`                    | Copy the selected detail.Perform the default action for the selected.                     |
+| `Return`                    | Copy the selected detail. Perform the default action for the selected.                    |
 | `cmd` `C`                   | Copy the username of the selected.                                                        |
 | `Shift` `cmd` `C`           | Copy the password of the selected.                                                        |
 | `Control` `Shift` `cmd` `C` | Copy the one-time password of the selected.                                               |
@@ -161,7 +160,7 @@ intro: |
 
 ## 1Password Keyboard Shortcuts for Windows
 
-### Global keyboard shortcuts
+### Windows global keyboard shortcuts
 
 | `Shortcut`                 | Action             |
 | -------------------------- | ------------------ |
@@ -225,7 +224,7 @@ intro: |
 | `Right Arrow`            | Select the item details.                                                                  |
 | `Left Arrow`             | Select the item list.                                                                     |
 | `Space`                  | Expand item overview banners.                                                             |
-| `Enter`                  | Copy the selected detail.Perform the default action for the selected.                     |
+| `Enter`                  | Copy the selected detail. Perform the default action for the selected.                    |
 | `Ctrl` `C`               | Copy the username of the selected.                                                        |
 | `Ctrl` `Shift` `C`       | Copy the password of the selected.                                                        |
 | `Ctrl` `Shift` `Win` `C` | Copy the one-time password of the selected.                                               |
@@ -325,7 +324,7 @@ intro: |
 | `Right Arrow`                  | Select the item details.                                                                  |
 | `Left Arrow`                   | Select the item list.                                                                     |
 | `Space`                        | Expand item overview banners.                                                             |
-| `Enter`                        | Copy the selected detail.Perform the default action for the selected.                     |
+| `Enter`                        | Copy the selected detail. Perform the default action for the selected.                    |
 | `Ctrl` `C`                     | Copy the username of the selected.                                                        |
 | `Ctrl` `Shift` `C`             | Copy the password of the selected.                                                        |
 | `Ctrl` `Shift` `Super key` `C` | Copy the one-time password of the selected.                                               |

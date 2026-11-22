@@ -11,468 +11,182 @@ categories:
 intro: Comprehensive keyboard shortcuts guide for Windows navigation, management, and editing.
 ---
 
-# Best Windows Shortcuts on Your Keyboard
-
-Copy selected content (Ctrl + C can also abort commands):
-
-```
-Ctrl + C
-```
-
-Paste copied content:
-
-```
-Ctrl + V
-```
-
-Paste unformatted content:
-
-```
-Ctrl + Shift + V
-```
-
-Delete and copy selected content (good for moving text, files, etc.):
-
-```
-Ctrl + X
-```
-
-Select all available content in focus:
-
-```
-Ctrl + A
-```
-
-Undo the previous action:
-
-```
-Ctrl + Z
-```
-
-Redo the previous action:
-
-```
-Ctrl + Y
-```
-
-Save what you're working on:
-
-```
-Ctrl + S
-```
-
-Open a new file:
-
-```
-Ctrl + O
-```
-
-Open the print dialog box:
-
-```
-Ctrl + P
-```
-
-Open the search tool to find something on the page:
-
-```
-Ctrl + F
-```
-
-Refresh the contents on the screen (only F5 works in some cases):
-
-```
-Ctrl + R
-```
-
-Close the active program:
-
-```
-Alt + F4
-```
-
-Enter full-screen mode:
-
-```
-F11
-```
-
-Stop or close a prompt or process:
-
-```
-Esc
-```
-
-# Keyboard Shortcuts for Navigating Windows
-
-Lock your user account:
-
-```
-Win + L
-```
-
-Open File Explorer:
-
-```
-Win + E
-```
-
-Open Windows Settings:
-
-```
-Win + i
-```
-
-Move focus to the navigation bar to edit or copy the folder path:
-
-```
-Alt + D
-```
-
-Go to the folder the current folder is stored in:
-
-```
-Alt + Up
-```
-
-Show your password on the sign-in screen:
-
-```
-Alt + F8
-```
-
-Open Task Manager (Ctrl + Alt + Del works, too):
-
-```
-Ctrl + Shift + Esc
-```
-
-Open the Run dialog box to run commands:
-
-```
-Win + R
-```
-
-Quickly switch to the desktop:
-
-```
-Win + D
-```
-
-Open the selected item's Properties window:
-
-```
-Alt + [Enter or double-click]
-```
-
-Add a Virtual Desktop:
-
-```
-Win + Ctrl + D
-```
-
-Switch to the virtual desktop on the left or right:
-
-```
-Win + Ctrl + [Left or Right]
-```
-
-Show All Open Desktops:
-
-```
-WIN + Tab
-```
-
-Close Current Virtual Desktop:
-
-```
-WIN + Ctrl + F4
-```
-
-Select noncontiguous items (like files or folders):
-
-```
-Ctrl + Click
-```
-
-A possible fix for when your screen is black:
-
-```
-Win + Ctrl + Shift + B
-```
-
-Select every item between the first and last select items:
-
-```
-Shift + Click
-```
-
-Permanently delete a file or folder (it skips the Recycle Bin):
-
-```
-Shift + Del
-```
-
-Switch to the last used window:
-
-```
-Alt + Tab
-```
-
-Snap the active window to one side of the screen:
-
-```
-Win + [Arrow]
-```
-
-Rename the selected file or folder:
-
-```
-F2
-```
-
-Open the Power User Menu:
-
-```
-Win + X
-```
-
-Open a new instance of that app:
-
-```
-Shift + Click Taskbar Icon
-```
-
-Launch that item from the taskbar:
-
-```
-Win + [number]
-```
-
-Make a new folder:
-
-```
-Ctrl + Shift + N
-```
-
-Open the Windows About page:
-
-```
-Win + Pause
-```
-
-# Keyboard Shortcuts for Screenshots
-
-Screenshot just the active window:
-
-```
-Alt + PrtScn
-```
-
-Auto-save full-screen screenshot to Pictures > Screenshots:
-
-```
-Win + PrtScn
-```
-
-Choose a part of the screen to make a screenshot:
-
-```
-Win + Shift + S
-```
-
-# Keyboard Shortcuts for Text Manipulation
-
-Bold the selected text:
-
-```
-Ctrl + B
-```
-
-Italicize the selected text:
-
-```
-Ctrl + i
-```
-
-Underline the selected text:
-
-```
-Ctrl + U
-```
-
-Insert a hyperlink into the selected text:
-
-```
-Ctrl + K
-```
-
-Open the Find and Replace tool (confirmed in MS Word and Google Docs):
-
-```
-Ctrl + H
-```
-
-Pick an arrow key with this shortcut to quickly highlight a whole word or paragraph:
-
-```
-Shift + Ctrl + [Arrow]
-```
-
-Highlight everything from the cursor to the beginning or end of the line:
-
-```
-Shift + [Home or End]
-```
-
-Delete the word to the right of the cursor:
-
-```
-Ctrl + Del
-```
-
-# Keyboard Shortcuts for Web Browsers
-
-Open a new tab:
-
-```
-Ctrl + T
-```
-
-Reopen the most recently closed tab:
-
-```
-Ctrl + Shift + T
-```
-
-Close the active tab:
-
-```
-Ctrl + W
-```
-
-Open the link in a new tab:
-
-```
-Ctrl + [Link]
-```
-
-View your web browsing history:
-
-```
-Ctrl + H
-```
-
-View recent or active downloads:
-
-```
-Ctrl + J
-```
-
-Start a search using the default search engine:
-
-```
-Ctrl + E
-```
-
-Jump to the tab in that position from the left (e.g., Ctrl + 4):
-
-```
-Ctrl + [number]
-```
-
-Open the options to delete browsing data:
-
-```
-Ctrl + Shift + Del
-```
-
-Go back or forward a page:
-
-```
-Alt + [Left or Right]
-```
-
-Adjust the size of the text (scroll up with the mouse to increase the size):
-
-```
-Ctrl + [Zoom]
-```
-
-Add .com to the end of the text in the address bar, and then visit the page:
-
-```
-Ctrl + Enter
-```
-
-Refresh the page, but skip the cache:
-
-```
-Ctrl + F5
-```
-
-Open LinkedIn (or Teams, Word Online):
-
-```
-Ctrl + Shift + Alt + Win + L
-```
-
-# Windows Shortcuts in Run Command
-
-- The quickest way to access the Run command window is to use the keyboard shortcut `Windows + R`
-
-| Command               | Description                                                                      |
-| --------------------- | -------------------------------------------------------------------------------- |
-| `sysdm.cpl`           | Windows Propertes                                                                |
-| `compmgmt.msc`        | Component Managment                                                              |
-| `winver`              | Windows Version                                                                  |
-| `appwiz.cpl`          | Programs And Fuatchers                                                           |
-| `resmon`              | The Resource Monitor window will open, displaying real-time performance d`ata    |
-| `taskmgr`             | Task Manager                                                                     |
-| `explorer`            | Windows Explorer                                                                 |
-| `ncpa.cpl`            | Network Connection                                                               |
-| `Firewall.cpl`        | Firewall                                                                         |
-| `wf.msc`              | Windows Firewall Advanced                                                        |
-| `intl.cpl`            | Time And Date Options                                                            |
-| `timedate.cpl`        | Time And Date Settings                                                           |
-| `mstsc`               | Remote Desktop                                                                   |
-| `osk`                 | Keybord Virtual                                                                  |
-| `charmap`             | Character Map                                                                    |
-| `devmgmt.msc`         | Device Managment                                                                 |
-| `desk.cpl`            | Desktop Resuliation                                                              |
-| `dfrgui`              | program for configuring the scheduled task for disk defragmentation              |
-| `diskmgmt.msc`        | Disk Managare                                                                    |
-| `fsmgmt.msc`          | Show Folders Share                                                               |
-| `inetcpl.cpl`         | Internet Explorer options                                                        |
-| `logoff`              | Log Off                                                                          |
-| `magnify`             | Show Magnifier                                                                   |
-| `mmsys.cpl`           | Sound settings                                                                   |
-| `msconfig`            | System settings                                                                  |
-| `msinfo32`            | Show system all info                                                             |
-| `systeminfo`          | Show system info                                                                 |
-| `netplwiz`            | System Users info                                                                |
-| `perfmon.msc`         | Start Windows Reliability and Performance Monitor in a specific s`tandalone mode |
-| `powercfg.cpl`        | Power options                                                                    |
-| `services.msc`        | Services                                                                         |
-| `shrpubw`             | Shared Folder Wizard                                                             |
-| `write`               | WordPad                                                                          |
-| `control`             | Control Panel                                                                    |
-| `Control Printers`    | Device And Printers                                                              |
-| `dxdiag`              | Show System Information Hardware                                                 |
-| `tracert`             | Trace Route                                                                      |
-| `printui /s /t2`      | Print Server Properties                                                          |
-| `printui /s`          | Show Printer Drivers                                                             |
-| `PrintManagement.msc` | Printers Management , show all printers with drivers                             |
-| `shell:appsfolder`    | Show App Folder                                                                  |
-| `shutdown /r /t 5`    | Restart the system after 5 seconds                                               |
-| `shutdown /s /t 5`    | System shutdown after 5 seconds                                                  |
-| `shutdown -a`         | This command will cancel the scheduled shutdown for one time                     |
-| `shutdown /r /fw`     | Bios Login from windows                                                          |
-
-# Create God Mode Folder
-
-create a new folder on your desktop with this exact name (copy and paste it):
-`GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}`
-
-- The folder icon will change to a Control Panel-style icon, and you will be able to jump in and change all kinds of
-  settings
+## Essential Shortcuts
+
+### Basic Controls
+
+| Shortcut | Action |
+| --- | --- |
+| `Ctrl` `C` | Copy selected content |
+| `Ctrl` `V` | Paste copied content |
+| `Ctrl` `Shift` `V` | Paste unformatted content |
+| `Ctrl` `X` | Cut / delete and copy selected content |
+| `Ctrl` `A` | Select all available content in focus |
+| `Ctrl` `Z` | Undo previous action |
+| `Ctrl` `Y` | Redo previous action |
+| `Ctrl` `S` | Save current work |
+| `Ctrl` `O` | Open new file |
+| `Ctrl` `P` | Open print dialog box |
+| `Ctrl` `F` | Find / search tool on current page |
+| `Ctrl` `R` | Refresh current window contents |
+| `Alt` `F4` | Close active program |
+| `F11` | Toggle full-screen mode |
+| `Esc` | Stop or close active prompt / process |
+
+{.shortcuts}
+
+## Navigation & Window Management
+
+### System & Desktop
+
+| Shortcut | Action |
+| --- | --- |
+| `Win` `L` | Lock your user account / screen |
+| `Win` `E` | Open File Explorer |
+| `Win` `I` | Open Windows Settings |
+| `Win` `D` | Quickly switch to / toggle desktop |
+| `Win` `R` | Open Run dialog box |
+| `Win` `X` | Open Power User (Quick Link) menu |
+| `Win` `Tab` | Open Task View / all virtual desktops |
+| `Alt` `Tab` | Switch to last used window / switch apps |
+| `Alt` `D` | Focus address bar to edit or copy path |
+| `Alt` `Up` | Go up one folder level in File Explorer |
+| `Alt` `F8` | Show password on sign-in screen |
+| `Ctrl` `Shift` `Esc` | Open Task Manager directly |
+| `Alt` `Enter` | Open Properties for selected item |
+| `Shift` `Del` | Permanently delete file (skip Recycle Bin) |
+| `F2` | Rename selected file or folder |
+| `Ctrl` `Shift` `N` | Create a new folder |
+| `Win` `Pause` | Open Windows System About settings |
+
+{.shortcuts}
+
+### Virtual Desktops & Window Snapping
+
+| Shortcut | Action |
+| --- | --- |
+| `Win` `Ctrl` `D` | Add a new Virtual Desktop |
+| `Win` `Ctrl` `Left/Right` | Switch between virtual desktops |
+| `Win` `Ctrl` `F4` | Close active virtual desktop |
+| `Win` `Arrow` | Snap active window to screen edge / corner |
+| `Win` `1-9` | Launch or switch to taskbar app by position |
+| `Shift` `Click` Taskbar Icon | Open a new instance of that app |
+| `Ctrl` `Click` | Select multiple non-contiguous items |
+| `Shift` `Click` | Select all items between first and last |
+| `Win` `Ctrl` `Shift` `B` | Restart display driver (fix black screen) |
+
+{.shortcuts}
+
+## Screenshots & Text Editing
+
+### Screenshots
+
+| Shortcut | Action |
+| --- | --- |
+| `Win` `Shift` `S` | Open Snipping Tool (rectangular / freeform / window) |
+| `Win` `PrtScn` | Auto-save full-screen screenshot to Pictures/Screenshots |
+| `Alt` `PrtScn` | Capture screenshot of active window to clipboard |
+
+{.shortcuts}
+
+### Text Manipulation
+
+| Shortcut | Action |
+| --- | --- |
+| `Ctrl` `B` | Bold selected text |
+| `Ctrl` `I` | Italicize selected text |
+| `Ctrl` `U` | Underline selected text |
+| `Ctrl` `K` | Insert hyperlink into selected text |
+| `Ctrl` `H` | Open Find and Replace dialog |
+| `Shift` `Ctrl` `Arrow` | Highlight entire word or paragraph |
+| `Shift` `Home/End` | Highlight from cursor to beginning/end of line |
+| `Ctrl` `Del` | Delete word to the right of cursor |
+| `Ctrl` `Backspace` | Delete word to the left of cursor |
+
+{.shortcuts}
+
+## Web Browsers
+
+### Browser Navigation
+
+| Shortcut | Action |
+| --- | --- |
+| `Ctrl` `T` | Open a new browser tab |
+| `Ctrl` `Shift` `T` | Reopen most recently closed tab |
+| `Ctrl` `W` | Close active browser tab |
+| `Ctrl` `Click Link` | Open link in background tab |
+| `Ctrl` `1-8` | Jump to tab in that position from left |
+| `Ctrl` `9` | Jump to last tab |
+| `Ctrl` `H` | View browsing history |
+| `Ctrl` `J` | View recent downloads |
+| `Ctrl` `E` | Focus address bar for search engine query |
+| `Ctrl` `Shift` `Del` | Open clear browsing data dialog |
+| `Alt` `Left/Right` | Navigate back or forward in history |
+| `Ctrl` `Enter` | Add `.com` to text in address bar and visit |
+| `Ctrl` `F5` | Refresh page ignoring cached content |
+| `Ctrl` `+` / `Ctrl` `-` | Zoom in / zoom out |
+| `Ctrl` `0` | Reset zoom level to 100% |
+
+{.shortcuts}
+
+## Run Commands & God Mode
+
+### Common Run Commands {.row-span-2}
+
+| Command | Description |
+| --- | --- |
+| `sysdm.cpl` | System Properties |
+| `compmgmt.msc` | Computer Management |
+| `winver` | Windows Version details |
+| `appwiz.cpl` | Programs and Features (Add/Remove) |
+| `resmon` | Resource Monitor (real-time CPU/memory) |
+| `taskmgr` | Task Manager |
+| `explorer` | Windows Explorer |
+| `ncpa.cpl` | Network Connections |
+| `Firewall.cpl` | Windows Defender Firewall |
+| `wf.msc` | Advanced Security Firewall |
+| `intl.cpl` | Region and Language Settings |
+| `timedate.cpl` | Date and Time Settings |
+| `mstsc` | Remote Desktop Connection |
+| `osk` | On-Screen Keyboard |
+| `charmap` | Character Map |
+| `devmgmt.msc` | Device Manager |
+| `desk.cpl` | Display Settings / Resolution |
+| `dfrgui` | Defragment and Optimize Drives |
+| `diskmgmt.msc` | Disk Management |
+| `fsmgmt.msc` | Shared Folders Manager |
+| `inetcpl.cpl` | Internet Options |
+| `logoff` | Log off current user |
+| `magnify` | Open Magnifier |
+| `mmsys.cpl` | Sound Settings |
+| `msconfig` | System Configuration |
+| `msinfo32` | System Information |
+| `netplwiz` | User Accounts Manager |
+| `perfmon.msc` | Performance Monitor |
+| `powercfg.cpl` | Power Options |
+| `services.msc` | Windows Services Manager |
+| `shrpubw` | Create Shared Folder Wizard |
+| `write` | WordPad |
+| `control` | Classic Control Panel |
+| `dxdiag` | DirectX Diagnostic Tool |
+| `tracert` | Trace Route utility |
+| `printui /s` | Print Server Properties |
+| `PrintManagement.msc` | Print Management |
+| `shell:appsfolder` | Applications Folder |
+| `shutdown /r /t 5` | Restart computer in 5 seconds |
+| `shutdown /s /t 5` | Shut down computer in 5 seconds |
+| `shutdown -a` | Cancel scheduled shutdown |
+| `shutdown /r /fw` | Reboot straight into UEFI/BIOS |
+
+{.show-header}
+
+### Create God Mode Folder
+
+Create a new folder on your desktop with this exact name (copy and paste):
+
+```text
+GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}
+```
+
+- The folder icon will change to a Control Panel icon.
+- Opening it gives you unified one-click access to over 200 Windows tools, control applets, and system settings.
