@@ -16,6 +16,7 @@
 		"format:check": "prettier --check .",
 		"format:md": "prettier --write \"**/*.md\"",
 		"format:md:check": "prettier --check \"**/*.md\"",
+		"test:banner": "bun scripts/verify-banners.ts",
 		"astro": "ASTRO_TELEMETRY_DISABLED=1 astro"
 	},
 	"dependencies": {
