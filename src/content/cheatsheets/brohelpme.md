@@ -146,7 +146,7 @@ All the magic variants supported by CheatSheets.zip
 - Use `{.cols-n}` to specify section as a `n`-column layout
 - Click the preview button below to focus on the section
 
-[Preview](/quickref#section-variants) {.link-arrow}
+[Preview](/brohelpme#section-variants) {.link-arrow}
 
 ### .cols-1
 

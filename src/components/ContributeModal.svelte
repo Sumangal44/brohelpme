@@ -282,7 +282,7 @@ $ my-tool run --verbose
 							</a>
 
 							<a
-								href="/quickref"
+								href="/brohelpme"
 								class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-card hover:bg-muted text-foreground border border-border font-medium text-xs shadow-xs transition-all text-center"
 							>
 								<span>Read Syntax Manual</span>

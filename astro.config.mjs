@@ -6,8 +6,11 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://cheatsheets.zip',
+	site: 'https://brohelpme.netlify.app/',
 	output: 'static',
+	redirects: {
+		'/brohelpme': '/brohelpme'
+	},
 	integrations: [svelte(), sitemap()],
 	vite: {
 		plugins: [tailwindcss()]
