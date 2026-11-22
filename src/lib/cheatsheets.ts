@@ -40,7 +40,8 @@ const LANG_MAP: Record<string, string> = {
 	katex: 'latex',
 	mcfunction: 'text',
 	mongosh: 'javascript',
-	gitignore: 'ini'
+	gitignore: 'ini',
+	zig: 'zig'
 };
 
 let highlighterPromise: Promise<Highlighter> | null = null;
@@ -96,7 +97,8 @@ async function getHighlighter(): Promise<Highlighter> {
 				'vim',
 				'xml',
 				'yaml',
-				'bat'
+				'bat',
+				'zig'
 			]
 		});
 	}
@@ -231,7 +233,8 @@ export function resolveIcon(slug: string): string {
 		nix: 'alpine-linux',
 		'apex-legends': 'game',
 		fortnite: 'game',
-		'guitar-pro': 'soundcloud'
+		'guitar-pro': 'soundcloud',
+		zig: 'zig'
 	};
 
 	if (aliasMap[slug] && icons.has(`${aliasMap[slug]}.svg`)) {
