@@ -21,8 +21,7 @@ full light/dark theme.
 - **216 cheat sheets, 13 categories** — Keyboard Shortcuts (80), Programming (57), Linux Command (24),
   Other (19), Toolkit (12), AI (10), Database (5), Operating System (3), Python (3), Testing (2),
   Game (2), Productivity (1), Software (1)
-- **Instant search** — `⌘K` / `Ctrl+K` command palette (also `/`), plus a dedicated `/search` page with
-  fuzzy filtering and category pills
+- **Instant search** — `⌘K` / `Ctrl+K` command palette (also `/`) with fuzzy filtering and real-time category navigation
 - **Light & dark theme** — class-based `.dark` toggle persisted in `localStorage`, with the `theme-color`
   meta kept in sync
 - **Responsive navbar** — blurred sticky header, search pill, theme toggle, GitHub Star button and a
