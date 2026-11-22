@@ -1,0 +1,49 @@
+name: Auto Comment on PR
+
+on:
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment on PR
+        uses: actions/github-script@v9
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            if (context.eventName === 'pull_request_target' && context.payload.action !== 'opened') {
+              console.log(`Skipping: event action is "${context.payload.action}", only "opened" runs.`);
+              return;
+            }
+
+            const prNumber = context.issue.number;
+
+            if (!prNumber) {
+              core.setFailed("A pull request number is required.");
+              return;
+            }
+
+            const commentBody = [
+              '### Thanks for creating a PR! ☺️',
+              '',
+              "We'll review it as soon as possible.",
+              'In the meantime, please double-check the **file changes** and ensure that **all commits** are accurate.',
+              '',
+              'If there are any **unresolved review comments**, feel free to resolve them. 🙌🏼'
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: commentBody
+            });
+
+            console.log("Comment added successfully.");

@@ -1,0 +1,47 @@
+name: Auto Comment on Issue
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add Comment to Issue
+        uses: actions/github-script@v9
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            if (context.eventName === 'issues' && context.payload.action !== 'opened') {
+              console.log(`Skipping: event action is "${context.payload.action}", only "opened" runs.`);
+              return;
+            }
+
+            const issueNumber = context.issue.number;
+
+            if (!issueNumber) {
+              core.setFailed("An issue number is required.");
+              return;
+            }
+
+            const commentBody = [
+              '### Thank you for raising this issue! ✨',
+              '',
+              "We'll review it as soon as possible. We truly appreciate your contribution to BroHelpMe!",
+              '',
+              "> **Note**: Meanwhile, make sure you've visited our [README.md](https://github.com/Sumangal44/brohelpme#readme), [CONTRIBUTING.md](https://github.com/Sumangal44/brohelpme/blob/main/CONTRIBUTING.md), and [CODE_OF_CONDUCT.md](https://github.com/Sumangal44/brohelpme/blob/main/CODE_OF_CONDUCT.md) before creating a PR for this. Also, please do **NOT** create a PR until this issue has been assigned to you. 😊"
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: commentBody
+            });
+
+            console.log("Issue comment added successfully.");
