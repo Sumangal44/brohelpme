@@ -43,7 +43,7 @@ export const RECOMMENDED_SLUGS = [
 	'awk',
 	'docker',
 	'git',
-	'linux',
+	'react',
 	'typescript'
 ];
 
