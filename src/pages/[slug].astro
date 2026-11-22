@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getAllCheatsheets, getCheatsheet } from '../lib/cheatsheets';
+import { getStarCount, formatStarCount } from '../lib/github';
 
 export async function getStaticPaths() {
 	const all = getAllCheatsheets();
@@ -17,6 +18,8 @@ if (!sheet) {
 }
 
 const allSheets = getAllCheatsheets();
+// Resolved once per build (cached in src/lib/github.ts) and shared with the navbar.
+const starCount = await getStarCount();
 const relatedSheets = allSheets
 	.filter((s) => s.slug !== sheet.slug && (s.category === sheet.category || s.tags.some((t) => sheet.tags.includes(t))))
 	.slice(0, 4);
@@ -97,6 +100,10 @@ const relatedSheets = allSheets
 					target="_blank"
 					rel="noopener noreferrer"
 					class="group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-card hover:bg-muted text-foreground text-xs font-medium border border-border transition-colors shadow-xs"
+					aria-label={starCount === null
+						? 'Star on GitHub'
+						: `Star on GitHub — ${starCount} ${starCount === 1 ? 'star' : 'stars'}`}
+					title={starCount === null ? 'Star on GitHub' : `Star on GitHub · ${starCount} stars`}
 				>
 					<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
 						<path
@@ -113,6 +120,14 @@ const relatedSheets = allSheets
 						<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
 					</svg>
 					<span>GitHub Star</span>
+					{starCount !== null && (
+						<span
+							class="ml-0.5 -mr-1 flex h-5 min-w-5 items-center justify-center rounded-md border border-border bg-muted px-1 font-mono text-[10px] font-semibold tabular-nums text-muted-foreground transition-colors group-hover:text-foreground"
+							aria-hidden="true"
+						>
+							{formatStarCount(starCount)}
+						</span>
+					)}
 				</a>
 			</div>
 
