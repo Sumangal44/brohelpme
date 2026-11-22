@@ -1,0 +1,15 @@
+{
+	"tailwindCSS.files.exclude": ["**/node_modules/**", "**/.git/**", "**/dist/**", "**/.astro/**"],
+	"files.watcherExclude": {
+		"**/dist/**": true,
+		"**/.astro/**": true
+	},
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"[astro]": {
+		"editor.defaultFormatter": "astro-build.astro-vscode"
+	},
+	"[svelte]": {
+		"editor.defaultFormatter": "svelte.svelte-vscode"
+	}
+}
