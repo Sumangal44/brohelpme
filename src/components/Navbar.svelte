@@ -241,7 +241,7 @@
 		<!-- Brand -->
 		<a href="/" class="group flex shrink-0 items-center gap-2.5">
 			<span
-				class="flex size-9 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-1.5 shadow-xs transition-transform duration-200 group-hover:scale-105"
+				class="flex size-9 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-1 shadow-xs transition-transform duration-200 group-hover:scale-105"
 			>
 				<img src="/logo.png" alt="BroHelpMe Logo" class="size-full object-contain" />
 			</span>
