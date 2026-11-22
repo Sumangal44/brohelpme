@@ -143,7 +143,7 @@
 		>
 			<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
 		</svg>
-		<span class="whitespace-nowrap">Star</span>
+
 		{#if starCount !== null}
 			<span
 				class="ml-0.5 -mr-1 flex h-5 min-w-5 items-center justify-center rounded-md border border-border bg-muted px-1 font-mono text-[10px] font-semibold tabular-nums text-muted-foreground transition-colors group-hover:text-foreground"

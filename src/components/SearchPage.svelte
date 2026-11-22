@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import type { CheatsheetMeta } from '../lib/types';
 	import { Badge } from '$lib/components/ui/badge';
+	import { deepCardGradient } from '$lib/card-gradient';
 
 	interface Props {
 		sheets: CheatsheetMeta[];
@@ -318,7 +319,7 @@
 						<!-- Icon badge -->
 						<div
 							class="w-11 h-11 rounded-xl p-2 flex items-center justify-center shrink-0 shadow-xs border border-white/10 group-hover:scale-105 transition-transform"
-							style="background: linear-gradient(135deg, {sheet.color}e0 0%, {sheet.color}95 100%);"
+							style="background: {deepCardGradient(sheet.color)};"
 						>
 							<img src={sheet.icon} alt={sheet.title} class="w-full h-full object-contain filter drop-shadow brightness-110" />
 						</div>

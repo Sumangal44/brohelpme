@@ -2,6 +2,7 @@
 	import type { CheatsheetMeta } from '../lib/types';
 	import { RECOMMENDED_SLUGS, HOMEPAGE_CATEGORIES } from '../lib/types';
 	import { Badge } from '$lib/components/ui/badge';
+	import { deepCardGradient } from '$lib/card-gradient';
 
 	interface Props {
 		sheets: CheatsheetMeta[];
@@ -213,7 +214,7 @@
 						<a href="/{sheet.slug}" title="{sheet.title} Cheatsheet" class="group block">
 							<div
 								class="relative p-3 sm:p-4 flex items-center rounded-xl shadow-md cursor-pointer transition-all duration-200 hover:scale-[1.03] hover:shadow-xl overflow-hidden border border-black/5 dark:border-white/10"
-								style="background: linear-gradient(135deg, {sheet.color}e0 0%, {sheet.color}b0 100%);"
+								style="background: {deepCardGradient(sheet.color)};"
 							>
 								<div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-black/25 backdrop-blur-sm p-1.5 flex items-center justify-center shrink-0 border border-white/15 mr-3 shadow-inner">
 									<img src={sheet.icon} alt={sheet.title} class="w-full h-full object-contain filter drop-shadow brightness-110" />
@@ -247,7 +248,7 @@
 						<a href="/{sheet.slug}" title="{sheet.title} Cheatsheet" class="group block">
 							<div
 								class="relative p-3 sm:p-4 flex items-center rounded-xl shadow-md cursor-pointer transition-all duration-200 hover:scale-[1.03] hover:shadow-xl overflow-hidden border border-black/5 dark:border-white/10"
-								style="background: linear-gradient(135deg, {sheet.color}e0 0%, {sheet.color}b0 100%);"
+								style="background: {deepCardGradient(sheet.color)};"
 							>
 								<div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-black/25 backdrop-blur-sm p-1.5 flex items-center justify-center shrink-0 border border-white/15 mr-3 shadow-inner">
 									<img src={sheet.icon} alt={sheet.title} class="w-full h-full object-contain filter drop-shadow brightness-110" />
@@ -282,7 +283,7 @@
 							<a href="/{sheet.slug}" title="{sheet.title} Cheatsheet" class="group block">
 								<div
 									class="relative p-3 sm:p-4 flex items-center rounded-xl shadow-md cursor-pointer transition-all duration-200 hover:scale-[1.03] hover:shadow-xl overflow-hidden border border-black/5 dark:border-white/10"
-									style="background: linear-gradient(135deg, {sheet.color}e0 0%, {sheet.color}b0 100%);"
+									style="background: {deepCardGradient(sheet.color)};"
 								>
 									<div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-black/25 backdrop-blur-sm p-1.5 flex items-center justify-center shrink-0 border border-white/15 mr-3 shadow-inner">
 										<img src={sheet.icon} alt={sheet.title} class="w-full h-full object-contain filter drop-shadow brightness-110" />
