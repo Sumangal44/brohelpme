@@ -36,7 +36,7 @@ plugins:
 │  │  ││ │ ┌── b      e ─┐ │ │  ││    │
 │  │  ││ │ │  ┌h      l┐ │ │ │  ││    │
 ▽  ▽  ▽▽ ▽ ▽  ▽▼      ▼▽ ▽ ▽ ▽  ▽▽    ▽
-   echo "A cheatsheet from quickref.me"
+   echo "A cheatsheet from brohelp.me"
 ```
 
 #### Up-down motions

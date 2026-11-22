@@ -8,9 +8,6 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
 	site: 'https://brohelpme.netlify.app/',
 	output: 'static',
-	redirects: {
-		'/quickref': '/brohelpme'
-	},
 	integrations: [svelte(), sitemap()],
 	vite: {
 		plugins: [tailwindcss()]
