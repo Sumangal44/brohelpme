@@ -417,6 +417,7 @@ $ opencode attach http://10.20.30.40:4096
 				ta.value = code;
 				document.body.appendChild(ta);
 				ta.select();
+				// @ts-expect-error legacy fallback
 				document.execCommand('copy');
 				document.body.removeChild(ta);
 			}

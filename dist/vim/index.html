@@ -269,6 +269,7 @@ $ vim -d file1 file2 [file3]
 				ta.value = code;
 				document.body.appendChild(ta);
 				ta.select();
+				// @ts-expect-error legacy fallback
 				document.execCommand('copy');
 				document.body.removeChild(ta);
 			}

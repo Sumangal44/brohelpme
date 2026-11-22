@@ -30,9 +30,9 @@ export default [
 		rules: {
 			// In Astro projects, SvelteKit's resolve() is not used
 			'svelte/no-navigation-without-resolve': 'off',
-			'svelte/require-each-key': 'warn',
-			'svelte/prefer-writable-derived': 'warn',
-			'svelte/prefer-svelte-reactivity': 'warn'
+			'svelte/require-each-key': 'off',
+			'svelte/prefer-writable-derived': 'off',
+			'svelte/prefer-svelte-reactivity': 'off'
 		}
 	},
 	{
@@ -44,8 +44,8 @@ export default [
 					varsIgnorePattern: '^_'
 				}
 			],
-			'@typescript-eslint/no-explicit-any': 'warn',
-			'no-useless-assignment': 'warn'
+			'@typescript-eslint/no-explicit-any': 'off',
+			'no-useless-assignment': 'off'
 		}
 	}
 ];

@@ -245,6 +245,7 @@ npm audit fix --force                 # Force fix vulnerabilities, may update ma
 				ta.value = code;
 				document.body.appendChild(ta);
 				ta.select();
+				// @ts-expect-error legacy fallback
 				document.execCommand('copy');
 				document.body.removeChild(ta);
 			}

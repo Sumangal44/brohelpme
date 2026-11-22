@@ -89,6 +89,7 @@ np.seterr(divide='raise', over='raise', under='ignore', invalid='raise')
 				ta.value = code;
 				document.body.appendChild(ta);
 				ta.select();
+				// @ts-expect-error legacy fallback
 				document.execCommand('copy');
 				document.body.removeChild(ta);
 			}

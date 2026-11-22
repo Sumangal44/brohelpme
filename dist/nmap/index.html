@@ -145,6 +145,7 @@ Nmap done: 1 IP address (1 host up) scanned in 39.94 seconds
 				ta.value = code;
 				document.body.appendChild(ta);
 				ta.select();
+				// @ts-expect-error legacy fallback
 				document.execCommand('copy');
 				document.body.removeChild(ta);
 			}

@@ -417,6 +417,7 @@ $ ejs -n -l _ ./some_template.ejs -f ./data_file.json
 				ta.value = code;
 				document.body.appendChild(ta);
 				ta.select();
+				// @ts-expect-error legacy fallback
 				document.execCommand('copy');
 				document.body.removeChild(ta);
 			}

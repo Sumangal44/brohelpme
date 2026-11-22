@@ -249,57 +249,6 @@ function slugify(text: string): string {
 		.replace(/\s+/g, '-');
 }
 
-// Markdown transformer config
-const _markdocConfig = {
-	nodes: {
-		fence: {
-			render: 'div',
-			transform(node: any) {
-				const lang = node.attributes?.language || 'code';
-				const codeContent = node.attributes?.content || '';
-				return new Markdoc.Tag(
-					'div',
-					{
-						class:
-							'code-block-wrapper my-2 relative group rounded-lg overflow-hidden border border-border'
-					},
-					[
-						new Markdoc.Tag(
-							'div',
-							{
-								class:
-									'code-block-header flex items-center justify-between px-3 py-1 bg-muted/80 border-b border-border text-[11px] font-mono text-muted-foreground'
-							},
-							[
-								new Markdoc.Tag(
-									'span',
-									{ class: 'font-medium uppercase tracking-wider text-[10px]' },
-									[lang]
-								),
-								new Markdoc.Tag(
-									'button',
-									{
-										type: 'button',
-										class:
-											'copy-code-btn px-2 py-0.5 rounded bg-background hover:bg-muted text-foreground text-[11px] font-sans border border-border transition-colors cursor-pointer shadow-xs',
-										'data-code': codeContent
-									},
-									['Copy']
-								)
-							]
-						),
-						new Markdoc.Tag(
-							'pre',
-							{ class: 'p-3 text-xs font-mono overflow-x-auto leading-relaxed' },
-							[new Markdoc.Tag('code', {}, [codeContent])]
-						)
-					]
-				);
-			}
-		}
-	}
-};
-
 let cachedAllSheets: CheatsheetMeta[] | null = null;
 
 export function getAllCheatsheets(): CheatsheetMeta[] {
@@ -320,7 +269,7 @@ export function getAllCheatsheets(): CheatsheetMeta[] {
 		const fmMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
 		if (!fmMatch) continue;
 
-		let data: any = {};
+		let data: any;
 		try {
 			data = YAML.parse(fmMatch[1]) || {};
 		} catch {
@@ -384,7 +333,7 @@ export async function getCheatsheet(slug: string): Promise<CheatsheetDetail | nu
 	const fmMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
 	if (!fmMatch) return null;
 
-	let data: any = {};
+	let data: any;
 	try {
 		data = YAML.parse(fmMatch[1]) || {};
 	} catch {
@@ -423,7 +372,7 @@ export async function getCheatsheet(slug: string): Promise<CheatsheetDetail | nu
 		// e.g. <thead><tr><th>-</th>...</tr></thead>
 		html = html.replace(
 			/<table>(\s*)<thead>(\s*)<tr>(\s*(?:<th>\s*-\s*<\/th>\s*)+)<\/tr>(\s*)<\/thead>/gi,
-			(match, s1, s2, ths, s3) => {
+			(_match, s1, s2, ths, s3) => {
 				return `<table class="table-compact">${s1}<thead class="hidden">${s2}<tr>${ths}</tr>${s3}</thead>`;
 			}
 		);
@@ -635,7 +584,7 @@ export async function getCheatsheet(slug: string): Promise<CheatsheetDetail | nu
 			}
 
 			// Render card body using Markdoc and Shiki
-			let cardHtml = '';
+			let cardHtml: string;
 			try {
 				const codeBlocks: { id: string; lang: string; code: string }[] = [];
 				const ast = Markdoc.parse(cardRawBody);

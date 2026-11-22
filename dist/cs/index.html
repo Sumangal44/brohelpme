@@ -343,6 +343,7 @@ lengthOfString.Contains(&quot;How&quot;); // => true
 				ta.value = code;
 				document.body.appendChild(ta);
 				ta.select();
+				// @ts-expect-error legacy fallback
 				document.execCommand('copy');
 				document.body.removeChild(ta);
 			}

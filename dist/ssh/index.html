@@ -379,6 +379,7 @@ ssh -f -N -g -L 8080:example.com:80 -i ~/.ssh/custom_key user@ssh_server
 				ta.value = code;
 				document.body.appendChild(ta);
 				ta.select();
+				// @ts-expect-error legacy fallback
 				document.execCommand('copy');
 				document.body.removeChild(ta);
 			}

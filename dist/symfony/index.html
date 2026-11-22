@@ -99,6 +99,7 @@ DATABASE_URL=&quot;postgresql://username:password@127.0.0.1:5432/db_name?serverV
 				ta.value = code;
 				document.body.appendChild(ta);
 				ta.select();
+				// @ts-expect-error legacy fallback
 				document.execCommand('copy');
 				document.body.removeChild(ta);
 			}

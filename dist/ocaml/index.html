@@ -823,6 +823,7 @@ Title: Neuromancer, Author: Gibson, Year: 1984
 				ta.value = code;
 				document.body.appendChild(ta);
 				ta.select();
+				// @ts-expect-error legacy fallback
 				document.execCommand('copy');
 				document.body.removeChild(ta);
 			}
