@@ -62,7 +62,7 @@
 				title: 'CheatSheets Syntax Manual',
 				subtitle: 'Formatting guide, layout variants, code blocks and tables',
 				category: 'Guide',
-				url: '/quickref',
+				url: '/brohelpme',
 				color: '#8b5cf6'
 			});
 
