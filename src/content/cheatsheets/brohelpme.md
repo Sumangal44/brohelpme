@@ -1,5 +1,5 @@
 ---
-title: CheatSheets
+title: BroHelp.Me
 date: 2020-11-25 18:28:43
 background: bg-gradient-to-l from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500
 tags:
@@ -7,7 +7,7 @@ tags:
   - reference
 categories:
   - Other
-intro: This is the magic syntax variant manual that you can use on CheatSheets.zip, It's a good practice for contributors.
+intro: This is the magic syntax variant manual that you can use on BroHelp.Me, It's a good practice for contributors.
 plugins:
   - copyCode
 ---
