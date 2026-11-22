@@ -454,7 +454,7 @@ function processCardVariants(rawHtml: string): string {
 		const glued: string[] = [];
 		const cleaned = inner.replace(
 			/<li([^>]*)>([\s\S]*?)\{\s*((?:\.[a-zA-Z0-9_-]+\s*)+)\}\s*<\/li>/gi,
-			(_m, liAttrs, liInner, markerText) => {
+			(_m: string, liAttrs: string, liInner: string, markerText: string) => {
 				glued.push(...(markerText.match(/\.[a-zA-Z0-9_-]+/g) || []));
 				return `<li${liAttrs}>${liInner}</li>`;
 			}
