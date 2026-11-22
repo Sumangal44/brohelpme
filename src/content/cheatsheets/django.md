@@ -1142,6 +1142,8 @@ user.set_password('raw password')
 
 ## Create Custom Accounts Model
 
+### Accounts Model Setup
+
 ```python
 ~$ python manage.py startapp accounts
 ```
@@ -1470,6 +1472,8 @@ def LogoutPage(request):
 
 ## Send Email
 
+### Sending Emails
+
 ```python
 # settings.py
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
@@ -1487,6 +1491,8 @@ send_mail(
 
 ## Signals
 
+### Model Signals
+
 ```python
 # models.py
 from django.db.models.signals import post_save, pre_save
@@ -1500,6 +1506,8 @@ post_save.connect(post_user_created_signal, sender=User)
 ```
 
 ## Seed
+
+### Database Seeding
 
 ```python
 from app_name.models import Product, Category

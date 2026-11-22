@@ -62,6 +62,8 @@ npm test -- --watch
 
 ## ✍️ Writing Tests
 
+### Test Structure
+
 ```js
 describe('My work', () => {
   test('works', () => {
@@ -80,6 +82,8 @@ describe('My work', () => {
 
 ## 🔧 Setup Hooks
 
+### Lifecycle Hooks
+
 Use these for setup/teardown routines:
 
 ```js
@@ -92,6 +96,8 @@ afterAll(() => { ... });
 ---
 
 ## 🎯 Focusing or Skipping Tests
+
+### Test Filtering
 
 **Focusing tests:**
 
@@ -110,6 +116,8 @@ it.skip(...); // or xit()
 ---
 
 ## 🏁 Optional CLI Flags
+
+### Useful CLI Options
 
 | Flag                  | Description                             |
 | --------------------- | --------------------------------------- |
@@ -218,6 +226,8 @@ test('awaits correctly', async () => {
 
 ## 📸 Snapshot Testing
 
+### Snapshot Assertions
+
 ```js
 it('renders correctly', () => {
   const output = something();
@@ -239,6 +249,8 @@ it('matches snapshot', () => {
 ---
 
 ## ⏲️ Timers
+
+### Fake Timers
 
 ```js
 jest.useFakeTimers();

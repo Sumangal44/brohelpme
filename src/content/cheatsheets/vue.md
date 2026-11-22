@@ -14,11 +14,6 @@ plugins:
   - runCode
 ---
 
-## 📘 Vue.js 3 Cheatsheet – Beginner to Advanced
-
-> The ultimate reference for mastering Vue 3.
-
-
 ## ⚙️ 1. Setup
 
 ### CDN (Quick Start)
@@ -34,6 +29,7 @@ plugins:
   }).mount("#app");
 </script>
 ```
+
 ### Vite + Vue
 
 ```bash
@@ -43,10 +39,11 @@ npm install
 npm run dev
 ```
 
-
 ## 🧠 2. App Structure
 
-```
+### Project Directory Tree
+
+```text
 src/
 ├─ components/
 ├─ views/
@@ -54,8 +51,9 @@ src/
 ├─ main.js
 ```
 
+## 📦 3. Data, Methods & Template
 
-## 📦 3. Data, Methods, Template
+### Options API Basics
 
 ```js
 data() {
@@ -76,8 +74,9 @@ methods: {
 <button @click="increment">+</button>
 ```
 
-
 ## 🧰 4. Directives
+
+### Directive Reference
 
 | Directive       | Purpose                 |
 | --------------- | ----------------------- |
@@ -89,7 +88,7 @@ methods: {
 | `v-on` / `@`    | Event handling          |
 | `v-slot`        | Named/Scoped slot usage |
 
-### Example
+### Directive Examples
 
 ```html
 <input v-model="name" />
@@ -99,8 +98,9 @@ methods: {
 </ul>
 ```
 
-
 ## 🪝 5. Lifecycle Hooks
+
+### Core Lifecycle Methods
 
 ```js
 created() {},
@@ -109,16 +109,18 @@ updated() {},
 unmounted() {}
 ```
 
-
 ## 🎯 6. Events
+
+### Event Listeners & Modifiers
 
 ```html
 <button @click="sayHi">Click</button>
 <input @keyup.enter="submit" />
 ```
 
-
 ## 🔁 7. Computed & Watch
+
+### Computed Properties & Watchers
 
 ```js
 computed: {
@@ -133,10 +135,9 @@ watch: {
 }
 ```
 
-
 ## 🧱 8. Components
 
-### Register + Use
+### Register and Use
 
 ```js
 app.component("Greeting", {
@@ -149,10 +150,9 @@ app.component("Greeting", {
 <Greeting name="Sumangal" />
 ```
 
-
 ## 🔗 9. Props & Emits
 
-### Props
+### Component Props
 
 ```js
 props: {
@@ -164,14 +164,15 @@ props: {
 }
 ```
 
-### Emit
+### Emitting Events
 
 ```js
 this.$emit("custom-event", payload);
 ```
 
-
 ## 🔄 10. v-model with Components
+
+### Custom Two-Way Binding
 
 ```js
 props: ['modelValue'],
@@ -185,8 +186,9 @@ emits: ['update:modelValue']
 />
 ```
 
-
 ## ⚒ 11. Composition API
+
+### Setup Function & Reactivity
 
 ```js
 import { ref, computed } from "vue";
@@ -203,12 +205,7 @@ export default {
 };
 ```
 
-
 ## 🌐 12. Vue Router
-
-```bash
-npm install vue-router
-```
 
 ### router.js
 
@@ -239,12 +236,7 @@ const app = createApp(App);
 app.use(router).mount("#app");
 ```
 
-
-## 📦 13. Pinia (Vuex Alternative)
-
-```bash
-npm install pinia
-```
+## 📦 13. Pinia State Management
 
 ### store/counter.js
 
@@ -266,8 +258,9 @@ const counter = useCounterStore();
 counter.increment();
 ```
 
-
 ## 🎨 14. Slots
+
+### Content Projection
 
 ```html
 <!-- Default -->
@@ -279,7 +272,6 @@ counter.increment();
 <!-- Scoped -->
 <slot :user="user"></slot>
 ```
-
 
 ## 🧪 15. Testing
 
@@ -299,27 +291,29 @@ test("renders", () => {
 });
 ```
 
-
 ## 🧼 16. Best Practices
 
-* Use `ref()` for primitives, `reactive()` for objects
-* Use `<script setup>` syntax in SFCs
-* Break UI into small, reusable components
-* Always define `key` in `v-for`
-* Use slots for flexible composition
+### Architecture Recommendations
 
+- Use `ref()` for primitives, `reactive()` for objects
+- Use `<script setup>` syntax in SFCs
+- Break UI into small, reusable components
+- Always define `key` in `v-for`
+- Use slots for flexible composition
 
 ## 🛠 17. Dev Tools
 
-* 🧩 [Vue DevTools](https://devtools.vuejs.org/)
-* 🧠 [Volar](https://github.com/vuejs/language-tools) for VSCode
-* ⚡ [Vite](https://vitejs.dev) for fast dev environment
+### Ecosystem Tools
 
+- 🧩 [Vue DevTools](https://devtools.vuejs.org/)
+- 🧠 [Volar](https://github.com/vuejs/language-tools) for VSCode
+- ⚡ [Vite](https://vitejs.dev) for fast dev environment
 
 ## 📚 18. Official Resources
 
-* 📘 [Vue Docs](https://vuejs.org)
-* 🧭 [Router Docs](https://router.vuejs.org)
-* 📦 [Pinia Docs](https://pinia.vuejs.org)
-* 🧪 [Composition API FAQ](https://vuejs.org/guide/extras/composition-api-faq.html)
+### Official Documentation & Links
 
+- 📘 [Vue Docs](https://vuejs.org)
+- 🧭 [Router Docs](https://router.vuejs.org)
+- 📦 [Pinia Docs](https://pinia.vuejs.org)
+- 🧪 [Composition API FAQ](https://vuejs.org/guide/extras/composition-api-faq.html)

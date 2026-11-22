@@ -303,6 +303,8 @@ warnings.filterwarnings('ignore', category=pd.errors.PerformanceWarning)
 
 ## Input/Output {.cols-2}
 
+### File Formats and Serialization
+
 | -                                              | -                                    |
 | ---------------------------------------------- | ------------------------------------ |
 | Save to CSV (optimized)                        | `df.to_csv('file.csv', index=False, encoding='utf-8')` |
@@ -322,6 +324,8 @@ warnings.filterwarnings('ignore', category=pd.errors.PerformanceWarning)
 
 ## Common Pitfalls & Best Practices
 
+### Best Practices and Anti-Patterns
+
 | Pitfall | Solution |
 |---------|----------|
 | Chained indexing (creates views) | Use `df.loc[df.a > 0, 'b']` instead of `df[df.a > 0]['b']` |
@@ -339,6 +343,8 @@ warnings.filterwarnings('ignore', category=pd.errors.PerformanceWarning)
 
 ## Deprecations & Version Notes
 
+### Version Migration Notes
+
 | Version | Deprecated/Removed | Replacement |
 |---------|-------------------|-------------|
 | 1.4.0 | `df.append()` | `pd.concat([df, other])` |
@@ -347,8 +353,9 @@ warnings.filterwarnings('ignore', category=pd.errors.PerformanceWarning)
 | 2.0.0 | Inferred string dtype | Use `pd.options.future.infer_string = True` |
 | 2.0.0 | `pd.DataFrame.to_csv()` with `compression` | Use `compression='gzip'` explicitly |
 
-
 ## Official Documentation & Resources
+
+### Official Documentation Links
 
 - [pandas.pydata.org](https://pandas.pydata.org/)
 - [pandas GitHub](https://github.com/pandas-dev/pandas)

@@ -14,8 +14,6 @@ plugins:
   - copyCode
 ---
 
-# Socket.IO Multi-Language Cheat Sheet (v4)
-
 ## Introduction
 
 ### Introduction
@@ -607,14 +605,12 @@ server.OnEvent("/", "file", func(s socketio.Conn, data []byte) {
 
 ## Best Practices
 
-# Implement reconnection with exponential backoff on the client.
+### Recommended Practices
 
-# Sanitize and validate all data on both sides.
-
-# Use TLS in production and rotate authentication tokens frequently.
-
-# Separate concerns with namespaces and rooms.
-
-# Throttle high-frequency events and enable compression where possible.
+- Implement reconnection with exponential backoff on the client.
+- Sanitize and validate all data on both sides.
+- Use TLS in production and rotate authentication tokens frequently.
+- Separate concerns with namespaces and rooms.
+- Throttle high-frequency events and enable compression where possible.
 
 > Official docs: [https://socket.io/docs/v4/](https://socket.io/docs/v4/)

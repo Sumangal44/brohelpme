@@ -269,6 +269,8 @@ plt.show()
 
 ## Working with Images
 
+### Image Operations
+
 | Description | Code |
 |-------------|------|
 | Load image | `import matplotlib.image as mpimg; img = mpimg.imread('image.jpg')` |
@@ -321,6 +323,8 @@ plt.show()
 
 ## Animations
 
+### Animation Functions
+
 | Description | Code |
 |-------------|------|
 | Basic animation | `from matplotlib.animation import FuncAnimation; anim = FuncAnimation(fig, update, frames=100, interval=50)` |
@@ -356,6 +360,8 @@ plt.show()
 
 ## Show & Clear
 
+### Display and Canvas Management
+
 | Description | Code |
 |-------------|------|
 | Display plot | `plt.show()` |
@@ -369,6 +375,8 @@ plt.show()
 
 ## Performance & Memory
 
+### Optimization and Backends
+
 | Description | Code |
 |-------------|------|
 | Fast plotting (AGG backend) | `import matplotlib; matplotlib.use('Agg')` |
@@ -381,6 +389,8 @@ plt.show()
 ---
 
 ## Common Pitfalls & Best Practices
+
+### Best Practices and Solutions
 
 | Pitfall | Solution |
 |---------|----------|

@@ -18,8 +18,6 @@ plugins:
   - copyCode
 ---
 
-# Notion Keyboard Shortcuts {.cols-3}
-
 ## Most Popular / Essential {.col-span-3}
 
 ### Create & Navigate

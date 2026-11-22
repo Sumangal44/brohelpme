@@ -542,11 +542,24 @@ export async function getCheatsheet(slug: string): Promise<CheatsheetDetail | nu
 		const cards: CheatsheetCard[] = [];
 
 		for (const cardPart of cardParts) {
-			const cardLines = cardPart.trim().split('\n');
-			const cardHeader = cardLines[0];
-			if (!cardHeader.startsWith('### ')) continue;
+			const trimmed = cardPart.trim();
+			if (!trimmed) continue;
 
-			const rawCardTitle = cardHeader.replace(/^###\s+/, '').trim();
+			const cardLines = trimmed.split('\n');
+			const cardHeader = cardLines[0];
+			let rawCardTitle = '';
+			let cardRawBody = '';
+
+			if (cardHeader.startsWith('### ')) {
+				rawCardTitle = cardHeader.replace(/^###\s+/, '').trim();
+				cardRawBody = trimmed.substring(cardHeader.length).trim();
+			} else {
+				const stripped = trimmed.replace(/^---\s*$/gm, '').trim();
+				if (!stripped) continue;
+				rawCardTitle = cards.length === 0 ? secTitle : 'Overview';
+				cardRawBody = stripped;
+			}
+
 			const cardTitle = rawCardTitle.replace(/\{[^}]+\}/g, '').trim();
 			const colSpan =
 				rawCardTitle.includes('.col-span-3') || rawCardTitle.includes('.cols-3')
@@ -573,8 +586,6 @@ export async function getCheatsheet(slug: string): Promise<CheatsheetDetail | nu
 									? 'success'
 									: 'default';
 			const cardId = slugify(cardTitle) || `card-${cards.length + 1}`;
-
-			const cardRawBody = cardPart.trim().substring(cardHeader.length).trim();
 
 			// Extract code snippets for quick search/copy
 			const codeSnippets: string[] = [];

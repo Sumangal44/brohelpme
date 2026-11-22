@@ -433,6 +433,8 @@ np.seterr(divide='raise', over='raise', under='ignore', invalid='raise')
 
 ## Structured Arrays
 
+### Structured Dtypes and Arrays
+
 | Description | Code |
 |-------------|------|
 | Create structured | `np.array([(1, 'Alice'), (2, 'Bob')], dtype=[('id','i4'), ('name','U10')])` |
@@ -446,6 +448,8 @@ np.seterr(divide='raise', over='raise', under='ignore', invalid='raise')
 
 ## Datetime & Timedelta
 
+### Datetime and Timedelta Operations
+
 | Description | Code |
 |-------------|------|
 | Create datetime | `np.datetime64('2026-07-01')` |
@@ -458,6 +462,8 @@ np.seterr(divide='raise', over='raise', under='ignore', invalid='raise')
 ---
 
 ## Common Pitfalls & Best Practices
+
+### Common Pitfalls and Solutions
 
 | Pitfall | Solution |
 |---------|----------|

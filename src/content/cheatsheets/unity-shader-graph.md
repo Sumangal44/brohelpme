@@ -16,7 +16,9 @@ intro: |
 
 ## Shader Graph Nodes {.cols-2}
 
-<code>We are using <yel>**SAIT**</yel> to indicate the output type is "same as the input type".</code> {.col-span-2}
+### Overview {.col-span-2}
+
+<code>We are using <yel>**SAIT**</yel> to indicate the output type is "same as the input type".</code>
 
 ## 1. Attributes {.cols-2}
 

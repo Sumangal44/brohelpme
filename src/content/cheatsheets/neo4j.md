@@ -2170,4 +2170,6 @@ Grant privilege to perform all role management, user management, database manage
 
 ## ★ Note
 
+### Enterprise Edition Note
+
 (★) Functionality available in Neo4j Enterprise Edition.

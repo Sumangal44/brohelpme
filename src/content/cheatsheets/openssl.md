@@ -320,6 +320,8 @@ openssl asn1parse -dump -strictpem -in mysterious_file.pem
 
 ## Some resources with useful OpenSSL commands
 
+### External Resources
+
 - [OpenSSL command cheatsheet](https://www.freecodecamp.org/news/openssl-command-cheatsheet-b441be1e8c4a/)
 - [21 OpenSSL Examples to Help You in Real-World](https://geekflare.com/openssl-commands-certificates/)
 - [The Most Common OpenSSL Commands](https://www.sslshopper.com/article-most-common-openssl-commands.html)

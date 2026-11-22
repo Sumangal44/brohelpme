@@ -148,6 +148,8 @@ npm audit fix --force                 # Force fix vulnerabilities, may update ma
 
 ## Publishing packages
 
+### Publishing Workflow
+
 ```bash
 npm login                             # Log in to your npm account (npmjs.com)
 npm publish                           # Publish a package to the npm registry
@@ -156,6 +158,8 @@ npm unpublish <package-name>          # Unpublish a package (within 72 hours of 
 ```
 
 ## Other useful commands
+
+### Helpful Commands
 
 ```bash
 npm help                              # Get general help on npm

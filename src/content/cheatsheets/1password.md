@@ -17,14 +17,14 @@ intro: |
 
 | `Shortcut`               | Action             |
 | ------------------------ | ------------------ |
-| Enter your own shortcut. | Show 1Password.    |
+| Customizable shortcut    | Show 1Password.    |
 | `Shift` `cmd` `Space`    | Show Quick Access. |
 | `Shift` `cmd` `L`        | Lock 1Password.    |
 | `cmd` `\`                | Autofill.          |
 
 {.shortcuts}
 
-### 1Password app {.row-span-2}
+### 1Password app (Mac) {.row-span-2}
 
 | `Shortcut`         | Action                                                                                       |
 | ------------------ | -------------------------------------------------------------------------------------------- |
@@ -52,7 +52,7 @@ intro: |
 | `cmd` `S`          | Save changes to an item.                                                                     |
 | `Esc`              | Cancel an edit.                                                                              |
 | `cmd` `R`          | Reveal or conceal secure fields in the selected.                                             |
-| `Option`           | Temporarily reveal all secure fields in the selected.\*                                      |
+| `Option`           | Temporarily reveal all secure fields in the selected.                                        |
 | `Delete`           | Move the selected(s) to the Archive.                                                         |
 | `cmd` `Delete`     | Delete the selected(s).                                                                      |
 | `Shift` `cmd` `D`  | Collapse or expand the sidebar.                                                              |
@@ -164,7 +164,7 @@ intro: |
 
 | `Shortcut`                 | Action             |
 | -------------------------- | ------------------ |
-| `Enter your own shortcut.` | Show 1Password.    |
+| Customizable shortcut      | Show 1Password.    |
 | `Ctrl` `Shift` `Space`     | Show Quick Access. |
 | `Ctrl` `Shift` `L`         | Lock 1Password.    |
 | `Ctrl` `\`                 | Fill in Browser.   |
@@ -199,7 +199,7 @@ intro: |
 | `Ctrl` `S`          | Save changes to an item.                                                                     |
 | `Esc`               | Cancel an edit.                                                                              |
 | `Ctrl` `R`          | Reveal or conceal secure fields in the selected.                                             |
-| `Ctrl` `Alt`        | Temporarily reveal all secure fields in the selected.\*                                      |
+| `Ctrl` `Alt`        | Temporarily reveal all secure fields in the selected.                                        |
 | `Delete`            | Move the selected(s) to the Archive.                                                         |
 | `Ctrl` `Delete`     | Delete the selected(s).                                                                      |
 | `Ctrl` `Shift` `D`  | Collapse or expand the sidebar.                                                              |
@@ -209,7 +209,7 @@ intro: |
 
 {.shortcuts}
 
-### 1Password in the browser {.row-span-2}
+### 1Password in the browser (Windows) {.row-span-2}
 
 | `Shortcut`               | Action                                                                                    |
 | ------------------------ | ----------------------------------------------------------------------------------------- |
@@ -240,7 +240,7 @@ intro: |
 
 {.shortcuts}
 
-### Quick Access
+### Quick Access (Windows)
 
 | `Shortcut`             | Action                                                                              |
 | ---------------------- | ----------------------------------------------------------------------------------- |
@@ -263,7 +263,7 @@ intro: |
 
 | `Shortcut`              | Action             |
 | ----------------------- | ------------------ |
-| Enter your own shortcut | Show 1Password.    |
+| Customizable shortcut   | Show 1Password.    |
 | `Ctrl` `Shift` `Space`  | Show Quick Access. |
 | `Ctrl` `Shift` `L`      | Lock 1Password.    |
 | `Ctrl` `\`              | Fill in Browser.   |
@@ -362,7 +362,7 @@ intro: |
 
 {.shortcuts}
 
-### Quick Access
+### Quick Access (Linux)
 
 | `Shortcut`             | Action                                                                              |
 | ---------------------- | ----------------------------------------------------------------------------------- |

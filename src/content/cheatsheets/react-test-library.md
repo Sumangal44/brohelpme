@@ -19,6 +19,8 @@ plugins:
 
 ## Introduction
 
+### Overview
+
 React Testing Library is built on top of DOM Testing Library to test React components by querying and interacting with real DOM nodes, avoiding reliance on implementation details.
 
 ## Basic level
@@ -306,5 +308,7 @@ test('user sees public repos', async () => {
 ```
 
 ## Conclusion
+
+### Summary
 
 This comprehensive cheat sheet covers basic to advanced RTL usage—rendering, querying, mocking, custom queries, and integration tests—to help you write robust, maintainable tests.
