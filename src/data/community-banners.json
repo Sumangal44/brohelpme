@@ -1,0 +1,38 @@
+[
+	{
+		"id": "brohelpme",
+		"title": "BroHelpMe",
+		"tagline": "Fast, clean developer cheat sheets and syntax guides without clutter.",
+		"url": "https://github.com/Sumangal44/brohelpme",
+		"badge": "Community",
+		"ctaText": "Star on GitHub",
+		"active": true
+	},
+	{
+		"id": "astro",
+		"title": "Astro",
+		"tagline": "The modern web framework for lightning-fast content-driven sites.",
+		"url": "https://astro.build",
+		"badge": "Framework",
+		"ctaText": "Explore Docs",
+		"active": true
+	},
+	{
+		"id": "svelte",
+		"title": "Svelte 5",
+		"tagline": "Next-generation reactive UI components with signals and runes.",
+		"url": "https://svelte.dev",
+		"badge": "Open Source",
+		"ctaText": "Learn Svelte",
+		"active": true
+	},
+	{
+		"id": "tailwindcss",
+		"title": "Tailwind CSS v4",
+		"tagline": "A high-performance, zero-config utility-first CSS framework.",
+		"url": "https://tailwindcss.com",
+		"badge": "Dev Tool",
+		"ctaText": "View Tailwind",
+		"active": true
+	}
+]

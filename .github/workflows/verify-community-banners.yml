@@ -1,0 +1,33 @@
+name: Verify Community Banners
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/community-banners.json'
+      - 'scripts/verify-banners.ts'
+      - 'src/lib/banners.ts'
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'src/data/community-banners.json'
+
+jobs:
+  verify-banners:
+    name: Validate Community Banner Submissions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Run Banner Schema Validation
+        run: bun run test:banner

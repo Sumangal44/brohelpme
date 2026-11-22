@@ -1,0 +1,57 @@
+name: 📢 Community Banner / Spotlight Submission
+description: Submit your open-source project or developer tool to be featured on BroHelpMe for free
+title: '[Spotlight]: '
+labels: ['type: feature', 'area: ui']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        BroHelpMe features developer tools and open-source projects for free. Fill out the details below, or submit directly via a Pull Request to `src/data/community-banners.json`!
+  - type: input
+    id: project_title
+    attributes:
+      label: Project / Tool Name
+      placeholder: 'e.g. MyDevTool'
+    validations:
+      required: true
+  - type: input
+    id: project_tagline
+    attributes:
+      label: Tagline (under 120 chars)
+      placeholder: 'Fast, lightweight terminal UI for Kubernetes debugging.'
+    validations:
+      required: true
+  - type: input
+    id: project_url
+    attributes:
+      label: Project HTTPS URL
+      placeholder: 'https://mydevtool.dev'
+    validations:
+      required: true
+  - type: dropdown
+    id: project_badge
+    attributes:
+      label: Category Badge
+      options:
+        - 'Open Source'
+        - 'Dev Tool'
+        - 'CLI Tool'
+        - 'Framework'
+        - 'Library'
+        - 'Community'
+    validations:
+      required: true
+  - type: input
+    id: cta_text
+    attributes:
+      label: Button Call to Action
+      placeholder: 'e.g. Learn More, Explore Docs, Star on GitHub'
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Confirmation
+      options:
+        - label: This project is developer-focused, has an active public website/repo, and complies with COMMUNITY_BANNER.md guidelines
+          required: true
