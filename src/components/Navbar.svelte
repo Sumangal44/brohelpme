@@ -8,8 +8,16 @@
 	let { starCount = null }: { starCount?: number | null } = $props();
 
 	let menuOpen = $state(false);
+	let isDark = $state(true);
 
 	onMount(() => {
+		isDark = document.documentElement.classList.contains('dark');
+
+		// Keep the sun/moon icon in sync if the theme changes anywhere else.
+		const onThemeChange = () => {
+			isDark = document.documentElement.classList.contains('dark');
+		};
+
 		const onKeydown = (e: KeyboardEvent) => {
 			if (e.key === 'Escape') menuOpen = false;
 		};
@@ -17,13 +25,80 @@
 		// Close the mobile panel whenever the palette/modal opens over it.
 		const onOpenPalette = () => (menuOpen = false);
 
+		window.addEventListener('theme-changed', onThemeChange);
 		window.addEventListener('keydown', onKeydown);
 		document.addEventListener('open-command-palette', onOpenPalette);
 		return () => {
+			window.removeEventListener('theme-changed', onThemeChange);
 			window.removeEventListener('keydown', onKeydown);
 			document.removeEventListener('open-command-palette', onOpenPalette);
 		};
 	});
+
+	/**
+	 * MagicUI-style animated theme toggle: the new theme is revealed by a
+	 * circular clip-path that expands out of the clicked button, using the
+	 * View Transitions API. Falls back to an instant switch when the API is
+	 * unavailable or the visitor prefers reduced motion.
+	 */
+	function toggleThemeAnimated(event: MouseEvent) {
+		const button = event.currentTarget as HTMLElement | null;
+
+		const apply = () => {
+			if (typeof (window as any).__toggleTheme === 'function') {
+				(window as any).__toggleTheme();
+			} else {
+				const dark = document.documentElement.classList.toggle('dark');
+				localStorage.setItem('theme', dark ? 'dark' : 'light');
+			}
+			// Update the icon synchronously so the snapshot shows the new state.
+			isDark = document.documentElement.classList.contains('dark');
+		};
+
+		const startViewTransition = (document as any).startViewTransition;
+		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		if (typeof startViewTransition !== 'function' || reduceMotion || !button) {
+			apply();
+			return;
+		}
+
+		const viewportWidth = window.innerWidth;
+		const viewportHeight = window.innerHeight;
+		const rect = button.getBoundingClientRect();
+		const x = rect.left + rect.width / 2;
+		const y = rect.top + rect.height / 2;
+		const maxRadius = Math.hypot(
+			Math.max(x, viewportWidth - x),
+			Math.max(y, viewportHeight - y)
+		);
+
+		try {
+			const transition = startViewTransition.call(document, () => apply());
+			const ready = transition && transition.ready;
+			if (ready && typeof ready.then === 'function') {
+				ready
+					.then(() => {
+						document.documentElement.animate(
+							{
+								clipPath: [
+									`circle(0px at ${x}px ${y}px)`,
+									`circle(${maxRadius}px at ${x}px ${y}px)`
+								]
+							},
+							{
+								duration: 500,
+								easing: 'ease-in-out',
+								fill: 'forwards',
+								pseudoElement: '::view-transition-new(root)'
+							}
+						);
+					})
+					.catch(() => {});
+			}
+		} catch {
+			apply();
+		}
+	}
 
 	function triggerSearch() {
 		menuOpen = false;
@@ -59,6 +134,49 @@
 			<span>⌘</span>K
 		</kbd>
 	</button>
+{/snippet}
+
+{#snippet themeToggle()}
+	<Button
+		variant="outline"
+		size="icon"
+		onclick={toggleThemeAnimated}
+		aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+		title={isDark ? 'Light mode' : 'Dark mode'}
+		class="size-9 rounded-xl cursor-pointer"
+	>
+		{#if isDark}
+			<svg
+				class="size-4 text-amber-400 transition-transform duration-300 hover:rotate-45"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+				/>
+			</svg>
+		{:else}
+			<svg
+				class="size-4 text-foreground transition-transform duration-300 hover:rotate-45"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+				/>
+			</svg>
+		{/if}
+	</Button>
 {/snippet}
 
 {#snippet githubButton(className = '')}
@@ -156,6 +274,7 @@
 		<!-- Actions -->
 		<div class="hidden items-center gap-2 sm:flex">
 			<div class="h-5 w-px bg-border"></div>
+			{@render themeToggle()}
 			{@render githubButton()}
 			{@render contributeButton()}
 		</div>
@@ -189,6 +308,7 @@
 				<div class="flex items-center gap-2">
 					{@render contributeButton('flex-1 justify-center h-9')}
 					{@render githubButton('flex-1 justify-center h-9')}
+					{@render themeToggle()}
 				</div>
 			</div>
 		</div>

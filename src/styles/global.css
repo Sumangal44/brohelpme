@@ -567,3 +567,23 @@ html.dark .shiki {
 		filter: none;
 	}
 }
+
+/* ---------------------------------------------------------------------------
+   Animated theme toggle (MagicUI-style View Transition reveal)
+   The new theme is painted through a clip-path circle expanding from the
+   button, so the default cross-fade must be switched off — otherwise the
+   generic old/new fade runs on top of the circle.
+   --------------------------------------------------------------------------- */
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+	mix-blend-mode: normal;
+}
+
+/* Guard: no motion → no reveal animation (JS also skips it). */
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
+	}
+}
