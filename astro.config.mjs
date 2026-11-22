@@ -9,7 +9,7 @@ export default defineConfig({
 	site: 'https://brohelpme.netlify.app/',
 	output: 'static',
 	redirects: {
-		'/brohelpme': '/brohelpme'
+		'/quickref': '/brohelpme'
 	},
 	integrations: [svelte(), sitemap()],
 	vite: {

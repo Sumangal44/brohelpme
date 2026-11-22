@@ -32,7 +32,7 @@ plugins:
 - Send us pull request and chill {.marker-timeline}
 
 It's a good practice to refer to the source code of the
-[CheatSheets reference](https://github.com/Sumangal44/brohelpme/blob/main/src/content/cheatsheets/quickref.md).
+[CheatSheets reference](https://github.com/Sumangal44/brohelpme/blob/main/src/content/cheatsheets/brohelpme.md).
 
 ### Directory Structure
 
