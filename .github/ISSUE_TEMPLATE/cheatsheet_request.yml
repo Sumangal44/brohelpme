@@ -1,0 +1,51 @@
+name: 📝 New Cheatsheet Request / Submission
+description: Suggest or submit a new developer cheat sheet
+title: '[Cheatsheet]: '
+labels: ['type: cheatsheet', 'area: content']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping expand BroHelpMe! Please provide the details for the new cheat sheet below.
+  - type: input
+    id: sheet_name
+    attributes:
+      label: Cheat Sheet Name
+      description: What technology, framework, CLI tool, or language is this for?
+      placeholder: 'e.g. Bun, Docker Compose, Git Rebase'
+    validations:
+      required: true
+  - type: input
+    id: category
+    attributes:
+      label: Primary Category
+      description: Which category should this belong to?
+      placeholder: 'e.g. Programming, DevOps, Toolkit, CLI, Frontend'
+    validations:
+      required: true
+  - type: textarea
+    id: overview
+    attributes:
+      label: Key Commands / Sections
+      description: List the most important commands, tables, or sections that should be included.
+      placeholder: |
+        - Installation
+        - Basic Commands
+        - Configuration
+        - Advanced Tricks
+    validations:
+      required: true
+  - type: input
+    id: official_docs
+    attributes:
+      label: Official Documentation URL
+      description: Link to the official website or documentation.
+      placeholder: 'https://...'
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Submission Checklist
+      options:
+        - label: I searched existing cheatsheets and confirmed this does not already exist
+          required: true
+        - label: I am willing to contribute the markdown content if approved
