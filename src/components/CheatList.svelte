@@ -279,6 +279,14 @@
 								class="relative flex cursor-pointer items-center overflow-hidden rounded-xl border border-black/5 p-3 shadow-md transition-all duration-200 hover:scale-[1.03] hover:shadow-xl sm:p-4 dark:border-white/10"
 								style="background: {deepCardGradient(sheet.color)};"
 							>
+								{#if sheet.badge || sheet.isLatest}
+									<span
+										class="absolute top-2 right-2 flex items-center gap-1 rounded-full border border-white/25 bg-emerald-500/90 px-1.5 py-0.5 font-mono text-[9px] font-bold tracking-wide text-white uppercase shadow-xs backdrop-blur-xs"
+									>
+										<span class="inline-block size-1.5 animate-pulse rounded-full bg-white"></span>
+										{sheet.badge || 'Latest'}
+									</span>
+								{/if}
 								<div
 									class="mr-3 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-black/25 p-1.5 shadow-inner backdrop-blur-sm sm:h-9 sm:w-9"
 								>
@@ -288,7 +296,7 @@
 										class="h-full w-full object-contain brightness-110 drop-shadow filter"
 									/>
 								</div>
-								<div class="min-w-0 flex-1">
+								<div class="min-w-0 flex-1 {sheet.badge || sheet.isLatest ? 'pr-12 sm:pr-14' : ''}">
 									<p class="truncate text-xs font-semibold text-white drop-shadow-sm sm:text-sm">
 										{sheet.title}
 									</p>
@@ -323,6 +331,14 @@
 								class="relative flex cursor-pointer items-center overflow-hidden rounded-xl border border-black/5 p-3 shadow-md transition-all duration-200 hover:scale-[1.03] hover:shadow-xl sm:p-4 dark:border-white/10"
 								style="background: {deepCardGradient(sheet.color)};"
 							>
+								{#if sheet.badge || sheet.isLatest}
+									<span
+										class="absolute top-2 right-2 flex items-center gap-1 rounded-full border border-white/25 bg-emerald-500/90 px-1.5 py-0.5 font-mono text-[9px] font-bold tracking-wide text-white uppercase shadow-xs backdrop-blur-xs"
+									>
+										<span class="inline-block size-1.5 animate-pulse rounded-full bg-white"></span>
+										{sheet.badge || 'Latest'}
+									</span>
+								{/if}
 								<div
 									class="mr-3 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-black/25 p-1.5 shadow-inner backdrop-blur-sm sm:h-9 sm:w-9"
 								>
@@ -332,7 +348,7 @@
 										class="h-full w-full object-contain brightness-110 drop-shadow filter"
 									/>
 								</div>
-								<div class="min-w-0 flex-1">
+								<div class="min-w-0 flex-1 {sheet.badge || sheet.isLatest ? 'pr-12 sm:pr-14' : ''}">
 									<p class="truncate text-xs font-semibold text-white drop-shadow-sm sm:text-sm">
 										{sheet.title}
 									</p>
@@ -368,6 +384,15 @@
 									class="relative flex cursor-pointer items-center overflow-hidden rounded-xl border border-black/5 p-3 shadow-md transition-all duration-200 hover:scale-[1.03] hover:shadow-xl sm:p-4 dark:border-white/10"
 									style="background: {deepCardGradient(sheet.color)};"
 								>
+									{#if sheet.badge || sheet.isLatest}
+										<span
+											class="absolute top-2 right-2 flex items-center gap-1 rounded-full border border-white/25 bg-emerald-500/90 px-1.5 py-0.5 font-mono text-[9px] font-bold tracking-wide text-white uppercase shadow-xs backdrop-blur-xs"
+										>
+											<span class="inline-block size-1.5 animate-pulse rounded-full bg-white"
+											></span>
+											{sheet.badge || 'Latest'}
+										</span>
+									{/if}
 									<div
 										class="mr-3 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/15 bg-black/25 p-1.5 shadow-inner backdrop-blur-sm sm:h-9 sm:w-9"
 									>
@@ -377,7 +402,9 @@
 											class="h-full w-full object-contain brightness-110 drop-shadow filter"
 										/>
 									</div>
-									<div class="min-w-0 flex-1">
+									<div
+										class="min-w-0 flex-1 {sheet.badge || sheet.isLatest ? 'pr-12 sm:pr-14' : ''}"
+									>
 										<p class="truncate text-xs font-semibold text-white drop-shadow-sm sm:text-sm">
 											{sheet.title}
 										</p>

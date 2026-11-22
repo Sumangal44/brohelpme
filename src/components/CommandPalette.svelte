@@ -30,6 +30,8 @@
 		icon?: string;
 		color?: string;
 		action?: () => void;
+		isLatest?: boolean;
+		badge?: string;
 	}
 
 	function openContributeModal() {
@@ -98,7 +100,9 @@
 					category: sheet.category,
 					url: `/${sheet.slug}`,
 					icon: sheet.icon,
-					color: sheet.color
+					color: sheet.color,
+					isLatest: sheet.isLatest,
+					badge: sheet.badge
 				});
 			}
 
@@ -121,7 +125,9 @@
 					category: sheet.category,
 					url: `/${sheet.slug}`,
 					icon: sheet.icon,
-					color: sheet.color
+					color: sheet.color,
+					isLatest: sheet.isLatest,
+					badge: sheet.badge
 				});
 			}
 		}
@@ -340,6 +346,13 @@
 										<span class="dark:text-foreground truncate text-sm font-medium text-slate-900">
 											{item.title}
 										</span>
+										{#if item.badge || item.isLatest}
+											<span
+												class="py-0.2 shrink-0 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 font-mono text-[10px] font-semibold text-emerald-600 uppercase dark:text-emerald-400"
+											>
+												{item.badge || 'Latest'}
+											</span>
+										{/if}
 										<span
 											class="py-0.2 shrink-0 rounded-full border border-slate-300/60 bg-slate-200/70 px-2 font-mono text-[10px] text-slate-700 uppercase dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
 										>

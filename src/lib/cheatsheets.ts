@@ -148,6 +148,23 @@ function extractHexColor(bg?: string): string {
 	return '#4f46e5';
 }
 
+function resolveLatestStatus(
+	data: any,
+	tags: string[],
+	slug: string
+): { isLatest: boolean; badge?: string } {
+	const isLatest = Boolean(
+		data.latest === true ||
+		data.isLatest === true ||
+		(typeof data.latest === 'string' && data.latest.toLowerCase() === 'true') ||
+		(data.badge && String(data.badge).toLowerCase() === 'latest') ||
+		tags.some((t) => t.toLowerCase() === 'latest') ||
+		slug === 'zig'
+	);
+	const badge = data.badge ? String(data.badge) : isLatest ? 'Latest' : undefined;
+	return { isLatest, badge };
+}
+
 // Cache icon existence
 let iconCache: Set<string> | null = null;
 function getIconSet(): Set<string> {
@@ -295,6 +312,7 @@ export function getAllCheatsheets(): CheatsheetMeta[] {
 		const body = fmMatch[2];
 		const cardMatches = body.match(/\n###\s+/g);
 		const cardCount = cardMatches ? cardMatches.length : 1;
+		const { isLatest, badge } = resolveLatestStatus(data, tags, slug);
 
 		sheets.push({
 			slug,
@@ -306,7 +324,9 @@ export function getAllCheatsheets(): CheatsheetMeta[] {
 			icon: resolveIcon(slug),
 			background,
 			color,
-			cardCount
+			cardCount,
+			isLatest,
+			badge
 		});
 	}
 
@@ -672,6 +692,8 @@ export async function getCheatsheet(slug: string): Promise<CheatsheetDetail | nu
 		}
 	}
 
+	const { isLatest, badge } = resolveLatestStatus(data, tags, slug);
+
 	return {
 		slug,
 		title,
@@ -683,6 +705,8 @@ export async function getCheatsheet(slug: string): Promise<CheatsheetDetail | nu
 		background,
 		color,
 		cardCount: totalCards,
+		isLatest,
+		badge,
 		sections
 	};
 }

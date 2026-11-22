@@ -40,6 +40,12 @@ const relatedSheets = allSheets
 			<span class="text-muted-foreground">{sheet.category}</span>
 			<span>›</span>
 			<span class="text-emerald-500 font-medium">{sheet.title}</span>
+			{(sheet.badge || sheet.isLatest) && (
+				<span class="ml-1 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-mono text-[10px] font-semibold uppercase tracking-wider">
+					<span class="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
+					{sheet.badge || 'Latest'}
+				</span>
+			)}
 		</nav>
 
 		<!-- Sheet Hero Header -->
@@ -55,6 +61,13 @@ const relatedSheets = allSheets
 					class="w-full h-full object-contain filter drop-shadow brightness-110"
 				/>
 			</div>
+
+			{(sheet.badge || sheet.isLatest) && (
+				<div class="mb-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-semibold tracking-wider uppercase shadow-xs">
+					<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+					<span>{sheet.badge || 'Latest'}</span>
+				</div>
+			)}
 
 			<h1 class="text-3xl sm:text-5xl font-light mb-3 text-foreground">
 				<span class="font-normal text-foreground">{sheet.title}</span>

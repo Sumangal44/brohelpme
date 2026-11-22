@@ -9,6 +9,8 @@ export interface CheatsheetMeta {
 	background?: string;
 	color: string;
 	cardCount: number;
+	isLatest?: boolean;
+	badge?: string;
 }
 
 export interface CheatsheetCard {

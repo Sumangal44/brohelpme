@@ -1,6 +1,8 @@
 ---
 title: Zig
-date: 2024-01-15 10:00:00
+date: 2026-11-22 21:00:00
+latest: true
+badge: Latest
 background: bg-[#f7a41d]
 tags:
   - zig
@@ -8,6 +10,7 @@ tags:
   - compiler
   - low-level
   - c-replacement
+  - latest
 categories:
   - Programming
 intro: |
