@@ -1,0 +1,135 @@
+{
+  "_Layout.CqrjyXHW.css": {
+    "file": "_astro/Layout.CqrjyXHW.css",
+    "src": "_Layout.CqrjyXHW.css"
+  },
+  "_Layout_DwhzK4sx.mjs": {
+    "file": "chunks/Layout_DwhzK4sx.mjs",
+    "name": "Layout",
+    "imports": [
+      "_server_aO84oak-.mjs"
+    ],
+    "css": [
+      "_astro/Layout.CqrjyXHW.css"
+    ],
+    "assets": [
+      "_astro/inter-cyrillic-ext-wght-normal.BOeWTOD4.woff2",
+      "_astro/inter-cyrillic-wght-normal.DqGufNeO.woff2",
+      "_astro/inter-greek-ext-wght-normal.DlzME5K_.woff2",
+      "_astro/inter-greek-wght-normal.CkhJZR-_.woff2",
+      "_astro/inter-vietnamese-wght-normal.CBcvBZtf.woff2",
+      "_astro/inter-latin-ext-wght-normal.DO1Apj_S.woff2",
+      "_astro/inter-latin-wght-normal.Dx4kXJAl.woff2"
+    ]
+  },
+  "_card-gradient_Dtu-cMwp.mjs": {
+    "file": "chunks/card-gradient_Dtu-cMwp.mjs",
+    "name": "card-gradient"
+  },
+  "_server_aO84oak-.mjs": {
+    "file": "chunks/server_aO84oak-.mjs",
+    "name": "server"
+  },
+  "node_modules/@fontsource-variable/inter/files/inter-cyrillic-ext-wght-normal.woff2": {
+    "file": "_astro/inter-cyrillic-ext-wght-normal.BOeWTOD4.woff2",
+    "src": "node_modules/@fontsource-variable/inter/files/inter-cyrillic-ext-wght-normal.woff2"
+  },
+  "node_modules/@fontsource-variable/inter/files/inter-cyrillic-wght-normal.woff2": {
+    "file": "_astro/inter-cyrillic-wght-normal.DqGufNeO.woff2",
+    "src": "node_modules/@fontsource-variable/inter/files/inter-cyrillic-wght-normal.woff2"
+  },
+  "node_modules/@fontsource-variable/inter/files/inter-greek-ext-wght-normal.woff2": {
+    "file": "_astro/inter-greek-ext-wght-normal.DlzME5K_.woff2",
+    "src": "node_modules/@fontsource-variable/inter/files/inter-greek-ext-wght-normal.woff2"
+  },
+  "node_modules/@fontsource-variable/inter/files/inter-greek-wght-normal.woff2": {
+    "file": "_astro/inter-greek-wght-normal.CkhJZR-_.woff2",
+    "src": "node_modules/@fontsource-variable/inter/files/inter-greek-wght-normal.woff2"
+  },
+  "node_modules/@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2": {
+    "file": "_astro/inter-latin-ext-wght-normal.DO1Apj_S.woff2",
+    "src": "node_modules/@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2"
+  },
+  "node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2": {
+    "file": "_astro/inter-latin-wght-normal.Dx4kXJAl.woff2",
+    "src": "node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2"
+  },
+  "node_modules/@fontsource-variable/inter/files/inter-vietnamese-wght-normal.woff2": {
+    "file": "_astro/inter-vietnamese-wght-normal.CBcvBZtf.woff2",
+    "src": "node_modules/@fontsource-variable/inter/files/inter-vietnamese-wght-normal.woff2"
+  },
+  "node_modules/astro/dist/entrypoints/prerender.js": {
+    "file": "prerender-entry.CQtF1hag.mjs",
+    "name": "prerender",
+    "src": "node_modules/astro/dist/entrypoints/prerender.js",
+    "isEntry": true,
+    "imports": [
+      "_server_aO84oak-.mjs"
+    ],
+    "dynamicImports": [
+      "virtual:astro:page:src/pages/search@_@astro",
+      "virtual:astro:page:src/pages/[slug]@_@astro",
+      "virtual:astro:page:src/pages/index@_@astro",
+      "virtual:astro:actions/noop-entrypoint",
+      "noop-middleware",
+      "virtual:astro:session-driver",
+      "virtual:astro:server-island-manifest"
+    ]
+  },
+  "noop-middleware": {
+    "file": "chunks/_noop-middleware_D5dhqGDj.mjs",
+    "name": "_noop-middleware",
+    "src": "noop-middleware",
+    "isDynamicEntry": true
+  },
+  "virtual:astro:actions/noop-entrypoint": {
+    "file": "chunks/noop-entrypoint_CxXy0p4B.mjs",
+    "name": "noop-entrypoint",
+    "src": "virtual:astro:actions/noop-entrypoint",
+    "isDynamicEntry": true
+  },
+  "virtual:astro:page:src/pages/[slug]@_@astro": {
+    "file": "chunks/_slug__BiYJJ3lX.mjs",
+    "name": "_slug_@_@astro",
+    "src": "virtual:astro:page:src/pages/[slug]@_@astro",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Layout_DwhzK4sx.mjs",
+      "_server_aO84oak-.mjs"
+    ]
+  },
+  "virtual:astro:page:src/pages/index@_@astro": {
+    "file": "chunks/index_BcbnnMPs.mjs",
+    "name": "index@_@astro",
+    "src": "virtual:astro:page:src/pages/index@_@astro",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Layout_DwhzK4sx.mjs",
+      "_server_aO84oak-.mjs",
+      "_card-gradient_Dtu-cMwp.mjs"
+    ]
+  },
+  "virtual:astro:page:src/pages/search@_@astro": {
+    "file": "chunks/search_CB2Y9Iys.mjs",
+    "name": "search@_@astro",
+    "src": "virtual:astro:page:src/pages/search@_@astro",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Layout_DwhzK4sx.mjs",
+      "_server_aO84oak-.mjs",
+      "_card-gradient_Dtu-cMwp.mjs"
+    ]
+  },
+  "virtual:astro:server-island-manifest": {
+    "file": "chunks/_virtual_astro_server-island-manifest_BhTW5IeR.mjs",
+    "name": "_virtual_astro_server-island-manifest",
+    "src": "virtual:astro:server-island-manifest",
+    "isDynamicEntry": true
+  },
+  "virtual:astro:session-driver": {
+    "file": "chunks/_virtual_astro_session-driver_BWWe3pKI.mjs",
+    "name": "_virtual_astro_session-driver",
+    "src": "virtual:astro:session-driver",
+    "isDynamicEntry": true
+  }
+}

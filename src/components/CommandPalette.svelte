@@ -12,18 +12,11 @@
 	let isOpen = $state(false);
 	let query = $state('');
 	let selectedIndex = $state(0);
-	let isDark = $state(true);
 	let inputElement = $state<HTMLInputElement | null>(null);
 
 	onMount(() => {
-		isDark = document.documentElement.classList.contains('dark');
-		const onTheme = () => {
-			isDark = document.documentElement.classList.contains('dark');
-		};
-		window.addEventListener('theme-changed', onTheme);
 		document.addEventListener('open-command-palette', open);
 		return () => {
-			window.removeEventListener('theme-changed', onTheme);
 			document.removeEventListener('open-command-palette', open);
 		};
 	});
@@ -40,38 +33,6 @@
 		action?: () => void;
 	}
 
-	function toggleTheme() {
-		if (typeof (window as any).__toggleTheme === 'function') {
-			(window as any).__toggleTheme();
-		} else {
-			isDark = !isDark;
-			if (isDark) {
-				document.documentElement.classList.add('dark');
-				localStorage.setItem('theme', 'dark');
-			} else {
-				document.documentElement.classList.remove('dark');
-				localStorage.setItem('theme', 'light');
-			}
-			window.dispatchEvent(new CustomEvent('theme-changed', { detail: { isDark } }));
-		}
-	}
-
-	function setTheme(theme: 'light' | 'dark') {
-		if (typeof (window as any).__setTheme === 'function') {
-			(window as any).__setTheme(theme);
-		} else {
-			isDark = theme === 'dark';
-			if (isDark) {
-				document.documentElement.classList.add('dark');
-				localStorage.setItem('theme', 'dark');
-			} else {
-				document.documentElement.classList.remove('dark');
-				localStorage.setItem('theme', 'light');
-			}
-			window.dispatchEvent(new CustomEvent('theme-changed', { detail: { isDark } }));
-		}
-	}
-
 	function openContributeModal() {
 		close();
 		window.dispatchEvent(new CustomEvent('open-contribute-modal'));
@@ -81,41 +42,8 @@
 		const q = query.trim().toLowerCase();
 		const list: PaletteItem[] = [];
 
-		// Check for Theme & Contribution keyword actions
-		const isThemeQuery = q.includes('theme') || q.includes('dark') || q.includes('light') || q.includes('mode') || q.includes('color');
+		// Check for Contribution keyword actions
 		const isAddQuery = q.includes('add') || q.includes('contribut') || q.includes('new') || q.includes('create');
-
-		if (isThemeQuery) {
-			list.push({
-				type: 'action',
-				id: 'action-toggle-theme',
-				title: isDark ? 'Switch to Light Theme' : 'Switch to Dark Theme',
-				subtitle: isDark ? 'Enable clean, high-contrast light theme' : 'Enable deep dark theme with emerald accents',
-				category: 'Theme Action',
-				color: '#10b981',
-				action: () => toggleTheme()
-			});
-
-			list.push({
-				type: 'action',
-				id: 'action-light-theme',
-				title: 'Set Theme: Light ☀️',
-				subtitle: 'Switch application color palette to light mode',
-				category: 'Theme Action',
-				color: '#f59e0b',
-				action: () => setTheme('light')
-			});
-
-			list.push({
-				type: 'action',
-				id: 'action-dark-theme',
-				title: 'Set Theme: Dark 🌙',
-				subtitle: 'Switch application color palette to dark mode',
-				category: 'Theme Action',
-				color: '#6366f1',
-				action: () => setTheme('dark')
-			});
-		}
 
 		if (isAddQuery) {
 			list.push({
@@ -150,17 +78,7 @@
 		}
 
 		if (!q) {
-			// Show top 12 recommended cheatsheets + Quick theme action
-			list.push({
-				type: 'action',
-				id: 'action-toggle-theme-default',
-				title: isDark ? 'Switch to Light Mode ☀️' : 'Switch to Dark Mode 🌙',
-				subtitle: 'Press Enter to toggle application color scheme',
-				category: 'Theme',
-				color: '#10b981',
-				action: () => toggleTheme()
-			});
-
+			// Show top 12 recommended cheatsheets + Quick contribute action
 			list.push({
 				type: 'action',
 				id: 'action-contribute-default',
@@ -304,7 +222,7 @@
 					bind:this={inputElement}
 					bind:value={query}
 					type="text"
-					placeholder="Search 200+ cheat sheets, or type 'theme', 'dark', 'light'..."
+					placeholder="Search 200+ cheat sheets, or type 'add', 'docker', 'git'..."
 					class="w-full bg-transparent text-sm sm:text-base text-slate-900 dark:text-foreground placeholder:text-slate-400 dark:placeholder:text-muted-foreground focus:outline-none"
 				/>
 
@@ -368,11 +286,7 @@
 										class="w-8 h-8 rounded-lg p-1.5 flex items-center justify-center shrink-0 shadow-xs text-white"
 										style="background: linear-gradient(135deg, {item.color || '#10b981'} 0%, {item.color || '#10b981'}bb 100%);"
 									>
-										{#if item.category.includes('Theme')}
-											<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-												<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-											</svg>
-										{:else if item.id === 'action-github-repo'}
+										{#if item.id === 'action-github-repo'}
 											<!-- GitHub octocat — yellow and twinkling, like the Star buttons -->
 											<svg
 												class="w-4 h-4 fill-white animate-star-twinkle transition-transform duration-300"
@@ -417,23 +331,12 @@
 				{/if}
 			</div>
 
-			<!-- Footer helper with Theme Indicator -->
+			<!-- Footer helper -->
 			<div class="px-4 py-2.5 bg-slate-50/80 dark:bg-muted/40 border-t border-slate-200 dark:border-border flex items-center justify-between text-[11px] text-slate-500 dark:text-muted-foreground">
 				<div class="flex items-center gap-3">
 					<span><kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-card text-slate-700 dark:text-foreground border border-slate-200 dark:border-border shadow-xs">↑↓</kbd> navigate</span>
 					<span><kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-card text-slate-700 dark:text-foreground border border-slate-200 dark:border-border shadow-xs">↵</kbd> select</span>
 					<span><kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-card text-slate-700 dark:text-foreground border border-slate-200 dark:border-border shadow-xs">esc</kbd> close</span>
-				</div>
-
-				<div class="flex items-center gap-2">
-					<button
-						type="button"
-						onclick={toggleTheme}
-						class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 dark:bg-card dark:hover:bg-muted dark:text-foreground dark:border-border shadow-xs cursor-pointer transition-colors"
-					>
-						<span>Theme:</span>
-						<span class="font-medium text-emerald-600 dark:text-emerald-400">{isDark ? 'Dark 🌙' : 'Light ☀️'}</span>
-					</button>
 				</div>
 			</div>
 		</div>
