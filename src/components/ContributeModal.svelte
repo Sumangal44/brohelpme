@@ -109,7 +109,7 @@ $ my-tool run --verbose
 					</div>
 					<div>
 						<h2 class="text-base sm:text-lg font-semibold text-foreground">
-							Contribute to cheatsheets.zip
+							Contribute to BroHelp.Me
 						</h2>
 						<p class="text-xs text-muted-foreground">
 							Community-maintained quick reference repository

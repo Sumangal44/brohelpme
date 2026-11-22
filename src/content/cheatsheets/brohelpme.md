@@ -42,7 +42,7 @@ It's a good practice to refer to the source code of the
 │   ├── pages/                 # Routes → index, [slug], search
 │   ├── content/cheatsheets/   # Cheatsheet source files (Markdown)
 │   │   ├── awk.md
-│   │   ├── vim.md             # => cheatsheets.zip/vim
+│   │   ├── vim.md             # => brohelpme.netlify.app/vim
 │   │   ├── php.md
 │   │   └── ...
 │   ├── components/            # Navbar, CheatList, CommandPalette, Footer, ...
@@ -107,7 +107,7 @@ It's a good practice to refer to the source code of the
 - [Paragraph Variants](#paragraph-variants)
 - [Cards Example](#cards-example)
 
-All the magic variants supported by CheatSheets.zip
+All the magic variants supported by BroHelp.Me
 
 ### Create src/content/cheatsheets/demo.md
 

@@ -83,7 +83,7 @@
 				type: 'action',
 				id: 'action-contribute-default',
 				title: 'Contribute / Add Cheatsheet ➕',
-				subtitle: 'Learn how to publish a new reference card to cheatsheets.zip',
+				subtitle: 'Learn how to publish a new reference card to BroHelp.Me',
 				category: 'Contribute',
 				color: '#06b6d4',
 				action: () => openContributeModal()
