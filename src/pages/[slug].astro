@@ -306,7 +306,7 @@ const relatedSheets = allSheets
 				</h3>
 				<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-4">
 					{relatedSheets.map((rel) => (
-						<a href={`/${rel.slug}`} title="{rel.title} Cheatsheet" class="group block">
+						<a href={`/${rel.slug}`} title={`${rel.title} Cheatsheet`} class="group block">
 							<div
 								class="p-3 sm:p-4 flex items-center rounded-xl shadow-md cursor-pointer transition-all duration-200 hover:scale-[1.03] hover:shadow-xl overflow-hidden border border-black/5 dark:border-white/10"
 								style={`background: linear-gradient(135deg, ${rel.color}e0 0%, ${rel.color}95 100%);`}
