@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { CheatsheetMeta } from '../lib/types';
-	import { Badge } from '$lib/components/ui/badge';
 
 	interface Props {
 		sheets: CheatsheetMeta[];
@@ -43,7 +42,8 @@
 		const list: PaletteItem[] = [];
 
 		// Check for Contribution keyword actions
-		const isAddQuery = q.includes('add') || q.includes('contribut') || q.includes('new') || q.includes('create');
+		const isAddQuery =
+			q.includes('add') || q.includes('contribut') || q.includes('new') || q.includes('create');
 
 		if (isAddQuery) {
 			list.push({
@@ -107,7 +107,8 @@
 
 		// Cheatsheet search filtering
 		for (const sheet of sheets) {
-			const sheetTitleMatch = sheet.title.toLowerCase().includes(q) || sheet.slug.toLowerCase().includes(q);
+			const sheetTitleMatch =
+				sheet.title.toLowerCase().includes(q) || sheet.slug.toLowerCase().includes(q);
 			const tagMatch = sheet.tags.some((t) => t.toLowerCase().includes(q));
 			const introMatch = sheet.intro.toLowerCase().includes(q);
 
@@ -193,12 +194,11 @@
 	}
 </script>
 
-
 <svelte:window onkeydown={handleKeydown} />
 
 {#if isOpen}
 	<div
-		class="fixed inset-0 z-50 flex items-start justify-center pt-14 sm:pt-24 px-3 sm:px-4 bg-slate-900/40 dark:bg-black/80 backdrop-blur-sm transition-all duration-150"
+		class="fixed inset-0 z-50 flex items-start justify-center bg-slate-900/40 px-3 pt-14 backdrop-blur-sm transition-all duration-150 sm:px-4 sm:pt-24 dark:bg-black/80"
 		role="dialog"
 		aria-modal="true"
 		tabindex="-1"
@@ -210,12 +210,24 @@
 		}}
 	>
 		<div
-			class="relative w-full max-w-2xl bg-white dark:bg-[#0d121f] border border-slate-200 dark:border-border rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh] animate-in fade-in zoom-in-95 duration-150"
+			class="dark:border-border animate-in fade-in zoom-in-95 relative flex max-h-[80vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl duration-150 dark:bg-[#0d121f]"
 		>
 			<!-- Search Input Bar -->
-			<div class="flex items-center px-4 py-3.5 border-b border-slate-200 dark:border-border gap-3 bg-slate-50/80 dark:bg-muted/40">
-				<svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+			<div
+				class="dark:border-border dark:bg-muted/40 flex items-center gap-3 border-b border-slate-200 bg-slate-50/80 px-4 py-3.5"
+			>
+				<svg
+					class="h-5 w-5 shrink-0 text-emerald-500"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+					/>
 				</svg>
 
 				<input
@@ -223,14 +235,14 @@
 					bind:value={query}
 					type="text"
 					placeholder="Search 200+ cheat sheets, or type 'add', 'docker', 'git'..."
-					class="w-full bg-transparent text-sm sm:text-base text-slate-900 dark:text-foreground placeholder:text-slate-400 dark:placeholder:text-muted-foreground focus:outline-none"
+					class="dark:text-foreground dark:placeholder:text-muted-foreground w-full bg-transparent text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none sm:text-base"
 				/>
 
 				{#if query}
 					<button
 						type="button"
 						onclick={() => (query = '')}
-						class="text-xs px-2 py-0.5 rounded text-slate-500 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 dark:bg-muted dark:text-muted-foreground dark:hover:text-foreground cursor-pointer transition-colors"
+						class="dark:bg-muted dark:text-muted-foreground dark:hover:text-foreground cursor-pointer rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-500 transition-colors hover:bg-slate-200 hover:text-slate-900"
 					>
 						Clear
 					</button>
@@ -239,22 +251,26 @@
 				<button
 					type="button"
 					onclick={close}
-					class="text-xs px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 border border-slate-200 dark:bg-muted dark:hover:bg-muted/80 dark:text-muted-foreground dark:hover:text-foreground dark:border-border cursor-pointer font-mono transition-colors"
+					class="dark:bg-muted dark:hover:bg-muted/80 dark:text-muted-foreground dark:hover:text-foreground dark:border-border cursor-pointer rounded border border-slate-200 bg-slate-100 px-2 py-1 font-mono text-xs text-slate-600 transition-colors hover:bg-slate-200 hover:text-slate-900"
 				>
 					ESC
 				</button>
 			</div>
 
 			<!-- Results List -->
-			<div class="overflow-y-auto p-2 divide-y divide-slate-100 dark:divide-border/30">
+			<div class="dark:divide-border/30 divide-y divide-slate-100 overflow-y-auto p-2">
 				{#if results.length === 0}
-					<div class="py-12 text-center text-slate-500 dark:text-muted-foreground text-sm">
-						No cheatsheet or action matching "<span class="text-slate-900 dark:text-foreground font-medium">{query}</span>"
+					<div class="dark:text-muted-foreground py-12 text-center text-sm text-slate-500">
+						No cheatsheet or action matching "<span
+							class="dark:text-foreground font-medium text-slate-900"
+						>
+							{query}
+						</span>"
 						<div class="mt-3">
 							<button
 								type="button"
 								onclick={openContributeModal}
-								class="text-xs px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors cursor-pointer"
+								class="cursor-pointer rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5 text-xs text-emerald-600 transition-colors hover:bg-emerald-500/20 dark:text-emerald-400"
 							>
 								+ Contribute this sheet to BroHelp.Me
 							</button>
@@ -266,30 +282,36 @@
 							type="button"
 							onclick={() => selectItem(item)}
 							onmouseenter={() => (selectedIndex = idx)}
-							class="group w-full text-left p-2.5 sm:p-3 rounded-xl flex items-center justify-between gap-3 transition-colors duration-100 cursor-pointer {idx ===
+							class="group flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl p-2.5 text-left transition-colors duration-100 sm:p-3 {idx ===
 							selectedIndex
-								? 'bg-slate-100 dark:bg-muted text-slate-900 dark:text-foreground font-medium shadow-xs'
-								: 'text-slate-700 dark:text-foreground/80 hover:bg-slate-50 dark:hover:bg-muted/50'}"
+								? 'dark:bg-muted dark:text-foreground bg-slate-100 font-medium text-slate-900 shadow-xs'
+								: 'dark:text-foreground/80 dark:hover:bg-muted/50 text-slate-700 hover:bg-slate-50'}"
 						>
-							<div class="flex items-center gap-3 min-w-0">
+							<div class="flex min-w-0 items-center gap-3">
 								{#if item.icon}
 									<!-- Cheatsheet Tech Icon Badge -->
 									<div
-										class="w-8 h-8 rounded-lg p-1.5 flex items-center justify-center shrink-0 shadow-xs border border-white/10"
-										style="background: linear-gradient(135deg, {item.color || '#10b981'} 0%, {item.color || '#10b981'}bb 100%);"
+										class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 p-1.5 shadow-xs"
+										style="background: linear-gradient(135deg, {item.color ||
+											'#10b981'} 0%, {item.color || '#10b981'}bb 100%);"
 									>
-										<img src={item.icon} alt={item.title} class="w-full h-full object-contain filter brightness-110 drop-shadow-xs" />
+										<img
+											src={item.icon}
+											alt={item.title}
+											class="h-full w-full object-contain brightness-110 drop-shadow-xs filter"
+										/>
 									</div>
 								{:else}
 									<!-- Action Icon Badge -->
 									<div
-										class="w-8 h-8 rounded-lg p-1.5 flex items-center justify-center shrink-0 shadow-xs text-white"
-										style="background: linear-gradient(135deg, {item.color || '#10b981'} 0%, {item.color || '#10b981'}bb 100%);"
+										class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg p-1.5 text-white shadow-xs"
+										style="background: linear-gradient(135deg, {item.color ||
+											'#10b981'} 0%, {item.color || '#10b981'}bb 100%);"
 									>
 										{#if item.id === 'action-github-repo'}
 											<!-- GitHub octocat — yellow and twinkling, like the Star buttons -->
 											<svg
-												class="w-4 h-4 fill-black dark:fill-white animate-star-twinkle transition-transform duration-300"
+												class="animate-star-twinkle h-4 w-4 fill-black transition-transform duration-300 dark:fill-white"
 												viewBox="0 0 24 24"
 												aria-hidden="true"
 											>
@@ -300,31 +322,49 @@
 												/>
 											</svg>
 										{:else}
-											<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+											<svg
+												class="h-4 w-4"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+												stroke-width="2"
+											>
 												<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
 											</svg>
 										{/if}
 									</div>
 								{/if}
 
-								<div class="flex-1 min-w-0">
-									<div class="flex items-center gap-2 mb-0.5">
-										<span class="font-medium text-sm text-slate-900 dark:text-foreground truncate">
+								<div class="min-w-0 flex-1">
+									<div class="mb-0.5 flex items-center gap-2">
+										<span class="dark:text-foreground truncate text-sm font-medium text-slate-900">
 											{item.title}
 										</span>
-										<span class="text-[10px] font-mono uppercase px-2 py-0.2 rounded-full bg-slate-200/70 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-300/60 dark:border-slate-700 shrink-0">
+										<span
+											class="py-0.2 shrink-0 rounded-full border border-slate-300/60 bg-slate-200/70 px-2 font-mono text-[10px] text-slate-700 uppercase dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+										>
 											{item.category}
 										</span>
 									</div>
 
-									<p class="text-xs text-slate-500 dark:text-muted-foreground truncate">
+									<p class="dark:text-muted-foreground truncate text-xs text-slate-500">
 										{item.subtitle}
 									</p>
 								</div>
 							</div>
 
-							<svg class="w-4 h-4 text-slate-400 dark:text-muted-foreground shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+							<svg
+								class="dark:text-muted-foreground h-4 w-4 shrink-0 text-slate-400"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M9 5l7 7-7 7"
+								/>
 							</svg>
 						</button>
 					{/each}
@@ -332,11 +372,31 @@
 			</div>
 
 			<!-- Footer helper -->
-			<div class="px-4 py-2.5 bg-slate-50/80 dark:bg-muted/40 border-t border-slate-200 dark:border-border flex items-center justify-between text-[11px] text-slate-500 dark:text-muted-foreground">
+			<div
+				class="dark:bg-muted/40 dark:border-border dark:text-muted-foreground flex items-center justify-between border-t border-slate-200 bg-slate-50/80 px-4 py-2.5 text-[11px] text-slate-500"
+			>
 				<div class="flex items-center gap-3">
-					<span><kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-card text-slate-700 dark:text-foreground border border-slate-200 dark:border-border shadow-xs">↑↓</kbd> navigate</span>
-					<span><kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-card text-slate-700 dark:text-foreground border border-slate-200 dark:border-border shadow-xs">↵</kbd> select</span>
-					<span><kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-card text-slate-700 dark:text-foreground border border-slate-200 dark:border-border shadow-xs">esc</kbd> close</span>
+					<span>
+						<kbd
+							class="dark:bg-card dark:text-foreground dark:border-border rounded border border-slate-200 bg-white px-1.5 py-0.5 text-slate-700 shadow-xs"
+						>
+							↑↓
+						</kbd> navigate
+					</span>
+					<span>
+						<kbd
+							class="dark:bg-card dark:text-foreground dark:border-border rounded border border-slate-200 bg-white px-1.5 py-0.5 text-slate-700 shadow-xs"
+						>
+							↵
+						</kbd> select
+					</span>
+					<span>
+						<kbd
+							class="dark:bg-card dark:text-foreground dark:border-border rounded border border-slate-200 bg-white px-1.5 py-0.5 text-slate-700 shadow-xs"
+						>
+							esc
+						</kbd> close
+					</span>
 				</div>
 			</div>
 		</div>

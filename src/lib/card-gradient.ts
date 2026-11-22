@@ -40,9 +40,7 @@ function parseHex(hex: string): [number, number, number] | null {
 }
 
 function mix(rgb: readonly [number, number, number], portion: number): string {
-	const channels = rgb.map((channel, i) =>
-		Math.round(channel * portion + DARK[i] * (1 - portion))
-	);
+	const channels = rgb.map((channel, i) => Math.round(channel * portion + DARK[i] * (1 - portion)));
 	return `#${channels.map((c) => c.toString(16).padStart(2, '0')).join('')}`;
 }
 

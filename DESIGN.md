@@ -1,9 +1,11 @@
 # BroHelp.Me Design System & Specifications
 
 ## Mission
+
 Create implementation-ready, token-driven UI guidance for BroHelp.Me that is optimized for consistency, accessibility, and fast delivery across a high-performance developer documentation and cheat sheet platform.
 
 ## Brand
+
 - Product/brand: BroHelp.Me
 - URL: https://brohelpme.netlify.app/
 - Source: https://github.com/Sumangal44/brohelpme
@@ -11,6 +13,7 @@ Create implementation-ready, token-driven UI guidance for BroHelp.Me that is opt
 - Product surface: fast, static documentation and quick-reference cheat sheets site
 
 ## Brand Mascot & Logo System
+
 - **Mascot**: Minimalist sleeping/lazy panda illustration resting on its belly, facing right with head on front paw.
 - **Concept**: Effortless, approachable technical reference ("so simple and direct even a lazy panda gets it done").
 - **Logo Assets**:
@@ -31,6 +34,7 @@ Create implementation-ready, token-driven UI guidance for BroHelp.Me that is opt
   - **Inline Badges**: `w-3.5 h-3.5` object-contain inside hero and search header pills.
 
 ## Style Foundations
+
 - Visual style: clean, functional, developer-focused, implementation-oriented
 - Main font style: `font.family.primary=ui-sans-serif`, `font.family.stack=ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji`, `font.size.base=14px`, `font.weight.base=400`, `font.lineHeight.base=20px`
 - Typography scale: `font.size.xs=12px`, `font.size.sm=14px`, `font.size.md=16px`, `font.size.lg=18px`, `font.size.xl=20px`, `font.size.2xl=24px`, `font.size.3xl=36px`, `font.size.4xl=60px`
@@ -50,6 +54,7 @@ Create implementation-ready, token-driven UI guidance for BroHelp.Me that is opt
 - Radius/shadow/motion tokens: `radius.xs=8px`, `radius.sm=12px`, `radius.md=16px`, `radius.pill=9999px` | `motion.duration.instant=200ms`
 
 ## Accessibility
+
 - Target: WCAG 2.2 AA
 - Keyboard-first interactions required (including `⌘K` / `Ctrl+K` command palette and `/` search hotkey).
 - Focus-visible rules required on all interactive elements.
@@ -57,9 +62,11 @@ Create implementation-ready, token-driven UI guidance for BroHelp.Me that is opt
 - Image assets must include descriptive `alt` text (`alt="BroHelpMe Logo"`).
 
 ## Writing Tone
+
 Concise, confident, developer-focused, implementation-first.
 
 ## Rules: Do
+
 - Use semantic tokens, not raw hex values, in component guidance.
 - Always use the official panda logo (`/logo.png` or `/logo.svg`) with appropriate container padding.
 - Maintain high contrast and visibility across both dark and light modes.
@@ -69,6 +76,7 @@ Concise, confident, developer-focused, implementation-first.
 - Accessibility acceptance criteria must be testable in implementation.
 
 ## Rules: Don't
+
 - Do not introduce raw text inside logo graphic assets (mascot stands alone).
 - Do not make the panda's white fur transparent; doing so breaks appearance in dark mode.
 - Do not allow low-contrast text or hidden focus indicators.
@@ -77,6 +85,7 @@ Concise, confident, developer-focused, implementation-first.
 - Do not ship component guidance without explicit state rules.
 
 ## Guideline Authoring Workflow
+
 1. Restate design intent in one sentence.
 2. Define foundations, semantic tokens, and logo/brand guidelines.
 3. Define component anatomy, variants, interactions, and state behavior.
@@ -85,6 +94,7 @@ Concise, confident, developer-focused, implementation-first.
 6. End with a QA checklist.
 
 ## Required Output Structure
+
 - Context and goals.
 - Design tokens, brand identity, and logo specifications.
 - Component-level rules (anatomy, variants, states, responsive behavior).
@@ -94,12 +104,14 @@ Concise, confident, developer-focused, implementation-first.
 - QA checklist.
 
 ## Component Rule Expectations
+
 - Include keyboard, pointer, and touch behavior.
 - Include spacing and typography token requirements.
 - Include long-content, overflow, and empty-state handling.
 - Include known page component density: links (255), cards (220), buttons (15), inputs (1), navigation (1), lists (1).
 
 ## Quality Gates
+
 - Every non-negotiable rule must use "must".
 - Every recommendation should use "should".
 - Every accessibility rule must be testable in implementation.

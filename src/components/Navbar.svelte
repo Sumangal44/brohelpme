@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Button } from '$lib/components/ui/button';
-	import { Badge } from '$lib/components/ui/badge';
 	import { formatStarCount } from '$lib/github';
 
 	/** Repo star count, resolved at build time (see src/lib/github.ts). */
@@ -67,10 +66,7 @@
 		const rect = button.getBoundingClientRect();
 		const x = rect.left + rect.width / 2;
 		const y = rect.top + rect.height / 2;
-		const maxRadius = Math.hypot(
-			Math.max(x, viewportWidth - x),
-			Math.max(y, viewportHeight - y)
-		);
+		const maxRadius = Math.hypot(Math.max(x, viewportWidth - x), Math.max(y, viewportHeight - y));
 
 		try {
 			const transition = startViewTransition.call(document, () => apply());
@@ -115,21 +111,25 @@
 	<button
 		type="button"
 		onclick={triggerSearch}
-		class="group flex min-w-0 items-center gap-2.5 rounded-xl border border-border bg-muted/50 px-3 py-2 text-sm text-muted-foreground shadow-xs transition-all hover:bg-muted hover:text-foreground {className}"
+		class="group border-border bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground flex min-w-0 items-center gap-2.5 rounded-xl border px-3 py-2 text-sm shadow-xs transition-all {className}"
 	>
 		<svg
-			class="size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-emerald-500"
+			class="text-muted-foreground size-4 shrink-0 transition-colors group-hover:text-emerald-500"
 			fill="none"
 			viewBox="0 0 24 24"
 			stroke="currentColor"
 			stroke-width="2"
 			aria-hidden="true"
 		>
-			<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+			/>
 		</svg>
 		<span class="truncate">Search 200+ cheatsheets...</span>
 		<kbd
-			class="ml-auto hidden shrink-0 items-center gap-0.5 rounded-md border border-border bg-background px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted-foreground sm:inline-flex"
+			class="border-border bg-background text-muted-foreground ml-auto hidden shrink-0 items-center gap-0.5 rounded-md border px-1.5 py-0.5 font-mono text-[10px] font-medium sm:inline-flex"
 		>
 			<span>⌘</span>K
 		</kbd>
@@ -143,11 +143,11 @@
 		onclick={toggleThemeAnimated}
 		aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
 		title={isDark ? 'Light mode' : 'Dark mode'}
-		class="size-9 rounded-xl cursor-pointer"
+		class="size-9 cursor-pointer rounded-xl"
 	>
 		{#if isDark}
 			<svg
-				class="size-4 text-foreground transition-transform duration-300 hover:rotate-45"
+				class="text-foreground size-4 transition-transform duration-300 hover:rotate-45"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -162,7 +162,7 @@
 			</svg>
 		{:else}
 			<svg
-				class="size-4 text-foreground transition-transform duration-300 hover:rotate-45"
+				class="text-foreground size-4 transition-transform duration-300 hover:rotate-45"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -186,14 +186,18 @@
 		href="https://github.com/Sumangal44/brohelpme"
 		target="_blank"
 		rel="noopener noreferrer"
-		class="h-9 gap-1.5 rounded-xl px-3 cursor-pointer group {className}"
+		class="group h-9 cursor-pointer gap-1.5 rounded-xl px-3 {className}"
 		aria-label={starCount === null
 			? 'Star on GitHub'
 			: `Star on GitHub — ${starCount} ${starCount === 1 ? 'star' : 'stars'}`}
 		title={starCount === null ? 'Star on GitHub' : `Star on GitHub · ${starCount} stars`}
 	>
 		<!-- GitHub mark (restored) + yellow twinkling star -->
-		<svg class="size-4 shrink-0 fill-black dark:fill-white animate-star-twinkle transition-transform duration-300" viewBox="0 0 24 24" aria-hidden="true">
+		<svg
+			class="animate-star-twinkle size-4 shrink-0 fill-black transition-transform duration-300 dark:fill-white"
+			viewBox="0 0 24 24"
+			aria-hidden="true"
+		>
 			<path
 				fill-rule="evenodd"
 				clip-rule="evenodd"
@@ -201,16 +205,18 @@
 			/>
 		</svg>
 		<svg
-			class="size-3.5 shrink-0 fill-amber-400 animate-star-twinkle transition-transform duration-300 dark:fill-amber-300"
+			class="animate-star-twinkle size-3.5 shrink-0 fill-amber-400 transition-transform duration-300 dark:fill-amber-300"
 			viewBox="0 0 24 24"
 			aria-hidden="true"
 		>
-			<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+			<path
+				d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+			/>
 		</svg>
 
 		{#if starCount !== null}
 			<span
-				class="ml-0.5 -mr-1 flex h-5 min-w-5 items-center justify-center rounded-md border border-border bg-muted px-1 font-mono text-[10px] font-semibold tabular-nums text-muted-foreground transition-colors group-hover:text-foreground"
+				class="border-border bg-muted text-muted-foreground group-hover:text-foreground -mr-1 ml-0.5 flex h-5 min-w-5 items-center justify-center rounded-md border px-1 font-mono text-[10px] font-semibold tabular-nums transition-colors"
 				aria-hidden="true"
 			>
 				{formatStarCount(starCount)}
@@ -224,9 +230,16 @@
 		variant="outline"
 		size="sm"
 		onclick={triggerContribute}
-		class="h-9 rounded-xl border-emerald-500/30 text-emerald-600 hover:bg-emerald-500/10 hover:text-emerald-600 dark:text-emerald-400 dark:hover:bg-emerald-500/10 dark:hover:text-emerald-400 text-xs font-medium gap-1.5 cursor-pointer {className}"
+		class="h-9 cursor-pointer gap-1.5 rounded-xl border-emerald-500/30 text-xs font-medium text-emerald-600 hover:bg-emerald-500/10 hover:text-emerald-600 dark:text-emerald-400 dark:hover:bg-emerald-500/10 dark:hover:text-emerald-400 {className}"
 	>
-		<svg class="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+		<svg
+			class="size-3.5"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke="currentColor"
+			stroke-width="2"
+			aria-hidden="true"
+		>
 			<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
 		</svg>
 		<span class="hidden sm:inline">Contribute</span>
@@ -235,7 +248,7 @@
 {/snippet}
 
 <header
-	class="sticky top-0 z-50 w-full border-b border-border/70 bg-background/85 backdrop-blur-xl supports-backdrop-filter:bg-background/70 transition-colors duration-200"
+	class="border-border/70 bg-background/85 supports-backdrop-filter:bg-background/70 sticky top-0 z-50 w-full border-b backdrop-blur-xl transition-colors duration-200"
 >
 	<div class="mx-auto flex h-16 max-w-7xl items-center gap-2 px-4 sm:gap-3 sm:px-6 lg:px-8">
 		<!-- Brand -->
@@ -246,7 +259,9 @@
 				<img src="/logo.png" alt="BroHelpMe Logo" class="size-full object-contain" />
 			</span>
 			<span class="flex items-center gap-1.5">
-				<span class="text-base font-bold tracking-tight text-foreground transition-colors group-hover:text-emerald-600 sm:text-lg dark:group-hover:text-emerald-400">
+				<span
+					class="text-foreground text-base font-bold tracking-tight transition-colors group-hover:text-emerald-600 sm:text-lg dark:group-hover:text-emerald-400"
+				>
 					BroHelp<span class="text-emerald-500">Me</span>
 				</span>
 				<!-- <Badge
@@ -264,16 +279,27 @@
 			type="button"
 			onclick={triggerSearch}
 			aria-label="Search cheatsheets"
-			class="ml-auto flex size-9 shrink-0 items-center justify-center rounded-xl border border-border bg-muted/50 text-muted-foreground transition-all hover:bg-muted hover:text-foreground sm:hidden"
+			class="border-border bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground ml-auto flex size-9 shrink-0 items-center justify-center rounded-xl border transition-all sm:hidden"
 		>
-			<svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+			<svg
+				class="size-4"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+				/>
 			</svg>
 		</button>
 
 		<!-- Actions -->
 		<div class="hidden items-center gap-2 sm:flex">
-			<div class="h-5 w-px bg-border"></div>
+			<div class="bg-border h-5 w-px"></div>
 			{@render themeToggle()}
 			{@render githubButton()}
 			{@render contributeButton()}
@@ -285,14 +311,28 @@
 			onclick={() => (menuOpen = !menuOpen)}
 			aria-label="Toggle menu"
 			aria-expanded={menuOpen}
-			class="flex size-9 shrink-0 items-center justify-center rounded-xl border border-border bg-muted/50 text-foreground transition-all hover:bg-muted sm:hidden"
+			class="border-border bg-muted/50 text-foreground hover:bg-muted flex size-9 shrink-0 items-center justify-center rounded-xl border transition-all sm:hidden"
 		>
 			{#if menuOpen}
-				<svg class="size-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+				<svg
+					class="size-4.5"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2"
+					aria-hidden="true"
+				>
 					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
 				</svg>
 			{:else}
-				<svg class="size-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+				<svg
+					class="size-4.5"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2"
+					aria-hidden="true"
+				>
 					<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
 				</svg>
 			{/if}
@@ -301,7 +341,7 @@
 
 	<!-- Collapsible panel: search + actions on small screens -->
 	{#if menuOpen}
-		<div class="border-t border-border/70 bg-background/95 backdrop-blur-xl sm:hidden">
+		<div class="border-border/70 bg-background/95 border-t backdrop-blur-xl sm:hidden">
 			<div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 sm:px-6">
 				{@render searchButton('w-full')}
 

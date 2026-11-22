@@ -18,29 +18,29 @@ const CONTENT_DIR = path.resolve(process.cwd(), 'src/content/cheatsheets');
 const ICONS_DIR = path.resolve(process.cwd(), 'public/icons');
 
 const LANG_MAP: Record<string, string> = {
-	'shell': 'bash',
+	shell: 'bash',
 	'shell script': 'bash',
-	'sh': 'bash',
-	'console': 'bash',
-	'terminal': 'bash',
-	'cmd': 'bat',
-	'dos': 'bat',
-	'js': 'javascript',
-	'ts': 'typescript',
-	'cs': 'csharp',
-	'rs': 'rust',
-	'py': 'python',
-	'ml': 'ocaml',
-	'golang': 'go',
+	sh: 'bash',
+	console: 'bash',
+	terminal: 'bash',
+	cmd: 'bat',
+	dos: 'bat',
+	js: 'javascript',
+	ts: 'typescript',
+	cs: 'csharp',
+	rs: 'rust',
+	py: 'python',
+	ml: 'ocaml',
+	golang: 'go',
 	'c++': 'cpp',
-	'text': 'text',
-	'txt': 'text',
-	'plain': 'text',
-	'plaintext': 'text',
-	'katex': 'latex',
-	'mcfunction': 'text',
-	'mongosh': 'javascript',
-	'gitignore': 'ini'
+	text: 'text',
+	txt: 'text',
+	plain: 'text',
+	plaintext: 'text',
+	katex: 'latex',
+	mcfunction: 'text',
+	mongosh: 'javascript',
+	gitignore: 'ini'
 };
 
 let highlighterPromise: Promise<Highlighter> | null = null;
@@ -50,21 +50,64 @@ async function getHighlighter(): Promise<Highlighter> {
 		highlighterPromise = createHighlighter({
 			themes: ['github-light', 'github-dark'],
 			langs: [
-				'bash', 'c', 'cpp', 'csharp', 'css', 'dart', 'diff',
-				'dockerfile', 'go', 'graphql', 'groovy', 'html', 'ini',
-				'java', 'javascript', 'json', 'kotlin', 'latex', 'lisp',
-				'lua', 'make', 'markdown', 'matlab', 'nginx', 'nim',
-				'nix', 'ocaml', 'perl', 'php', 'powershell', 'pug',
-				'python', 'r', 'regex', 'ruby', 'rust', 'scala',
-				'scss', 'sql', 'swift', 'toml', 'typescript',
-				'vhdl', 'vim', 'xml', 'yaml', 'bat'
+				'bash',
+				'c',
+				'cpp',
+				'csharp',
+				'css',
+				'dart',
+				'diff',
+				'dockerfile',
+				'go',
+				'graphql',
+				'groovy',
+				'html',
+				'ini',
+				'java',
+				'javascript',
+				'json',
+				'kotlin',
+				'latex',
+				'lisp',
+				'lua',
+				'make',
+				'markdown',
+				'matlab',
+				'nginx',
+				'nim',
+				'nix',
+				'ocaml',
+				'perl',
+				'php',
+				'powershell',
+				'pug',
+				'python',
+				'r',
+				'regex',
+				'ruby',
+				'rust',
+				'scala',
+				'scss',
+				'sql',
+				'swift',
+				'toml',
+				'typescript',
+				'vhdl',
+				'vim',
+				'xml',
+				'yaml',
+				'bat'
 			]
 		});
 	}
 	return highlighterPromise;
 }
 
-async function highlightSnippet(highlighter: Highlighter, code: string, rawLang: string): Promise<string> {
+async function highlightSnippet(
+	highlighter: Highlighter,
+	code: string,
+	rawLang: string
+): Promise<string> {
 	const cleanLang = (rawLang || 'text').split(/[\s{.]/)[0].toLowerCase();
 	const lang = LANG_MAP[cleanLang] || cleanLang;
 
@@ -84,10 +127,7 @@ async function highlightSnippet(highlighter: Highlighter, code: string, rawLang:
 			themes: { light: 'github-light', dark: 'github-dark' }
 		});
 	} catch {
-		const escaped = code
-			.replace(/&/g, '&amp;')
-			.replace(/</g, '&lt;')
-			.replace(/>/g, '&gt;');
+		const escaped = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 		return `<pre class="p-3 text-xs font-mono overflow-x-auto leading-relaxed"><code>${escaped}</code></pre>`;
 	}
 }
@@ -146,51 +186,51 @@ export function resolveIcon(slug: string): string {
 		'chrome-devtools': 'chrome',
 		'react-test-library': 'react',
 		'html-char': 'html',
-		'css3': 'css3',
-		'fastapi': 'fastapi',
-		'flask': 'flask',
-		'matplotlib': 'python',
-		'tensorflow': 'tensorflow',
-		'gemma4': 'gemini-cli',
-		'chmod': 'chmod',
+		css3: 'css3',
+		fastapi: 'fastapi',
+		flask: 'flask',
+		matplotlib: 'python',
+		tensorflow: 'tensorflow',
+		gemma4: 'gemini-cli',
+		chmod: 'chmod',
 		'http-status-code': 'link',
 		'conventional-commits': 'git',
-		'systemd': 'alpine-linux',
-		'ssh': 'ssh',
-		'screen': 'tmux',
-		'find': 'grep',
-		'awk': 'grep',
-		'lsof': 'netstat',
-		'networkports': 'netstat',
+		systemd: 'alpine-linux',
+		ssh: 'ssh',
+		screen: 'tmux',
+		find: 'grep',
+		awk: 'grep',
+		lsof: 'netstat',
+		networkports: 'netstat',
 		'table-plus': 'postgres',
 		'sequel-pro': 'mysql',
-		'putty': 'ssh',
-		'telnet': 'netcat',
-		'taskset': 'bash',
-		'htmx': 'htmx',
-		'n8n': 'hook',
+		putty: 'ssh',
+		telnet: 'netcat',
+		taskset: 'bash',
+		htmx: 'htmx',
+		n8n: 'hook',
 		'color-picker': 'colorscreen',
 		'code-editor-ios': 'vscode',
 		'bear-notes': 'obsidian',
-		'roam': 'obsidian',
-		'notion': 'notion',
-		'superhuman': 'gmail',
-		'transmit': 'filezilla',
-		'pandoc': 'markdown',
-		'sdkman': 'java',
-		'mime': 'xml',
+		roam: 'obsidian',
+		notion: 'notion',
+		superhuman: 'gmail',
+		transmit: 'filezilla',
+		pandoc: 'markdown',
+		sdkman: 'java',
+		mime: 'xml',
 		'iso-639-1': 'xml',
 		'ascii-code': 'xml',
 		'aspect-ratio': 'resolution',
-		'lua': 'lua',
-		'origami': 'framer-x',
-		'kanbanmail': 'gmail',
-		'jest': 'jest',
+		lua: 'lua',
+		origami: 'framer-x',
+		kanbanmail: 'gmail',
+		jest: 'jest',
 		'minecraft-bedrock': 'minecraft',
 		'minecraft-java': 'minecraft',
-		'nix': 'alpine-linux',
+		nix: 'alpine-linux',
 		'apex-legends': 'game',
-		'fortnite': 'game',
+		fortnite: 'game',
 		'guitar-pro': 'soundcloud'
 	};
 
@@ -210,26 +250,51 @@ function slugify(text: string): string {
 }
 
 // Markdown transformer config
-const markdocConfig = {
+const _markdocConfig = {
 	nodes: {
 		fence: {
 			render: 'div',
 			transform(node: any) {
 				const lang = node.attributes?.language || 'code';
 				const codeContent = node.attributes?.content || '';
-				return new Markdoc.Tag('div', { class: 'code-block-wrapper my-2 relative group rounded-lg overflow-hidden border border-border' }, [
-					new Markdoc.Tag('div', { class: 'code-block-header flex items-center justify-between px-3 py-1 bg-muted/80 border-b border-border text-[11px] font-mono text-muted-foreground' }, [
-						new Markdoc.Tag('span', { class: 'font-medium uppercase tracking-wider text-[10px]' }, [lang]),
-						new Markdoc.Tag('button', {
-							type: 'button',
-							class: 'copy-code-btn px-2 py-0.5 rounded bg-background hover:bg-muted text-foreground text-[11px] font-sans border border-border transition-colors cursor-pointer shadow-xs',
-							'data-code': codeContent
-						}, ['Copy'])
-					]),
-					new Markdoc.Tag('pre', { class: 'p-3 text-xs font-mono overflow-x-auto leading-relaxed' }, [
-						new Markdoc.Tag('code', {}, [codeContent])
-					])
-				]);
+				return new Markdoc.Tag(
+					'div',
+					{
+						class:
+							'code-block-wrapper my-2 relative group rounded-lg overflow-hidden border border-border'
+					},
+					[
+						new Markdoc.Tag(
+							'div',
+							{
+								class:
+									'code-block-header flex items-center justify-between px-3 py-1 bg-muted/80 border-b border-border text-[11px] font-mono text-muted-foreground'
+							},
+							[
+								new Markdoc.Tag(
+									'span',
+									{ class: 'font-medium uppercase tracking-wider text-[10px]' },
+									[lang]
+								),
+								new Markdoc.Tag(
+									'button',
+									{
+										type: 'button',
+										class:
+											'copy-code-btn px-2 py-0.5 rounded bg-background hover:bg-muted text-foreground text-[11px] font-sans border border-border transition-colors cursor-pointer shadow-xs',
+										'data-code': codeContent
+									},
+									['Copy']
+								)
+							]
+						),
+						new Markdoc.Tag(
+							'pre',
+							{ class: 'p-3 text-xs font-mono overflow-x-auto leading-relaxed' },
+							[new Markdoc.Tag('code', {}, [codeContent])]
+						)
+					]
+				);
 			}
 		}
 	}
@@ -263,10 +328,14 @@ export function getAllCheatsheets(): CheatsheetMeta[] {
 		}
 
 		const title = data.title || slug.toUpperCase();
-		const categories = Array.isArray(data.categories) ? data.categories : [data.categories || 'Other'];
+		const categories = Array.isArray(data.categories)
+			? data.categories
+			: [data.categories || 'Other'];
 		const category = categories[0] || 'Other';
 		const tags = Array.isArray(data.tags) ? data.tags.map(String) : [];
-		const intro = (typeof data.intro === 'string' ? data.intro : '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').trim();
+		const intro = (typeof data.intro === 'string' ? data.intro : '')
+			.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+			.trim();
 		const background = data.background || '';
 		const color = extractHexColor(background);
 
@@ -323,10 +392,14 @@ export async function getCheatsheet(slug: string): Promise<CheatsheetDetail | nu
 	}
 
 	const title = data.title || slug.toUpperCase();
-	const categories = Array.isArray(data.categories) ? data.categories : [data.categories || 'Other'];
+	const categories = Array.isArray(data.categories)
+		? data.categories
+		: [data.categories || 'Other'];
 	const category = categories[0] || 'Other';
 	const tags = Array.isArray(data.tags) ? data.tags.map(String) : [];
-	const intro = (typeof data.intro === 'string' ? data.intro : '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').trim();
+	const intro = (typeof data.intro === 'string' ? data.intro : '')
+		.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+		.trim();
 	const background = data.background || '';
 	const color = extractHexColor(background);
 
@@ -336,166 +409,175 @@ export async function getCheatsheet(slug: string): Promise<CheatsheetDetail | nu
 
 	let totalCards = 0;
 
-function processCardVariants(rawHtml: string): string {
-	// 0. Protect rendered code blocks first. The syntax manual shows literal
-	//    markers (e.g. `{.marker-timeline}`) inside fenced examples — those must
-	//    survive verbatim, while the same markers in prose are consumed below.
-	const codeBlocks: string[] = [];
-	let html = rawHtml.replace(
-		/<pre[\s\S]*?<\/pre>/gi,
-		(match) => `@@PREBLOCK${codeBlocks.push(match) - 1}@@`
-	);
+	function processCardVariants(rawHtml: string): string {
+		// 0. Protect rendered code blocks first. The syntax manual shows literal
+		//    markers (e.g. `{.marker-timeline}`) inside fenced examples — those must
+		//    survive verbatim, while the same markers in prose are consumed below.
+		const codeBlocks: string[] = [];
+		let html = rawHtml.replace(
+			/<pre[\s\S]*?<\/pre>/gi,
+			(match) => `@@PREBLOCK${codeBlocks.push(match) - 1}@@`
+		);
 
-	// 1. Process tables with dummy '-' headers:
-	// e.g. <thead><tr><th>-</th>...</tr></thead>
-	html = html.replace(
-		/<table>(\s*)<thead>(\s*)<tr>(\s*(?:<th>\s*-\s*<\/th>\s*)+)<\/tr>(\s*)<\/thead>/gi,
-		(match, s1, s2, ths, s3) => {
-			return `<table class="table-compact">${s1}<thead class="hidden">${s2}<tr>${ths}</tr>${s3}</thead>`;
-		}
-	);
-
-	// 2. Process table variant paragraphs: {.shortcuts}, {.show-header}, {.bold-first},
-	// {.left-text} and {.no-wrap}. Markers may be combined (e.g. {.show-header .shortcuts}).
-	// The paragraph must follow its table within a small gap (an <hr> is allowed) and must
-	// contain at least one *table* variant — otherwise it is left untouched so that markers
-	// belonging to a following <ul> (e.g. {.cols-3}) can be handled by rule 10.
-	const TABLE_VARIANTS = ['.shortcuts', '.show-header', '.bold-first', '.left-text', '.no-wrap'];
-	html = html.replace(
-		/<table([^>]*)>([\s\S]*?)<\/table>((?:(?!<table)[\s\S]){0,60}?<p>\s*\{([^}]+)\}\s*<\/p>)/gi,
-		(match, attrs, tableInner, between, markerText) => {
-			const classes = markerText.match(/\.[a-zA-Z0-9_-]+/g) || [];
-			if (!classes.some((c: string) => TABLE_VARIANTS.includes(c))) return match;
-
-			let inner: string = tableInner;
-			const extra: string[] = [];
-			if (classes.includes('.shortcuts')) {
-				inner = inner.replace(/<code>(.*?)<\/code>/g, '<kbd>$1</kbd>');
-				extra.push('table-shortcuts');
+		// 1. Process tables with dummy '-' headers:
+		// e.g. <thead><tr><th>-</th>...</tr></thead>
+		html = html.replace(
+			/<table>(\s*)<thead>(\s*)<tr>(\s*(?:<th>\s*-\s*<\/th>\s*)+)<\/tr>(\s*)<\/thead>/gi,
+			(match, s1, s2, ths, s3) => {
+				return `<table class="table-compact">${s1}<thead class="hidden">${s2}<tr>${ths}</tr>${s3}</thead>`;
 			}
-			if (classes.includes('.show-header')) {
-				// A compact table hides its (dummy) header; this variant reveals it again.
-				inner = inner.replace(/<thead class="hidden">/gi, '<thead>');
-				extra.push('table-show-header');
+		);
+
+		// 2. Process table variant paragraphs: {.shortcuts}, {.show-header}, {.bold-first},
+		// {.left-text} and {.no-wrap}. Markers may be combined (e.g. {.show-header .shortcuts}).
+		// The paragraph must follow its table within a small gap (an <hr> is allowed) and must
+		// contain at least one *table* variant — otherwise it is left untouched so that markers
+		// belonging to a following <ul> (e.g. {.cols-3}) can be handled by rule 10.
+		const TABLE_VARIANTS = ['.shortcuts', '.show-header', '.bold-first', '.left-text', '.no-wrap'];
+		html = html.replace(
+			/<table([^>]*)>([\s\S]*?)<\/table>((?:(?!<table)[\s\S]){0,60}?<p>\s*\{([^}]+)\}\s*<\/p>)/gi,
+			(match, attrs, tableInner, between, markerText) => {
+				const classes = markerText.match(/\.[a-zA-Z0-9_-]+/g) || [];
+				if (!classes.some((c: string) => TABLE_VARIANTS.includes(c))) return match;
+
+				let inner: string = tableInner;
+				const extra: string[] = [];
+				if (classes.includes('.shortcuts')) {
+					inner = inner.replace(/<code>(.*?)<\/code>/g, '<kbd>$1</kbd>');
+					extra.push('table-shortcuts');
+				}
+				if (classes.includes('.show-header')) {
+					// A compact table hides its (dummy) header; this variant reveals it again.
+					inner = inner.replace(/<thead class="hidden">/gi, '<thead>');
+					extra.push('table-show-header');
+				}
+				if (classes.includes('.bold-first')) extra.push('table-bold-first');
+				if (classes.includes('.left-text')) extra.push('table-left-text');
+				if (classes.includes('.no-wrap')) extra.push('table-no-wrap');
+
+				const existing = (attrs.match(/class="([^"]*)"/) || [])[1] || '';
+				const cls = [...new Set([...(existing ? [existing] : []), ...extra])].join(' ');
+				const newAttrs = existing
+					? attrs.replace(/class="[^"]*"/, `class="${cls}"`)
+					: ` class="${cls}"`;
+				return `<table${newAttrs}>${inner}</table>${between.replace(/<p>\s*\{[^}]+\}\s*<\/p>/gi, '')}`;
 			}
-			if (classes.includes('.bold-first')) extra.push('table-bold-first');
-			if (classes.includes('.left-text')) extra.push('table-left-text');
-			if (classes.includes('.no-wrap')) extra.push('table-no-wrap');
+		);
 
-			const existing = (attrs.match(/class="([^"]*)"/) || [])[1] || '';
-			const cls = [...new Set([...(existing ? [existing] : []), ...extra])].join(' ');
-			const newAttrs = existing ? attrs.replace(/class="[^"]*"/, `class="${cls}"`) : ` class="${cls}"`;
-			return `<table${newAttrs}>${inner}</table>${between.replace(/<p>\s*\{[^}]+\}\s*<\/p>/gi, '')}`;
-		}
-	);
+		// 7. Process {.link-arrow}
+		// e.g. <p><a href="...">Preview</a> {.link-arrow}</p> or <a href="...">Preview</a> {.link-arrow}
+		html = html.replace(
+			/<a\s+href="([^"]+)">([^<]+)<\/a>\s*\{\.link-arrow\}/gi,
+			'<a href="$1" class="link-arrow-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-card hover:bg-muted border border-border text-xs font-medium text-foreground hover:text-emerald-500 transition-colors shadow-xs my-1">$2 <span class="text-emerald-500 font-bold">→</span></a>'
+		);
+		html = html.replace(/\{\.link-arrow\}/gi, '');
 
-	// 7. Process {.link-arrow}
-	// e.g. <p><a href="...">Preview</a> {.link-arrow}</p> or <a href="...">Preview</a> {.link-arrow}
-	html = html.replace(/<a\s+href="([^"]+)">([^<]+)<\/a>\s*\{\.link-arrow\}/gi, 
-		'<a href="$1" class="link-arrow-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-card hover:bg-muted border border-border text-xs font-medium text-foreground hover:text-emerald-500 transition-colors shadow-xs my-1">$2 <span class="text-emerald-500 font-bold">→</span></a>'
-	);
-	html = html.replace(/\{\.link-arrow\}/gi, '');
+		// 8. Process timeline lists: {.marker-timeline} or {.style-timeline}
+		// (The list-level marker is attached by rule 9 below; only the per-item
+		//  form is handled here.)
+		html = html.replace(
+			/<ul>([\s\S]*?)<\/ul>\s*<p>\s*\{\.(?:marker|style)-timeline\}\s*<\/p>/gi,
+			'<ul class="list-timeline">$1</ul>'
+		);
+		html = html.replace(
+			/<li([^>]*)>([\s\S]*?)\{\.(?:marker|style)-timeline\}<\/li>/gi,
+			'<li$1 class="list-timeline-item">$2</li>'
+		);
+		html = html.replace(/<p>\s*\{\.(?:marker|style)-timeline\}\s*<\/p>/gi, '');
 
-	// 8. Process timeline lists: {.marker-timeline} or {.style-timeline}
-	// (The list-level marker is attached by rule 9 below; only the per-item
-	//  form is handled here.)
-	html = html.replace(
-		/<ul>([\s\S]*?)<\/ul>\s*<p>\s*\{\.(?:marker|style)-timeline\}\s*<\/p>/gi,
-		'<ul class="list-timeline">$1</ul>'
-	);
-	html = html.replace(/<li([^>]*)>([\s\S]*?)\{\.(?:marker|style)-timeline\}<\/li>/gi,
-		'<li$1 class="list-timeline-item">$2</li>'
-	);
-	html = html.replace(/<p>\s*\{\.(?:marker|style)-timeline\}\s*<\/p>/gi, '');
+		// 9. List variants — generalised. A marker paragraph following a <ul> may
+		//    combine any number of classes in any order, e.g.
+		//    <ul>…</ul><p>{.marker-none .cols-3}</p> (283 occurrences in content)
+		//    → <ul class="list-none-marker list-cols-3">.
+		const LIST_CLASS_MAP: Record<string, string> = {
+			'.marker-none': 'list-none-marker',
+			'.marker-round': 'list-round-marker',
+			'.marker-timeline': 'list-timeline',
+			'.style-timeline': 'list-timeline',
+			'.icon-list': 'icon-list'
+		};
+		const toListClasses = (classes: string[]): string[] => {
+			const out: string[] = [];
+			for (const c of classes) {
+				if (LIST_CLASS_MAP[c]) out.push(LIST_CLASS_MAP[c]);
+				const cols = /^\.cols-([1-9])$/.exec(c);
+				if (cols && Number(cols[1]) >= 2) out.push(`list-cols-${cols[1]}`);
+			}
+			return [...new Set(out)];
+		};
+		const hasListVariant = (classes: string[]) =>
+			classes.some((c) => c in LIST_CLASS_MAP || /^\.cols-[1-9]$/.test(c));
 
-	// 9. List variants — generalised. A marker paragraph following a <ul> may
-	//    combine any number of classes in any order, e.g.
-	//    <ul>…</ul><p>{.marker-none .cols-3}</p> (283 occurrences in content)
-	//    → <ul class="list-none-marker list-cols-3">.
-	const LIST_CLASS_MAP: Record<string, string> = {
-		'.marker-none': 'list-none-marker',
-		'.marker-round': 'list-round-marker',
-		'.marker-timeline': 'list-timeline',
-		'.style-timeline': 'list-timeline',
-		'.icon-list': 'icon-list'
-	};
-	const toListClasses = (classes: string[]): string[] => {
-		const out: string[] = [];
-		for (const c of classes) {
-			if (LIST_CLASS_MAP[c]) out.push(LIST_CLASS_MAP[c]);
-			const cols = /^\.cols-([1-9])$/.exec(c);
-			if (cols && Number(cols[1]) >= 2) out.push(`list-cols-${cols[1]}`);
-		}
-		return [...new Set(out)];
-	};
-	const hasListVariant = (classes: string[]) =>
-		classes.some((c) => c in LIST_CLASS_MAP || /^\.cols-[1-9]$/.test(c));
+		html = html.replace(
+			/<ul([^>]*)>([\s\S]*?)<\/ul>((?:(?!<ul|<table)[\s\S]){0,60}?<p>\s*\{([^}]+)\}\s*<\/p>)/gi,
+			(match, ulAttrs, inner, between, markerText) => {
+				const classes = markerText.match(/\.[a-zA-Z0-9_-]+/g) || [];
+				if (!hasListVariant(classes)) return match;
+				const extra = toListClasses(classes);
+				if (!extra.length) return match;
+				const existing = (ulAttrs.match(/class="([^"]*)"/) || [])[1] || '';
+				const cls = [
+					...new Set([...(existing ? existing.split(/\s+/).filter(Boolean) : []), ...extra])
+				].join(' ');
+				const newUlAttrs = existing
+					? ulAttrs.replace(/class="[^"]*"/, `class="${cls}"`)
+					: ` class="${cls}"`;
+				return `<ul${newUlAttrs}>${inner}</ul>${between.replace(/<p>\s*\{[^}]+\}\s*<\/p>/gi, '')}`;
+			}
+		);
 
-	html = html.replace(
-		/<ul([^>]*)>([\s\S]*?)<\/ul>((?:(?!<ul|<table)[\s\S]){0,60}?<p>\s*\{([^}]+)\}\s*<\/p>)/gi,
-		(match, ulAttrs, inner, between, markerText) => {
-			const classes = markerText.match(/\.[a-zA-Z0-9_-]+/g) || [];
-			if (!hasListVariant(classes)) return match;
-			const extra = toListClasses(classes);
+		// 10. Markers glued to a list item's text (`- Ansible playbooks … {.marker-round}`)
+		//     belong to the whole list: move them onto the <ul>, then drop the marker.
+		html = html.replace(/<ul([^>]*)>([\s\S]*?)<\/ul>/gi, (match, ulAttrs, inner) => {
+			if (!/\{\s*\.[a-zA-Z0-9_-]+/.test(inner)) return match;
+			const glued: string[] = [];
+			const cleaned = inner.replace(
+				/<li([^>]*)>([\s\S]*?)\{\s*((?:\.[a-zA-Z0-9_-]+\s*)+)\}\s*<\/li>/gi,
+				(_m: string, liAttrs: string, liInner: string, markerText: string) => {
+					glued.push(...(markerText.match(/\.[a-zA-Z0-9_-]+/g) || []));
+					return `<li${liAttrs}>${liInner}</li>`;
+				}
+			);
+			const extra = toListClasses(glued);
 			if (!extra.length) return match;
 			const existing = (ulAttrs.match(/class="([^"]*)"/) || [])[1] || '';
-			const cls = [...new Set([...(existing ? existing.split(/\s+/).filter(Boolean) : []), ...extra])].join(' ');
+			const cls = [
+				...new Set([...(existing ? existing.split(/\s+/).filter(Boolean) : []), ...extra])
+			].join(' ');
 			const newUlAttrs = existing
 				? ulAttrs.replace(/class="[^"]*"/, `class="${cls}"`)
 				: ` class="${cls}"`;
-			return `<ul${newUlAttrs}>${inner}</ul>${between.replace(/<p>\s*\{[^}]+\}\s*<\/p>/gi, '')}`;
-		}
-	);
+			return `<ul${newUlAttrs}>${cleaned}</ul>`;
+		});
 
-	// 10. Markers glued to a list item's text (`- Ansible playbooks … {.marker-round}`)
-	//     belong to the whole list: move them onto the <ul>, then drop the marker.
-	html = html.replace(/<ul([^>]*)>([\s\S]*?)<\/ul>/gi, (match, ulAttrs, inner) => {
-		if (!/\{\s*\.[a-zA-Z0-9_-]+/.test(inner)) return match;
-		const glued: string[] = [];
-		const cleaned = inner.replace(
-			/<li([^>]*)>([\s\S]*?)\{\s*((?:\.[a-zA-Z0-9_-]+\s*)+)\}\s*<\/li>/gi,
-			(_m: string, liAttrs: string, liInner: string, markerText: string) => {
-				glued.push(...(markerText.match(/\.[a-zA-Z0-9_-]+/g) || []));
-				return `<li${liAttrs}>${liInner}</li>`;
-			}
+		// 11. Clean up any remaining leaked paragraph tags containing only {.class}
+		html = html.replace(/<p>\s*\{(?:\.[a-zA-Z0-9_-]+\s*)+\}\s*<\/p>/gi, '');
+
+		// 12. Strip leftover {.variant} markers inside headings. Only ## / ### titles are
+		// parsed for variants, so a marker on h4+ (e.g. `#### Words{.left-text}`) would
+		// otherwise be rendered as visible text.
+		html = html.replace(
+			/(<h[1-6][^>]*>)([\s\S]*?)(<\/h[1-6]>)/gi,
+			(_match, open, inner, close) =>
+				open + inner.replace(/\s*\{(?:\.[a-zA-Z0-9_-]+)+\s*\}/g, '') + close
 		);
-		const extra = toListClasses(glued);
-		if (!extra.length) return match;
-		const existing = (ulAttrs.match(/class="([^"]*)"/) || [])[1] || '';
-		const cls = [...new Set([...(existing ? existing.split(/\s+/).filter(Boolean) : []), ...extra])].join(' ');
-		const newUlAttrs = existing
-			? ulAttrs.replace(/class="[^"]*"/, `class="${cls}"`)
-			: ` class="${cls}"`;
-		return `<ul${newUlAttrs}>${cleaned}</ul>`;
-	});
 
-	// 11. Clean up any remaining leaked paragraph tags containing only {.class}
-	html = html.replace(/<p>\s*\{(?:\.[a-zA-Z0-9_-]+\s*)+\}\s*<\/p>/gi, '');
+		// 13. Catch-all: drop any marker still glued to prose (table cells, paragraphs,
+		//     list items…) so nothing renders as literal `{.class}` text. Inline <code>
+		//     is exempt — docs may legitimately show marker syntax there.
+		const inlineCodes: string[] = [];
+		let step = html.replace(
+			/<code(?:\s[^>]*)?>[\s\S]*?<\/code>/gi,
+			(match) => `@@INLINECODE${inlineCodes.push(match) - 1}@@`
+		);
+		step = step.replace(/\{\s*\.[a-zA-Z0-9_-]+(?:\s+\.[a-zA-Z0-9_-]+)*\s*\}/g, '');
+		html = step.replace(/@@INLINECODE(\d+)@@/g, (_m, i) => inlineCodes[Number(i)]);
 
-	// 12. Strip leftover {.variant} markers inside headings. Only ## / ### titles are
-	// parsed for variants, so a marker on h4+ (e.g. `#### Words{.left-text}`) would
-	// otherwise be rendered as visible text.
-	html = html.replace(
-		/(<h[1-6][^>]*>)([\s\S]*?)(<\/h[1-6]>)/gi,
-		(_match, open, inner, close) => open + inner.replace(/\s*\{(?:\.[a-zA-Z0-9_-]+)+\s*\}/g, '') + close
-	);
+		// Restore the code blocks protected in step 0.
+		html = html.replace(/@@PREBLOCK(\d+)@@/g, (_m, i) => codeBlocks[Number(i)]);
 
-	// 13. Catch-all: drop any marker still glued to prose (table cells, paragraphs,
-	//     list items…) so nothing renders as literal `{.class}` text. Inline <code>
-	//     is exempt — docs may legitimately show marker syntax there.
-	const inlineCodes: string[] = [];
-	let step = html.replace(
-		/<code(?:\s[^>]*)?>[\s\S]*?<\/code>/gi,
-		(match) => `@@INLINECODE${inlineCodes.push(match) - 1}@@`
-	);
-	step = step.replace(/\{\s*\.[a-zA-Z0-9_-]+(?:\s+\.[a-zA-Z0-9_-]+)*\s*\}/g, '');
-	html = step.replace(/@@INLINECODE(\d+)@@/g, (_m, i) => inlineCodes[Number(i)]);
-
-	// Restore the code blocks protected in step 0.
-	html = html.replace(/@@PREBLOCK(\d+)@@/g, (_m, i) => codeBlocks[Number(i)]);
-
-	return html;
-}
+		return html;
+	}
 
 	for (const secPart of secParts) {
 		const lines = secPart.trim().split('\n');
@@ -517,21 +599,30 @@ function processCardVariants(rawHtml: string): string {
 
 			const rawCardTitle = cardHeader.replace(/^###\s+/, '').trim();
 			const cardTitle = rawCardTitle.replace(/\{[^}]+\}/g, '').trim();
-			const colSpan = rawCardTitle.includes('.col-span-3') || rawCardTitle.includes('.cols-3') ? 3 : rawCardTitle.includes('.col-span-2') || rawCardTitle.includes('.cols-2') ? 2 : 1;
-			const rowSpan = rawCardTitle.includes('.row-span-3') ? 3 : rawCardTitle.includes('.row-span-2') ? 2 : 1;
+			const colSpan =
+				rawCardTitle.includes('.col-span-3') || rawCardTitle.includes('.cols-3')
+					? 3
+					: rawCardTitle.includes('.col-span-2') || rawCardTitle.includes('.cols-2')
+						? 2
+						: 1;
+			const rowSpan = rawCardTitle.includes('.row-span-3')
+				? 3
+				: rawCardTitle.includes('.row-span-2')
+					? 2
+					: 1;
 			const theme = rawCardTitle.includes('.primary')
 				? 'primary'
 				: rawCardTitle.includes('.secondary')
-				? 'secondary'
-				: rawCardTitle.includes('.info')
-				? 'info'
-				: rawCardTitle.includes('.warning')
-				? 'warning'
-				: rawCardTitle.includes('.danger')
-				? 'danger'
-				: rawCardTitle.includes('.success')
-				? 'success'
-				: 'default';
+					? 'secondary'
+					: rawCardTitle.includes('.info')
+						? 'info'
+						: rawCardTitle.includes('.warning')
+							? 'warning'
+							: rawCardTitle.includes('.danger')
+								? 'danger'
+								: rawCardTitle.includes('.success')
+									? 'success'
+									: 'default';
 			const cardId = slugify(cardTitle) || `card-${cards.length + 1}`;
 
 			const cardRawBody = cardPart.trim().substring(cardHeader.length).trim();
@@ -569,9 +660,7 @@ function processCardVariants(rawHtml: string): string {
 					const shikiHtml = await highlightSnippet(highlighter, block.code, block.lang);
 					const cleanDisplayLang = (block.lang || 'code').split(/[\s{.]/)[0].toLowerCase();
 					const isWrap = (block.lang || '').includes('.wrap') || cardRawBody.includes('.wrap');
-					const safeDataCode = block.code
-						.replace(/&/g, '&amp;')
-						.replace(/"/g, '&quot;');
+					const safeDataCode = block.code.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
 
 					const wrapper = `
 <div class="code-block-wrapper my-2 relative group rounded-lg overflow-hidden border border-border">
@@ -591,7 +680,10 @@ function processCardVariants(rawHtml: string): string {
 				// Post-process variants
 				cardHtml = processCardVariants(cardHtml);
 			} catch {
-				const escaped = cardRawBody.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+				const escaped = cardRawBody
+					.replace(/&/g, '&amp;')
+					.replace(/</g, '&lt;')
+					.replace(/>/g, '&gt;');
 				cardHtml = `<pre class="p-3 text-xs font-mono overflow-x-auto leading-relaxed"><code>${escaped}</code></pre>`;
 			}
 
@@ -638,5 +730,9 @@ export function getAllCategories(): string[] {
 	for (const s of sheets) {
 		if (s.category) set.add(s.category);
 	}
-	return ['All', ...HOMEPAGE_CATEGORIES.filter((c) => set.has(c)), ...Array.from(set).filter((c) => !HOMEPAGE_CATEGORIES.includes(c))];
+	return [
+		'All',
+		...HOMEPAGE_CATEGORIES.filter((c) => set.has(c)),
+		...Array.from(set).filter((c) => !HOMEPAGE_CATEGORIES.includes(c))
+	];
 }

@@ -1,0 +1,7 @@
+dist
+.astro
+node_modules
+public
+bun.lock
+bun.lockb
+src/content/cheatsheets

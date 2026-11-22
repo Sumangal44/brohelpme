@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Button } from '$lib/components/ui/button';
-	import { Badge } from '$lib/components/ui/badge';
 
 	let isOpen = $state(false);
 	let currentSlug = $state<string>('');
@@ -85,7 +84,7 @@ $ my-tool run --verbose
 
 {#if isOpen}
 	<div
-		class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 dark:bg-black/80 backdrop-blur-md animate-in fade-in duration-150"
+		class="animate-in fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 backdrop-blur-md duration-150 sm:p-6 dark:bg-black/80"
 		role="dialog"
 		aria-modal="true"
 		tabindex="-1"
@@ -97,21 +96,31 @@ $ my-tool run --verbose
 		}}
 	>
 		<div
-			class="relative w-full max-w-2xl bg-white dark:bg-[#0d121f] border border-border rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-150"
+			class="border-border animate-in zoom-in-95 relative flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border bg-white shadow-2xl duration-150 dark:bg-[#0d121f]"
 		>
 			<!-- Header -->
-			<div class="px-5 py-4 border-b border-border flex items-center justify-between gap-3 bg-muted/40">
+			<div
+				class="border-border bg-muted/40 flex items-center justify-between gap-3 border-b px-5 py-4"
+			>
 				<div class="flex items-center gap-2.5">
-					<div class="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
-						<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+					<div
+						class="flex h-8 w-8 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+					>
+						<svg
+							class="h-4 w-4"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+							stroke-width="2"
+						>
 							<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
 						</svg>
 					</div>
 					<div>
-						<h2 class="text-base sm:text-lg font-semibold text-foreground">
+						<h2 class="text-foreground text-base font-semibold sm:text-lg">
 							Contribute to BroHelp.Me
 						</h2>
-						<p class="text-xs text-muted-foreground">
+						<p class="text-muted-foreground text-xs">
 							Community-maintained quick reference repository
 						</p>
 					</div>
@@ -120,24 +129,31 @@ $ my-tool run --verbose
 				<button
 					type="button"
 					onclick={close}
-					class="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
+					class="text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer rounded-lg p-1.5 transition-colors"
 					aria-label="Close dialog"
 				>
-					<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+					<svg
+						class="h-5 w-5"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						stroke-width="2"
+					>
 						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
 					</svg>
 				</button>
 			</div>
 
 			<!-- Navigation Tabs -->
-			<div class="flex items-center gap-1 px-5 pt-3 border-b border-border bg-card">
+			<div class="border-border bg-card flex items-center gap-1 border-b px-5 pt-3">
 				{#if currentSlug}
 					<button
 						type="button"
 						onclick={() => (activeTab = 'edit')}
-						class="px-3 py-2 text-xs font-medium border-b-2 transition-all cursor-pointer {activeTab === 'edit'
+						class="cursor-pointer border-b-2 px-3 py-2 text-xs font-medium transition-all {activeTab ===
+						'edit'
 							? 'border-emerald-500 text-emerald-600 dark:text-emerald-400'
-							: 'border-transparent text-muted-foreground hover:text-foreground'}"
+							: 'text-muted-foreground hover:text-foreground border-transparent'}"
 					>
 						Edit "{currentTitle || currentSlug}"
 					</button>
@@ -145,46 +161,58 @@ $ my-tool run --verbose
 				<button
 					type="button"
 					onclick={() => (activeTab = 'add')}
-					class="px-3 py-2 text-xs font-medium border-b-2 transition-all cursor-pointer {activeTab === 'add'
+					class="cursor-pointer border-b-2 px-3 py-2 text-xs font-medium transition-all {activeTab ===
+					'add'
 						? 'border-emerald-500 text-emerald-600 dark:text-emerald-400'
-						: 'border-transparent text-muted-foreground hover:text-foreground'}"
+						: 'text-muted-foreground hover:text-foreground border-transparent'}"
 				>
 					Add New Cheatsheet
 				</button>
 				<button
 					type="button"
 					onclick={() => (activeTab = 'template')}
-					class="px-3 py-2 text-xs font-medium border-b-2 transition-all cursor-pointer {activeTab === 'template'
+					class="cursor-pointer border-b-2 px-3 py-2 text-xs font-medium transition-all {activeTab ===
+					'template'
 						? 'border-emerald-500 text-emerald-600 dark:text-emerald-400'
-						: 'border-transparent text-muted-foreground hover:text-foreground'}"
+						: 'text-muted-foreground hover:text-foreground border-transparent'}"
 				>
 					Markdown Template
 				</button>
 			</div>
 
 			<!-- Tab Contents -->
-			<div class="p-5 overflow-y-auto space-y-4 text-xs sm:text-sm text-foreground">
+			<div class="text-foreground space-y-4 overflow-y-auto p-5 text-xs sm:text-sm">
 				{#if activeTab === 'edit' && currentSlug}
 					<div class="space-y-4">
-						<div class="p-4 rounded-xl bg-muted/50 border border-border">
-							<h3 class="font-semibold text-foreground text-sm mb-1">
-								Edit existing cheat sheet: <span class="text-emerald-600 dark:text-emerald-400">{currentTitle || currentSlug}</span>
+						<div class="bg-muted/50 border-border rounded-xl border p-4">
+							<h3 class="text-foreground mb-1 text-sm font-semibold">
+								Edit existing cheat sheet: <span class="text-emerald-600 dark:text-emerald-400">
+									{currentTitle || currentSlug}
+								</span>
 							</h3>
-							<p class="text-xs text-muted-foreground leading-relaxed">
+							<p class="text-muted-foreground text-xs leading-relaxed">
 								You can edit this file directly in GitHub or fork the repo to submit a Pull Request.
 							</p>
 						</div>
 
-						<div class="flex flex-col sm:flex-row gap-2.5">
+						<div class="flex flex-col gap-2.5 sm:flex-row">
 							<a
 								href={`https://github.com/Sumangal44/brohelpme/blob/main/src/content/cheatsheets/${currentSlug}.md`}
 								target="_blank"
 								rel="noopener noreferrer"
 								aria-label="View cheat sheet on GitHub"
-								class="group flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs shadow-sm transition-all text-center"
+								class="group inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-center text-xs font-medium text-white shadow-sm transition-all hover:bg-emerald-700"
 							>
-								<svg class="w-4 h-4 fill-black animate-star-twinkle transition-transform duration-300 dark:fill-white" viewBox="0 0 24 24" aria-hidden="true">
-									<path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.224.0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.013.203 1.973.1 2.224.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.31.678.92.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .266.18.579.688.481A10.019 10.019 0 0022 12.017C22 6.484 17.523 2 12 2z" />
+								<svg
+									class="animate-star-twinkle h-4 w-4 fill-black transition-transform duration-300 dark:fill-white"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+								>
+									<path
+										fill-rule="evenodd"
+										clip-rule="evenodd"
+										d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.224.0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.013.203 1.973.1 2.224.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.31.678.92.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .266.18.579.688.481A10.019 10.019 0 0022 12.017C22 6.484 17.523 2 12 2z"
+									/>
 								</svg>
 								<span>View Source on GitHub</span>
 							</a>
@@ -193,10 +221,20 @@ $ my-tool run --verbose
 								href={`https://github.com/Sumangal44/brohelpme/edit/main/src/content/cheatsheets/${currentSlug}.md`}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-card hover:bg-muted text-foreground border border-border font-medium text-xs shadow-xs transition-all text-center"
+								class="bg-card hover:bg-muted text-foreground border-border inline-flex flex-1 items-center justify-center gap-2 rounded-xl border px-4 py-2.5 text-center text-xs font-medium shadow-xs transition-all"
 							>
-								<svg class="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-									<path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+								<svg
+									class="h-4 w-4 text-emerald-500"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="2"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+									/>
 								</svg>
 								<span>Direct Edit in Browser</span>
 							</a>
@@ -204,42 +242,73 @@ $ my-tool run --verbose
 					</div>
 				{:else if activeTab === 'add'}
 					<div class="space-y-4">
-						<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-							<div class="p-3.5 rounded-xl bg-muted/40 border border-border flex items-start gap-3">
-								<span class="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center shrink-0">1</span>
+						<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+							<div class="bg-muted/40 border-border flex items-start gap-3 rounded-xl border p-3.5">
+								<span
+									class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-xs font-bold text-emerald-600 dark:text-emerald-400"
+								>
+									1
+								</span>
 								<div>
-									<h4 class="font-medium text-foreground text-xs mb-0.5">Fork or Branch</h4>
-									<p class="text-[11px] text-muted-foreground leading-normal">
-										Fork this repository or create a new branch: <code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">feat/my-cheatsheet</code>.
+									<h4 class="text-foreground mb-0.5 text-xs font-medium">Fork or Branch</h4>
+									<p class="text-muted-foreground text-[11px] leading-normal">
+										Fork this repository or create a new branch: <code
+											class="bg-muted rounded px-1 py-0.5 font-mono text-[10px]"
+										>
+											feat/my-cheatsheet
+										</code>.
 									</p>
 								</div>
 							</div>
 
-							<div class="p-3.5 rounded-xl bg-muted/40 border border-border flex items-start gap-3">
-								<span class="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center shrink-0">2</span>
+							<div class="bg-muted/40 border-border flex items-start gap-3 rounded-xl border p-3.5">
+								<span
+									class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-xs font-bold text-emerald-600 dark:text-emerald-400"
+								>
+									2
+								</span>
 								<div>
-									<h4 class="font-medium text-foreground text-xs mb-0.5">Create Markdown File</h4>
-									<p class="text-[11px] text-muted-foreground leading-normal">
-										Add <code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">src/content/cheatsheets/{'<slug>'}.md</code> with frontmatter.
+									<h4 class="text-foreground mb-0.5 text-xs font-medium">Create Markdown File</h4>
+									<p class="text-muted-foreground text-[11px] leading-normal">
+										Add <code class="bg-muted rounded px-1 py-0.5 font-mono text-[10px]">
+											src/content/cheatsheets/&lt;slug&gt;.md
+										</code> with frontmatter.
 									</p>
 								</div>
 							</div>
 
-							<div class="p-3.5 rounded-xl bg-muted/40 border border-border flex items-start gap-3">
-								<span class="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center shrink-0">3</span>
+							<div class="bg-muted/40 border-border flex items-start gap-3 rounded-xl border p-3.5">
+								<span
+									class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-xs font-bold text-emerald-600 dark:text-emerald-400"
+								>
+									3
+								</span>
 								<div>
-									<h4 class="font-medium text-foreground text-xs mb-0.5">Add an Icon</h4>
-									<p class="text-[11px] text-muted-foreground leading-normal">
+									<h4 class="text-foreground mb-0.5 text-xs font-medium">Add an Icon</h4>
+									<p class="text-muted-foreground text-[11px] leading-normal">
 										Optionally drop an SVG at
 										<a
 											href="https://github.com/Sumangal44/brohelpme/tree/main/public/icons"
 											target="_blank"
 											rel="noopener noreferrer"
-											class="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 hover:underline"
+											class="inline-flex items-center gap-1 text-emerald-600 hover:underline dark:text-emerald-400"
 										>
-											<code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">public/icons/{'<slug>'}.svg</code>
-											<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-												<path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+											<code class="bg-muted rounded px-1 py-0.5 font-mono text-[10px]">
+												public/icons/&lt;slug&gt;.svg
+											</code>
+											<svg
+												class="h-3 w-3"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+												stroke-width="2"
+												aria-hidden="true"
+											>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+												/>
 											</svg>
 										</a>
 										— the site logo is used as fallback.
@@ -247,35 +316,56 @@ $ my-tool run --verbose
 								</div>
 							</div>
 
-							<div class="p-3.5 rounded-xl bg-muted/40 border border-border flex items-start gap-3">
-								<span class="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center shrink-0">4</span>
+							<div class="bg-muted/40 border-border flex items-start gap-3 rounded-xl border p-3.5">
+								<span
+									class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-xs font-bold text-emerald-600 dark:text-emerald-400"
+								>
+									4
+								</span>
 								<div>
-									<h4 class="font-medium text-foreground text-xs mb-0.5">Structure Cards</h4>
-									<p class="text-[11px] text-muted-foreground leading-normal">
-										Use <code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">##</code> for sections, <code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">###</code> for cards, tables, and code fences.
+									<h4 class="text-foreground mb-0.5 text-xs font-medium">Structure Cards</h4>
+									<p class="text-muted-foreground text-[11px] leading-normal">
+										Use <code class="bg-muted rounded px-1 py-0.5 font-mono text-[10px]">##</code>
+										for sections,
+										<code class="bg-muted rounded px-1 py-0.5 font-mono text-[10px]">###</code> for cards,
+										tables, and code fences.
 									</p>
 								</div>
 							</div>
 
-							<div class="p-3.5 rounded-xl bg-muted/40 border border-border flex items-start gap-3 sm:col-span-2">
-								<span class="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center shrink-0">5</span>
+							<div
+								class="bg-muted/40 border-border flex items-start gap-3 rounded-xl border p-3.5 sm:col-span-2"
+							>
+								<span
+									class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-xs font-bold text-emerald-600 dark:text-emerald-400"
+								>
+									5
+								</span>
 								<div>
-									<h4 class="font-medium text-foreground text-xs mb-0.5">Build & Submit PR</h4>
-									<p class="text-[11px] text-muted-foreground leading-normal">
-										Verify with <code class="bg-muted px-1 py-0.5 rounded font-mono text-[10px]">npm run build</code> and open a Pull Request!
+									<h4 class="text-foreground mb-0.5 text-xs font-medium">Build & Submit PR</h4>
+									<p class="text-muted-foreground text-[11px] leading-normal">
+										Verify with <code class="bg-muted rounded px-1 py-0.5 font-mono text-[10px]">
+											npm run build
+										</code> and open a Pull Request!
 									</p>
 								</div>
 							</div>
 						</div>
 
-						<div class="flex flex-col sm:flex-row gap-2.5 pt-2">
+						<div class="flex flex-col gap-2.5 pt-2 sm:flex-row">
 							<a
 								href="https://github.com/Sumangal44/brohelpme/new/main/src/content/cheatsheets"
 								target="_blank"
 								rel="noopener noreferrer"
-								class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs shadow-sm transition-all text-center"
+								class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-center text-xs font-medium text-white shadow-sm transition-all hover:bg-emerald-700"
 							>
-								<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+								<svg
+									class="h-4 w-4"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="2"
+								>
 									<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
 								</svg>
 								<span>Create File Online on GitHub</span>
@@ -283,11 +373,21 @@ $ my-tool run --verbose
 
 							<a
 								href="/brohelpme"
-								class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-card hover:bg-muted text-foreground border border-border font-medium text-xs shadow-xs transition-all text-center"
+								class="bg-card hover:bg-muted text-foreground border-border inline-flex items-center justify-center gap-2 rounded-xl border px-4 py-2.5 text-center text-xs font-medium shadow-xs transition-all"
 							>
 								<span>Read Syntax Manual</span>
-								<svg class="w-3.5 h-3.5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+								<svg
+									class="text-muted-foreground h-3.5 w-3.5"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M9 5l7 7-7 7"
+									/>
 								</svg>
 							</a>
 						</div>
@@ -295,38 +395,69 @@ $ my-tool run --verbose
 				{:else if activeTab === 'template'}
 					<div class="space-y-3">
 						<div class="flex items-center justify-between">
-							<span class="text-xs text-muted-foreground font-mono">src/content/cheatsheets/my-tool.md</span>
-							<Button variant="outline" size="sm" onclick={copyTemplate} class="text-xs gap-1.5 h-7">
+							<span class="text-muted-foreground font-mono text-xs">
+								src/content/cheatsheets/my-tool.md
+							</span>
+							<Button
+								variant="outline"
+								size="sm"
+								onclick={copyTemplate}
+								class="h-7 gap-1.5 text-xs"
+							>
 								{#if copied}
-									<span class="text-emerald-500 font-medium">✓ Copied Template!</span>
+									<span class="font-medium text-emerald-500">✓ Copied Template!</span>
 								{:else}
-									<svg class="w-3.5 h-3.5 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+									<svg
+										class="text-muted-foreground h-3.5 w-3.5"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+										/>
 									</svg>
 									<span>Copy Template</span>
 								{/if}
 							</Button>
 						</div>
 
-						<pre class="p-3 rounded-xl bg-muted/60 border border-border text-xs font-mono overflow-x-auto text-foreground max-h-60 leading-relaxed"><code>{templateCode}</code></pre>
+						<pre
+							class="bg-muted/60 border-border text-foreground max-h-60 overflow-x-auto rounded-xl border p-3 font-mono text-xs leading-relaxed"><code
+								>{templateCode}</code
+							></pre>
 					</div>
 				{/if}
 			</div>
 
 			<!-- Footer -->
-			<div class="px-5 py-3 border-t border-border bg-muted/30 flex items-center justify-between text-xs text-muted-foreground">
+			<div
+				class="border-border bg-muted/30 text-muted-foreground flex items-center justify-between border-t px-5 py-3 text-xs"
+			>
 				<a
 					href="https://github.com/Sumangal44/brohelpme"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="hover:text-foreground transition-colors inline-flex items-center gap-1.5"
+					class="hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
 				>
 					<span>Sumangal44/brohelpme on GitHub</span>
-					<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+					<svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+						/>
 					</svg>
 				</a>
-				<kbd class="px-1.5 py-0.5 rounded bg-muted text-foreground border border-border font-mono text-[10px]">ESC to close</kbd>
+				<kbd
+					class="bg-muted text-foreground border-border rounded border px-1.5 py-0.5 font-mono text-[10px]"
+				>
+					ESC to close
+				</kbd>
 			</div>
 		</div>
 	</div>

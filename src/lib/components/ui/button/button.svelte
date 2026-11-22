@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { cn } from "$lib/utils.js";
-	import { buttonVariants, type ButtonProps } from "./button-variants";
+	import { cn } from '$lib/utils.js';
+	import { buttonVariants, type ButtonProps } from './button-variants';
 
 	let {
 		class: className,
-		variant = "default",
-		size = "default",
+		variant = 'default',
+		size = 'default',
 		ref = $bindable(null),
 		href = undefined,
-		type = "button",
+		type = 'button',
 		disabled,
 		children,
 		...restProps
@@ -22,7 +22,7 @@
 		class={cn(buttonVariants({ variant, size }), className)}
 		href={disabled ? undefined : href}
 		aria-disabled={disabled}
-		role={disabled ? "link" : undefined}
+		role={disabled ? 'link' : undefined}
 		tabindex={disabled ? -1 : undefined}
 		{...restProps}
 	>

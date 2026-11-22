@@ -46,7 +46,7 @@ const starCount = await getStarCount();
 
 		<!-- Zero-flash Theme Hydration Script & Theme Helpers -->
 		<script is:inline>
-			(function() {
+			(function () {
 				function applyTheme(isDark) {
 					if (isDark) {
 						document.documentElement.classList.add('dark');
@@ -61,18 +61,18 @@ const starCount = await getStarCount();
 				}
 
 				function syncThemeColor(isDark) {
-					var metas = document.querySelectorAll('meta[name="theme-color"]');
-					for (var i = 0; i < metas.length; i++) {
+					const metas = document.querySelectorAll('meta[name="theme-color"]');
+					for (let i = 0; i < metas.length; i++) {
 						metas[i].setAttribute('content', isDark ? '#070a12' : '#f8fafc');
 						metas[i].removeAttribute('media');
 					}
 				}
 
-				window.__setTheme = function(theme) {
+				window.__setTheme = function (theme) {
 					applyTheme(theme === 'dark');
 				};
 
-				window.__toggleTheme = function() {
+				window.__toggleTheme = function () {
 					const isDark = document.documentElement.classList.contains('dark');
 					applyTheme(!isDark);
 				};

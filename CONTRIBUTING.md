@@ -7,6 +7,7 @@ Thank you for your interest in contributing to **BroHelp.Me**! This repository i
 ## 🚀 Quick Start
 
 ### 1. Clone & Setup
+
 ```shell
 git clone <repository-url>
 cd needhelp
@@ -14,14 +15,18 @@ npm install
 ```
 
 ### 2. Run the Development Server
+
 As per workspace guidelines, start the server in background mode:
+
 ```shell
 npm run dev
 # or: astro dev --background
 ```
+
 View the live app at: `http://localhost:4321`
 
 ### 3. Manage the Background Server
+
 ```shell
 astro dev status   # Check server health
 astro dev logs     # View live logs
@@ -35,9 +40,11 @@ astro dev stop     # Stop server
 Adding a cheat sheet requires adding a single Markdown file into `src/content/cheatsheets/<slug>.md`.
 
 ### 1. Create File
+
 Create `src/content/cheatsheets/<slug>.md` (e.g. `bun.md` or `zig.md`).
 
 ### 2. Frontmatter Specification
+
 ```yaml
 ---
 title: Bun
@@ -54,17 +61,20 @@ intro: Fast all-in-one JavaScript runtime, bundler, test runner, and package man
 ```
 
 ### 3. Content Structure
+
 A cheat sheet is divided into **Sections (`##`)** and discrete **Cards (`###`)**:
 
 ````markdown
 ## Getting Started
 
 ### Installation
+
 ```shell
 $ curl -fsSL https://bun.sh/install | bash
 ```
 
 ### Package Management
+
 ```shell
 $ bun install
 $ bun add <package>
@@ -74,14 +84,16 @@ $ bun remove <package>
 ## Command Reference
 
 ### CLI Flags {.col-span-2}
-| Flag | Description |
-| --- | --- |
+
+| Flag      | Description                          |
+| --------- | ------------------------------------ |
 | `--watch` | Automatically restart on file change |
-| `--hot` | Enable hot module replacement |
-| `--smol` | Optimize for low-memory environments |
+| `--hot`   | Enable hot module replacement        |
+| `--smol`  | Optimize for low-memory environments |
 ````
 
 #### Special Card Attributes
+
 - `{.col-span-2}`: Expands the card to span 2 columns on desktop (ideal for wide reference tables).
 - `{.row-span-2}`: Expands the card vertically.
 
@@ -94,7 +106,7 @@ $ bun remove <package>
    - Never hardcode dark colors or light colors directly into card bodies.
 2. **Syntax Highlighting**:
    - Powered by **Shiki** with dual themes (`github-light` and `github-dark`).
-   - Use standard language identifiers (e.g., ```` ```bash ````, ```` ```python ````, ```` ```typescript ````, ```` ```sql ````).
+   - Use standard language identifiers (e.g., ` ```bash `, ` ```python `, ` ```typescript `, ` ```sql `).
 3. **Icons & Badges**:
    - Technology SVG icons are located in `public/icons/<slug>.svg`.
    - If adding a new technology, place a clean vector SVG in `public/icons/<slug>.svg`.

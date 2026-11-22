@@ -7,7 +7,7 @@
 [![Svelte](https://img.shields.io/badge/Svelte-5-ff3e00?style=flat-square&logo=svelte&logoColor=white)](https://svelte.dev)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 
-**BroHelpMe**  is a fast, static quick-reference platform for developers:
+**BroHelpMe** is a fast, static quick-reference platform for developers:
 **216 cheat sheets** across **13 categories**, with instant `⌘K` search, copyable code blocks and a
 full light/dark theme.
 
@@ -36,14 +36,14 @@ full light/dark theme.
 
 ## Tech stack
 
-| Layer      | Choice |
-| ---------- | ------ |
-| Framework  | [Astro 7](https://astro.build) — `output: 'static'` |
-| UI islands | [Svelte 5](https://svelte.dev) |
+| Layer      | Choice                                                                              |
+| ---------- | ----------------------------------------------------------------------------------- |
+| Framework  | [Astro 7](https://astro.build) — `output: 'static'`                                 |
+| UI islands | [Svelte 5](https://svelte.dev)                                                      |
 | Styling    | [Tailwind CSS 4](https://tailwindcss.com) (`@theme` tokens, `@custom-variant dark`) |
-| Primitives | shadcn-svelte (`button`, `badge`) + bits-ui |
-| Content    | Markdown frontmatter → custom loader in `src/lib/cheatsheets.ts` |
-| Tooling    | TypeScript, `@astrojs/sitemap`, GSAP, Shiki |
+| Primitives | shadcn-svelte (`button`, `badge`) + bits-ui                                         |
+| Content    | Markdown frontmatter → custom loader in `src/lib/cheatsheets.ts`                    |
+| Tooling    | TypeScript, `@astrojs/sitemap`, GSAP, Shiki                                         |
 
 ## Quick start
 
@@ -144,13 +144,13 @@ Full details: **[CONTRIBUTING.md](CONTRIBUTING.md)**.
 
 ## Keyboard shortcuts
 
-| Shortcut   | Action |
-| ---------- | ------ |
-| `⌘K` / `Ctrl+K` | Open the command palette |
-| `/`        | Open the command palette (when not typing) |
-| `↑` / `↓`  | Move through results |
-| `Enter`    | Open the highlighted result |
-| `Esc`      | Close the palette / mobile menu |
+| Shortcut        | Action                                     |
+| --------------- | ------------------------------------------ |
+| `⌘K` / `Ctrl+K` | Open the command palette                   |
+| `/`             | Open the command palette (when not typing) |
+| `↑` / `↓`       | Move through results                       |
+| `Enter`         | Open the highlighted result                |
+| `Esc`           | Close the palette / mobile menu            |
 
 ## Documentation
 

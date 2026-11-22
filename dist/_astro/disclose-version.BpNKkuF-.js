@@ -1,0 +1,1 @@
+import{M as e}from"./client.DO762-BB.js";e(),typeof window<`u`&&((globalThis.__svelte??={}).v??=new Set).add(`5`);

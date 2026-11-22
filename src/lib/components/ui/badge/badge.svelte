@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { cn, type WithElementRef } from "$lib/utils.js";
-	import type { HTMLAnchorAttributes } from "svelte/elements";
-	import { badgeVariants, type BadgeVariant } from "./badge-variants";
+	import { cn, type WithElementRef } from '$lib/utils.js';
+	import type { HTMLAnchorAttributes } from 'svelte/elements';
+	import { badgeVariants, type BadgeVariant } from './badge-variants';
 
 	let {
 		ref = $bindable(null),
 		href,
 		class: className,
-		variant = "default",
+		variant = 'default',
 		children,
 		...restProps
 	}: WithElementRef<HTMLAnchorAttributes> & {
@@ -16,7 +16,7 @@
 </script>
 
 <svelte:element
-	this={href ? "a" : "span"}
+	this={href ? 'a' : 'span'}
 	bind:this={ref}
 	data-slot="badge"
 	{href}
