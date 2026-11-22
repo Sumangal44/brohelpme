@@ -11,7 +11,7 @@ tags:
 categories:
   - Programming
 intro: |
-  This is a visual cheat-sheet for the Unity Shader Graph. This tool is used to create custom shaders material in Unity, a popular game engine.
+  This is a visual cheat sheet for the Unity Shader Graph. This tool is used to create custom shader materials in Unity, a popular game engine.
 ---
 
 ## Shader Graph Nodes {.cols-2}
@@ -903,9 +903,9 @@ intro: |
 
     - <yel>**Example of an external HLSL file**</yel> (using **"File"** mode):
 
-      1. **1. Create an HLSL file** named `CustomPosition.hlsl`.
+      1. **Create an HLSL file** named `CustomPosition.hlsl`.
 
-      2. **2. Write the custom function** inside the file. The `in` and `out` parameters should match the Shader Graph
+      2. **Write the custom function** inside the file. The `in` and `out` parameters should match the Shader Graph
          inputs and outputs.
 
       ```cpp
@@ -915,9 +915,9 @@ intro: |
       }
       ```
 
-      3. **3. Save the file** in your project directory, for example, `Assets/Shaders/CustomPosition.hlsl`.
+      3. **Save the file** in your project directory, for example, `Assets/Shaders/CustomPosition.hlsl`.
 
-      4. **4. Link the file** in Shader Graph:
+      4. **Link the file** in Shader Graph:
 
       - In the Custom Function Node, switch to **"File"** mode and reference `CustomPosition.hlsl`.
 

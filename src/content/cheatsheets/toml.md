@@ -170,10 +170,10 @@ bar = 2
 
 ```toml
 [table1]
-	foo = "bar"
+  foo = "bar"
 
 [table1.nested_table]
-	baz = "bat"
+  baz = "bat"
 ```
 
 ### Array-like {.row-span-2}
@@ -188,7 +188,7 @@ author = "Anonymous"
 text = "Love it!"
 ```
 
-#### ↓ Equivalent JSON
+#### Array-like equivalent JSON
 
 ```json
 {
@@ -212,7 +212,7 @@ text = "Love it!"
 type = "pug"
 ```
 
-#### ↓ Equivalent JSON
+#### ↓ Dot-separated equivalent JSON
 
 ```json
 {
@@ -231,7 +231,7 @@ type = "pug"
 bat = "hi"
 ```
 
-#### ↓ Equivalent JSON
+#### ↓ Multi-nested equivalent JSON
 
 ```json
 {

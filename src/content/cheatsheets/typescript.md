@@ -26,6 +26,7 @@ npm tsc
 ### Introduction
 
 TypeScript is a superset of JavaScript that adds **static typing**, **interfaces**, and **compile-time error checking**. It compiles down to plain JavaScript.
+
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)
 
 ### Basic Types

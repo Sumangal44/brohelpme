@@ -52,8 +52,10 @@ It's a good practice to refer to the source code of the
 │   └── ...
 ├── public/
 │   ├── icons/                 # Sheet icons → public/icons/vim.svg
-│   ├── logo.svg               # Fallback icon
-│   └── favicon.svg
+│   ├── logo.png               # Brand logo (panda mascot)
+│   ├── logo.svg               # Vector brand logo
+│   ├── favicon.ico            # Desktop & legacy favicon
+│   └── favicon.svg            # Modern SVG favicon
 ├── astro.config.mjs           # Astro config (site, sitemap)
 ├── svelte.config.js           # Svelte integration
 ├── package.json               # npm run dev | build | preview
@@ -701,7 +703,7 @@ List markers
 ### Basic code
 
 ```js
-cheatsheets.zip.is(() => {
+brohelpme.is(() => {
   awesome.site();
 });
 ```
@@ -714,7 +716,7 @@ here.is.some.more();
 
 `````markdown
 ````js
-cheatsheets.zip.is(() => {
+brohelpme.is(() => {
   awesome.site()
 })
 \```
@@ -732,7 +734,7 @@ Code blocks can be placed one after the other.
 #### index.js
 
 ```js
-cheatsheets.zip.is(() => {
+brohelpme.is(() => {
   awesome.site();
 });
 ```
@@ -749,7 +751,7 @@ here.is.some.more();
 #### index.js
 
 ```js
-cheatsheets.zip.is(() => {
+brohelpme.is(() => {
   awesome.site();
 });
 ```
