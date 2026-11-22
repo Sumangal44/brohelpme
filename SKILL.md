@@ -1,5 +1,5 @@
 ---
-name: design-system-brohelpme
+name: brohelpme
 description: Creates implementation-ready design-system guidance with tokens, component behavior, logo/mascot assets, and accessibility standards. Use when creating or updating UI rules, component specifications, or design-system documentation for BroHelp.Me.
 ---
 

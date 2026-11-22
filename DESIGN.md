@@ -7,8 +7,8 @@ Create implementation-ready, token-driven UI guidance for BroHelp.Me that is opt
 ## Brand
 
 - Product/brand: BroHelp.Me
-- URL: https://brohelpme.netlify.app/
-- Source: https://github.com/Sumangal44/brohelpme
+- URL: [https://brohelpme.netlify.app/](https://brohelpme.netlify.app/)
+- Source: [https://github.com/Sumangal44/brohelpme](https://github.com/Sumangal44/brohelpme)
 - Audience: developers, engineers, system administrators, and technical teams
 - Product surface: fast, static documentation and quick-reference cheat sheets site
 
